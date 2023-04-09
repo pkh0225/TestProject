@@ -15,23 +15,13 @@ class MainViewwController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         MAinNavigationController = self.navigationController
-        do {
-            var testDatas = [TestData]()
-            testDatas.append(TestData(titleName: "Gif", viewControllerType: GifImageViewController.self))
-            testDatas.append(TestData(titleName: "Gradient", viewControllerType: GradientViewController.self))
-            testDatas.append(TestData(titleName: "DynamicAnimator", viewControllerType: DynamicAnimatorViewController.self))
-            testDatas.append(TestData(titleName: "DragAbleView", viewControllerType: DragAbleViewController.self))
 
-            testGroupDatas.append(TestGroupData(title: "View", testDatas: testDatas))
-        }
+        testGroupDatas.append(TestGroupData(title: "View", testDatas: [TestData(titleName: "Gif", viewControllerType: GifImageViewController.self),
+                                                                       TestData(titleName: "Gradient", viewControllerType: GradientViewController.self),
+                                                                       TestData(titleName: "DynamicAnimator", viewControllerType: DynamicAnimatorViewController.self),
+                                                                       TestData(titleName: "DragAbleView", viewControllerType: DragAbleViewController.self)]))
 
-        do {
-            var testDatas = [TestData]()
-            testDatas.append(TestData(titleName: "Thread", viewControllerType: ThreadViewController.self))
-
-            testGroupDatas.append(TestGroupData(title: "Thread", testDatas: testDatas))
-        }
-
+        testGroupDatas.append(TestGroupData(title: "Thread", testDatas: [TestData(titleName: "Thread", viewControllerType: ThreadViewController.self)]))
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -51,13 +41,11 @@ class MainViewwController: UITableViewController {
         let data = testGroupDatas[indexPath.section].testDatas[indexPath.row]
         cell.textLabel?.text = data.titleName
         cell.detailTextLabel?.text = String(describing: data.viewControllerType)
-
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vcType = testGroupDatas[indexPath.section].testDatas[indexPath.row].viewControllerType
-        vcType.pushViewController()
+        testGroupDatas[indexPath.section].testDatas[indexPath.row].viewControllerType.pushViewController()
     }
 }
 
