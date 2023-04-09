@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		205CAE8528AB1EDF002999A8 /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		205CAE8528AB1EDF002999A8 /* TestProduct.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestProduct.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		205CAE8828AB1EDF002999A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		205CAE8A28AB1EDF002999A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		205CAE8C28AB1EDF002999A8 /* ThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		205CAE8628AB1EDF002999A8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				205CAE8528AB1EDF002999A8 /* test.app */,
+				205CAE8528AB1EDF002999A8 /* TestProduct.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,9 +134,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		205CAE8428AB1EDF002999A8 /* test */ = {
+		205CAE8428AB1EDF002999A8 /* TestProduct */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 205CAE9928AB1EE0002999A8 /* Build configuration list for PBXNativeTarget "test" */;
+			buildConfigurationList = 205CAE9928AB1EE0002999A8 /* Build configuration list for PBXNativeTarget "TestProduct" */;
 			buildPhases = (
 				205CAE8128AB1EDF002999A8 /* Sources */,
 				205CAE8228AB1EDF002999A8 /* Frameworks */,
@@ -146,11 +146,11 @@
 			);
 			dependencies = (
 			);
-			name = test;
+			name = TestProduct;
 			packageProductDependencies = (
 			);
 			productName = test;
-			productReference = 205CAE8528AB1EDF002999A8 /* test.app */;
+			productReference = 205CAE8528AB1EDF002999A8 /* TestProduct.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -168,7 +168,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 205CAE8028AB1EDF002999A8 /* Build configuration list for PBXProject "test" */;
+			buildConfigurationList = 205CAE8028AB1EDF002999A8 /* Build configuration list for PBXProject "TestProduct" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -183,7 +183,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				205CAE8428AB1EDF002999A8 /* test */,
+				205CAE8428AB1EDF002999A8 /* TestProduct */,
 			);
 		};
 /* End PBXProject section */
@@ -377,7 +377,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.beta.TestProduct;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -406,7 +406,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.beta.TestProduct;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -417,7 +417,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		205CAE8028AB1EDF002999A8 /* Build configuration list for PBXProject "test" */ = {
+		205CAE8028AB1EDF002999A8 /* Build configuration list for PBXProject "TestProduct" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				205CAE9728AB1EE0002999A8 /* Debug */,
@@ -426,7 +426,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		205CAE9928AB1EE0002999A8 /* Build configuration list for PBXNativeTarget "test" */ = {
+		205CAE9928AB1EE0002999A8 /* Build configuration list for PBXNativeTarget "TestProduct" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				205CAE9A28AB1EE0002999A8 /* Debug */,
