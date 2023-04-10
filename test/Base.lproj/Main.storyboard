@@ -211,13 +211,98 @@
             </objects>
             <point key="canvasLocation" x="1335" y="88"/>
         </scene>
+        <!--DynamicffectsMenuViewController-->
+        <scene sceneID="7Ga-KE-kQA">
+            <objects>
+                <viewController storyboardIdentifier="DynamicffectsMenuViewController" title="DynamicffectsMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sbg-Qa-ocH" customClass="DynamicffectsMenuViewController" customModule="TestProduct" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Nix-ah-5uZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="RxK-PO-63O"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Menu" image="menucard" catalog="system" id="uiP-Q2-fDI"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iiA-Ae-4X9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2925" y="-255"/>
+        </scene>
+        <!--DynamicffectsBallViewController-->
+        <scene sceneID="mqj-tu-DiG">
+            <objects>
+                <viewController storyboardIdentifier="DynamicffectsBallViewController" title="DynamicffectsBallViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ddc-XW-0ym" customClass="DynamicffectsBallViewController" customModule="TestProduct" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NAj-Xe-kHF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="D2j-Wf-kZH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Ball" image="circle.fill" catalog="system" id="C5z-f3-qdf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zaw-fF-az0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2926" y="-890"/>
+        </scene>
+        <!--DynamicffectsTabViewController-->
+        <scene sceneID="xjg-5i-vam">
+            <objects>
+                <tabBarController storyboardIdentifier="DynamicffectsTabViewController" title="DynamicffectsTabViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VVF-2a-JlU" customClass="DynamicffectsTabViewController" customModule="TestProduct" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PWw-7u-UwA">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Ddc-XW-0ym" kind="relationship" relationship="viewControllers" id="S4x-Pa-WGn"/>
+                        <segue destination="sbg-Qa-ocH" kind="relationship" relationship="viewControllers" id="lMC-kW-Zkd"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hEL-Je-gLQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2035" y="-587"/>
+        </scene>
+        <!--Field​BehaviorViewController-->
+        <scene sceneID="dIO-Nd-yIm">
+            <objects>
+                <viewController storyboardIdentifier="Field​BehaviorViewController" title="Field​BehaviorViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bLB-E6-AKL" customClass="Field​BehaviorViewController" customModule="TestProduct" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l9a-DR-fqd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7A-Id-dbR">
+                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ohe-SG-0a1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ohe-SG-0a1" firstAttribute="trailing" secondItem="f7A-Id-dbR" secondAttribute="trailing" id="1gv-q9-90r"/>
+                            <constraint firstItem="ohe-SG-0a1" firstAttribute="bottom" secondItem="f7A-Id-dbR" secondAttribute="bottom" id="255-ZH-vKf"/>
+                            <constraint firstItem="f7A-Id-dbR" firstAttribute="leading" secondItem="ohe-SG-0a1" secondAttribute="leading" id="Eo8-Vq-tyg"/>
+                            <constraint firstItem="f7A-Id-dbR" firstAttribute="top" secondItem="ohe-SG-0a1" secondAttribute="top" id="tgX-ps-OJL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="f7A-Id-dbR" id="atW-dv-U8E"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4LL-aM-xgN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2035" y="96"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="circle.fill" catalog="system" width="128" height="123"/>
+        <image name="menucard" catalog="system" width="108" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

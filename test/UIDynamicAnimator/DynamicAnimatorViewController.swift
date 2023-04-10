@@ -69,8 +69,36 @@ class DynamicAnimatorViewController: UIViewController , RouterProtocol {
 //        behavior.allowsRotation = false
         behavior.elasticity = 0.5
         animator?.addBehavior(behavior)
+/*
+ UIDynamicItemBehavor 클래스
+ let behavior1 = UIDynamicItemBehavior(items: [purpleBoxView!])
+ // 회전을 허용할 것인지
+ behavior1.allowsRotation = true
+ // 회전에 저항하는 강도 값이 높을수록 빨리 멈춘다
+ behavior1.angularResistance = 1.0
+ // 항목의 질량
+ behavior1.density = 1.0
+ // 충돌시 탄성 정도 값이 클수록 많이 튕긴다
+ behavior1.elasticity = 1.0
+ // 항목이 미끄러질 때 저항
+ behavior1.friction = 1.0
+ // 항목의 전체적인 저항 값이 크면 빨리 멈춘다
+ behavior1.resistance = 1.0
+ // 각속도를 증가,감소 시킨다
+ behavior1.addAngularVelocity(1.0, for: purpleBoxView!)
+ // 선속도를 증가,감소 시킨다
+ behavior1.addLinearVelocity(point, for: purpleBoxView!)
 
-
+ 동작 결합하기(커스텀 동작)
+ let customBehavior = UIDynamicBehavior()
+ customBehavior.addChildBehavior(behavior)
+ customBehavior.addChildBehavior(snap)
+ customBehavior.addChildBehavior(gravity)
+ customBehavior.addChildBehavior(boxAttachment)
+ 
+ animator?.addBehavior(customBehavior)
+ */
+        
 
         // 스프링 연결
         let boxAttachment = UIAttachmentBehavior(item: blueBoxView!, attachedTo: redBoxView!)
@@ -104,14 +132,14 @@ class DynamicAnimatorViewController: UIViewController , RouterProtocol {
 
 
         // 푸시 mode: .continuous - 지속적으로 밀어서 점점 빨라짐 .instantaneous - 한번 밀어서 점점 느려짐
-        let push = UIPushBehavior(items: [purpleBoxView!], mode: .instantaneous)
-        let vector1 = CGVector(dx: 0.2, dy: 0.2)
-        push.pushDirection = vector1
-        // 미는 중심점 변경
-        let offset = UIOffset(horizontal: 10, vertical: 20)
-        push.setTargetOffsetFromCenter(offset, for: purpleBoxView!)
-
-        animator?.addBehavior(push)
+//        let push = UIPushBehavior(items: [purpleBoxView!], mode: .instantaneous)
+//        let vector1 = CGVector(dx: 0.2, dy: 0.2)
+//        push.pushDirection = vector1
+//        // 미는 중심점 변경
+//        let offset = UIOffset(horizontal: 10, vertical: 20)
+//        push.setTargetOffsetFromCenter(offset, for: purpleBoxView!)
+//
+//        animator?.addBehavior(push)
 
 
     }
@@ -151,30 +179,4 @@ class DynamicAnimatorViewController: UIViewController , RouterProtocol {
             break
         }
     }
-
-    //    // 화면에 터치 시작했을때 앵커 포인터 설정
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        let theTouch = touches.first! as UITouch
-//        currentLocation = theTouch.location(in: self.contentView)
-//        // 연결 점에 대한 오프셋 설정
-//        let offset = UIOffset(horizontal: 20, vertical: 20)
-//        // 오프셋 인자를 제거하면 아이템의 중심에 연결된다.
-//        attachment = UIAttachmentBehavior(item: blueBoxView!, offsetFromCenter: offset, attachedToAnchor: currentLocation!)
-//
-//        animator?.addBehavior(attachment!)
-//    }
-//
-//    // 터치 하고 이동했을 때 앵커 포인트도 이동되도록
-//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        let theTouch = touches.first! as UITouch
-//
-//        currentLocation = theTouch.location(in: self.contentView)
-//        attachment?.anchorPoint = currentLocation!
-//    }
-//
-//    // 화면에서 터치를 뗏을 때 앵커 연결이 제거됨
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        animator?.removeBehavior(attachment!)
-//
-//    }
 }

@@ -15,6 +15,10 @@
 		205CAE9528AB1EE0002999A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 205CAE9328AB1EE0002999A8 /* LaunchScreen.storyboard */; };
 		205CE6AB29E26E650028450C /* DynamicAnimatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6AA29E26E650028450C /* DynamicAnimatorViewController.swift */; };
 		205CE6AE29E273BC0028450C /* DragAbleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6AD29E273BC0028450C /* DragAbleViewController.swift */; };
+		205CE6B129E388810028450C /* DynamicffectsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6B029E388810028450C /* DynamicffectsTabViewController.swift */; };
+		205CE6B329E38A570028450C /* DynamicffectsBallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6B229E38A570028450C /* DynamicffectsBallViewController.swift */; };
+		205CE6B529E38A810028450C /* DynamicffectsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6B429E38A810028450C /* DynamicffectsMenuViewController.swift */; };
+		205CE6B829E3C2670028450C /* Field​BehaviorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6B729E3C2670028450C /* Field​BehaviorViewController.swift */; };
 		2089E84329E265FC00CE6908 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2089E84229E265FC00CE6908 /* MainViewController.swift */; };
 		2089E84629E26BC400CE6908 /* GradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2089E84529E26BC400CE6908 /* GradientViewController.swift */; };
 		209E19A12941C075008FEE89 /* E_i_tab_food_p_t@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 209E19A02941C075008FEE89 /* E_i_tab_food_p_t@3x.png */; };
@@ -34,6 +38,10 @@
 		205CAE9628AB1EE0002999A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		205CE6AA29E26E650028450C /* DynamicAnimatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicAnimatorViewController.swift; sourceTree = "<group>"; };
 		205CE6AD29E273BC0028450C /* DragAbleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAbleViewController.swift; sourceTree = "<group>"; };
+		205CE6B029E388810028450C /* DynamicffectsTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicffectsTabViewController.swift; sourceTree = "<group>"; };
+		205CE6B229E38A570028450C /* DynamicffectsBallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicffectsBallViewController.swift; sourceTree = "<group>"; };
+		205CE6B429E38A810028450C /* DynamicffectsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicffectsMenuViewController.swift; sourceTree = "<group>"; };
+		205CE6B729E3C2670028450C /* Field​BehaviorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field​BehaviorViewController.swift"; sourceTree = "<group>"; };
 		2089E84229E265FC00CE6908 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2089E84529E26BC400CE6908 /* GradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientViewController.swift; sourceTree = "<group>"; };
 		209E19A02941C075008FEE89 /* E_i_tab_food_p_t@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "E_i_tab_food_p_t@3x.png"; sourceTree = "<group>"; };
@@ -81,6 +89,8 @@
 				2089E84429E26B9E00CE6908 /* Gradient */,
 				205CE6A929E26E320028450C /* UIDynamicAnimator */,
 				205CE6AC29E2739E0028450C /* DragAbleViewManager */,
+				205CE6AF29E388530028450C /* Dynamic Effects */,
+				205CE6B629E3C24E0028450C /* UIField​Behavior */,
 				205CAE9128AB1EE0002999A8 /* Assets.xcassets */,
 				205CAE9328AB1EE0002999A8 /* LaunchScreen.storyboard */,
 				209E19A02941C075008FEE89 /* E_i_tab_food_p_t@3x.png */,
@@ -103,6 +113,24 @@
 				205CE6AD29E273BC0028450C /* DragAbleViewController.swift */,
 			);
 			path = DragAbleViewManager;
+			sourceTree = "<group>";
+		};
+		205CE6AF29E388530028450C /* Dynamic Effects */ = {
+			isa = PBXGroup;
+			children = (
+				205CE6B029E388810028450C /* DynamicffectsTabViewController.swift */,
+				205CE6B229E38A570028450C /* DynamicffectsBallViewController.swift */,
+				205CE6B429E38A810028450C /* DynamicffectsMenuViewController.swift */,
+			);
+			path = "Dynamic Effects";
+			sourceTree = "<group>";
+		};
+		205CE6B629E3C24E0028450C /* UIField​Behavior */ = {
+			isa = PBXGroup;
+			children = (
+				205CE6B729E3C2670028450C /* Field​BehaviorViewController.swift */,
+			);
+			path = "UIField​Behavior";
 			sourceTree = "<group>";
 		};
 		2089E84029E265B700CE6908 /* Gif */ = {
@@ -208,15 +236,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				205CE6B529E38A810028450C /* DynamicffectsMenuViewController.swift in Sources */,
 				20A33D3C29D2BAE400075174 /* GIfImageExtension.swift in Sources */,
 				205CE6AB29E26E650028450C /* DynamicAnimatorViewController.swift in Sources */,
 				205CE6AE29E273BC0028450C /* DragAbleViewController.swift in Sources */,
 				205CAE8D28AB1EDF002999A8 /* ThreadViewController.swift in Sources */,
 				205CAE8928AB1EDF002999A8 /* AppDelegate.swift in Sources */,
+				205CE6B129E388810028450C /* DynamicffectsTabViewController.swift in Sources */,
 				2089E84629E26BC400CE6908 /* GradientViewController.swift in Sources */,
 				2089E84329E265FC00CE6908 /* MainViewController.swift in Sources */,
 				20A33D6229D2C22F00075174 /* GifImageViewController.swift in Sources */,
+				205CE6B829E3C2670028450C /* Field​BehaviorViewController.swift in Sources */,
 				205CAE8B28AB1EDF002999A8 /* SceneDelegate.swift in Sources */,
+				205CE6B329E38A570028450C /* DynamicffectsBallViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

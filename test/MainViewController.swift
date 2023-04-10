@@ -17,9 +17,16 @@ class MainViewwController: UITableViewController {
         MAinNavigationController = self.navigationController
 
         testGroupDatas.append(TestGroupData(title: "View", testDatas: [TestData(titleName: "Gif", viewControllerType: GifImageViewController.self),
-                                                                       TestData(titleName: "Gradient", viewControllerType: GradientViewController.self),
-                                                                       TestData(titleName: "DynamicAnimator", viewControllerType: DynamicAnimatorViewController.self),
-                                                                       TestData(titleName: "DragAbleView", viewControllerType: DragAbleViewController.self)]))
+                                                                       TestData(titleName: "Gradient", viewControllerType: GradientViewController.self)
+                                                                      ]))
+
+        testGroupDatas.append(TestGroupData(title: "Animation", testDatas: [TestData(titleName: "DynamicAnimator Sample", viewControllerType: DynamicAnimatorViewController.self),
+                                                                            TestData(titleName: "DragAbleView", viewControllerType: DragAbleViewController.self),
+                                                                            TestData(titleName: "Dynamic Effects Test", viewControllerType: DynamicffectsTabViewController.self),
+                                                                            TestData(titleName: "UIFieldBehavior", viewControllerType: Field​BehaviorViewController.self)
+                                                                           ]))
+
+
 
         testGroupDatas.append(TestGroupData(title: "Thread", testDatas: [TestData(titleName: "Thread", viewControllerType: ThreadViewController.self)]))
     }
@@ -83,4 +90,11 @@ extension RouterProtocol where Self: UIViewController {
     static func pushViewController() {
         MAinNavigationController?.pushViewController(getViewController(), animated: true)
     }
+}
+
+func randomColor() -> UIColor {
+    let r: CGFloat = CGFloat(arc4random() % 11) / 10.0
+    let g: CGFloat = CGFloat(arc4random() % 11) / 10.0
+    let b: CGFloat = CGFloat(arc4random() % 11) / 10.0
+    return UIColor(red: r, green: g, blue: b, alpha: 1.0)
 }

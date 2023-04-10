@@ -143,6 +143,7 @@ public class DragAbleViewManager {
         guard let containerView = self.containerView else { return }
         switch gesture.state {
         case .began:
+            containerView.bringSubviewToFront(view)
             currentLocation = gesture.location(in: containerView)
             attachment = UIAttachmentBehavior(item: view, attachedToAnchor: currentLocation)
             animator?.addBehavior(attachment!)
@@ -252,12 +253,7 @@ public class DragAbleView: UIView {
 }
 
 
-func randomColor() -> UIColor {
-    let r: CGFloat = CGFloat(arc4random() % 11) / 10.0
-    let g: CGFloat = CGFloat(arc4random() % 11) / 10.0
-    let b: CGFloat = CGFloat(arc4random() % 11) / 10.0
-    return UIColor(red: r, green: g, blue: b, alpha: 1.0)
-}
+
 
 
 class TestView: UIView {
