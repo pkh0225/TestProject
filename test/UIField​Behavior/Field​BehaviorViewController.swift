@@ -44,6 +44,7 @@ class Field​BehaviorViewController: UIViewController, RouterProtocol {
             self.containerView.addSubview(self.targetView)
 
             self.animator = UIDynamicAnimator(referenceView: self.containerView)
+            self.animator?.setValue(true, forKey: "debugEnabled")
 
     //        drag.addItem(self.targetView)
     //        drag.position = self.targetView.center
@@ -67,10 +68,9 @@ class Field​BehaviorViewController: UIViewController, RouterProtocol {
                     self.addSpringField(center: center3, size: size)
                 }
                 else {
-                    let size = CGSize(width: (self.targetView.frame.width * 2) + 20, height: self.containerView.frame.height / 4)
+                    let size = CGSize(width: (self.targetView.frame.width * 2) + 60, height: self.containerView.frame.height / 4)
                     let center1 = CGPoint(x: 0, y: y)
                     self.addSpringField(center: center1, size: size)
-
 
                     let center3 = CGPoint(x: self.containerView.frame.width, y: y)
                     self.addSpringField(center: center3, size: size)
@@ -107,20 +107,20 @@ class Field​BehaviorViewController: UIViewController, RouterProtocol {
         springField.addItem(targetView)
         animator?.addBehavior(springField)
 
-        let checkView = UIView(frame: .zero)
-        checkView.center = center
-        checkView.bounds.size = size
-        checkView.backgroundColor = randomColor()
-        checkView.alpha = 0.3
-
-        let centerPointView = UIView(frame: .zero)
-        centerPointView.backgroundColor = .red
-        centerPointView.layer.cornerRadius = 5
-        centerPointView.center = CGPoint(x: checkView.frame.width / 2, y: checkView.frame.height / 2)
-        centerPointView.frame.size = CGSize(width: 10, height: 10)
-        checkView.addSubview(centerPointView)
-        self.containerView.addSubview(checkView)
-        self.containerView.sendSubviewToBack(checkView)
+//        let checkView = UIView(frame: .zero)
+//        checkView.center = center
+//        checkView.bounds.size = size
+//        checkView.backgroundColor = randomColor()
+//        checkView.alpha = 0.3
+//
+//        let centerPointView = UIView(frame: .zero)
+//        centerPointView.backgroundColor = .red
+//        centerPointView.layer.cornerRadius = 5
+//        centerPointView.center = CGPoint(x: checkView.frame.width / 2, y: checkView.frame.height / 2)
+//        centerPointView.frame.size = CGSize(width: 10, height: 10)
+//        checkView.addSubview(centerPointView)
+//        self.containerView.addSubview(checkView)
+//        self.containerView.sendSubviewToBack(checkView)
     }
 
     private func addPanGesture(view: UIView) {
