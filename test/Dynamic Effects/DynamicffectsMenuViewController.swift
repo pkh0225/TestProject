@@ -16,6 +16,8 @@ class DynamicffectsMenuViewController: UIViewController {
     var backgroundView: UIView!
     var animator: UIDynamicAnimator!
 
+    @IBOutlet weak var centerLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if let window = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
@@ -73,6 +75,7 @@ class DynamicffectsMenuViewController: UIViewController {
             self.backgroundView.alpha = isOpne ? 0.5 : 0
         }
 
+        self.centerLabel.text = isOpne ? "<<< 왼쪽으로 스와이프 하세요 " : ">>> 오른쪽으로 스와이프 하세요 "
     }
 
     @objc private func handleTapGesture(_ gesture: UISwipeGestureRecognizer) {
