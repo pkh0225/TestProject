@@ -12,6 +12,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
     var isTest: Bool = false
     
+    @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Date())
@@ -27,7 +28,6 @@ class ThreadViewController: UIViewController, RouterProtocol {
             print("will out task block")
         }
         print("some another code")
-        
     }
 
     @objc func aaaaaaaa(_ sender: Any) {

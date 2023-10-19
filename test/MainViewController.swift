@@ -19,7 +19,8 @@ class MainViewwController: UITableViewController {
         testGroupDatas.append(TestGroupData(title: "View", testDatas: [TestData(titleName: "Gif", viewControllerType: GifImageViewController.self),
                                                                        TestData(titleName: "Gradient", viewControllerType: GradientViewController.self),
                                                                        TestData(titleName: "AddViewTest", viewControllerType: AddViewTestViewController.self),
-                                                                       TestData(titleName: "WebLoadTest", viewControllerType: WebLoadImageTestViewController.self)
+                                                                       TestData(titleName: "WebLoadTest", viewControllerType: WebLoadImageTestViewController.self),
+                                                                       TestData(titleName: "CollectionViewTest", viewControllerType: CollectionViewTestViewController.self)
                                                                       ]))
 
         testGroupDatas.append(TestGroupData(title: "Animation", testDatas: [TestData(titleName: "DynamicAnimator Sample", viewControllerType: DynamicAnimatorViewController.self),
