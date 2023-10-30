@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		200E2D8B2AE0DC1F004C13C5 /* CollectionViewTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200E2D8A2AE0DC1F004C13C5 /* CollectionViewTextController.swift */; };
+		2014985F2AEF712D00E26335 /* PushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2014985D2AEF712D00E26335 /* PushViewController.swift */; };
+		201498602AEF712D00E26335 /* PushViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2014985E2AEF712D00E26335 /* PushViewController.xib */; };
+		201498622AEF72CA00E26335 /* VVVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201498612AEF72CA00E26335 /* VVVView.swift */; };
+		201498642AEF72D500E26335 /* VVVView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 201498632AEF72D500E26335 /* VVVView.xib */; };
 		203AF9602A295AF50018EE87 /* WebLoadImageTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203AF95F2A295AF50018EE87 /* WebLoadImageTestViewController.swift */; };
 		203AF9672A2966B60018EE87 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 203AF9662A2966B60018EE87 /* SDWebImageWebPCoder */; };
 		205CAE8928AB1EDF002999A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CAE8828AB1EDF002999A8 /* AppDelegate.swift */; };
@@ -34,6 +38,10 @@
 
 /* Begin PBXFileReference section */
 		200E2D8A2AE0DC1F004C13C5 /* CollectionViewTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTextController.swift; sourceTree = "<group>"; };
+		2014985D2AEF712D00E26335 /* PushViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewController.swift; sourceTree = "<group>"; };
+		2014985E2AEF712D00E26335 /* PushViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PushViewController.xib; sourceTree = "<group>"; };
+		201498612AEF72CA00E26335 /* VVVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VVVView.swift; sourceTree = "<group>"; };
+		201498632AEF72D500E26335 /* VVVView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VVVView.xib; sourceTree = "<group>"; };
 		203AF95F2A295AF50018EE87 /* WebLoadImageTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLoadImageTestViewController.swift; sourceTree = "<group>"; };
 		205CAE8528AB1EDF002999A8 /* TestProduct.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestProduct.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		205CAE8828AB1EDF002999A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +87,17 @@
 			path = CollectionViewTest;
 			sourceTree = "<group>";
 		};
+		201498652AEF7AD500E26335 /* PuahViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2014985D2AEF712D00E26335 /* PushViewController.swift */,
+				2014985E2AEF712D00E26335 /* PushViewController.xib */,
+				201498612AEF72CA00E26335 /* VVVView.swift */,
+				201498632AEF72D500E26335 /* VVVView.xib */,
+			);
+			path = PuahViewController;
+			sourceTree = "<group>";
+		};
 		203AF95E2A295AC90018EE87 /* WebLoadImageTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +125,7 @@
 		205CAE8728AB1EDF002999A8 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				201498652AEF7AD500E26335 /* PuahViewController */,
 				205CAE8828AB1EDF002999A8 /* AppDelegate.swift */,
 				205CAE8A28AB1EDF002999A8 /* SceneDelegate.swift */,
 				2089E84229E265FC00CE6908 /* MainViewController.swift */,
@@ -263,7 +283,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				205CAE9528AB1EE0002999A8 /* LaunchScreen.storyboard in Resources */,
+				201498642AEF72D500E26335 /* VVVView.xib in Resources */,
 				209E19A12941C075008FEE89 /* E_i_tab_food_p_t@3x.png in Resources */,
+				201498602AEF712D00E26335 /* PushViewController.xib in Resources */,
 				20A33D4029D2BD4200075174 /* cmm_all_ani_pop_loading.gif in Resources */,
 				205CAE9228AB1EE0002999A8 /* Assets.xcassets in Resources */,
 				205CAE9028AB1EDF002999A8 /* Main.storyboard in Resources */,
@@ -282,8 +304,10 @@
 				20A33D3C29D2BAE400075174 /* GIfImageExtension.swift in Sources */,
 				205CE6AB29E26E650028450C /* DynamicAnimatorViewController.swift in Sources */,
 				205CE6AE29E273BC0028450C /* DragAbleViewController.swift in Sources */,
+				201498622AEF72CA00E26335 /* VVVView.swift in Sources */,
 				205CAE8D28AB1EDF002999A8 /* ThreadViewController.swift in Sources */,
 				205CAE8928AB1EDF002999A8 /* AppDelegate.swift in Sources */,
+				2014985F2AEF712D00E26335 /* PushViewController.swift in Sources */,
 				205CE6B129E388810028450C /* DynamicffectsTabViewController.swift in Sources */,
 				2089E84629E26BC400CE6908 /* GradientViewController.swift in Sources */,
 				2089E84329E265FC00CE6908 /* MainViewController.swift in Sources */,
