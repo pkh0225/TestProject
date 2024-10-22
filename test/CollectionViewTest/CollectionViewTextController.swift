@@ -107,12 +107,18 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
             let sectionData = adapterData.sectionList[self.indexPath.section]
             let cellData = UICollectionViewAdapterData.CellInfo(contentObj: nil, cellType: TestCell.self)
 
-            parentCollectionView?.performBatchUpdates({
+            UIView.animate(withDuration: 0.1) {
                 sectionData.cells.insert(cellData, at: self.indexPath.row + 1)
                 self.parentCollectionView?.insertItems(at: [ IndexPath(row: self.indexPath.row + 1, section: self.indexPath.section) ])
-            }, completion: { _ in
+            } completion: { _ in
                 self.parentCollectionView?.reloadData()
-            })
+            }
+//            parentCollectionView?.performBatchUpdates({
+//                sectionData.cells.insert(cellData, at: self.indexPath.row + 1)
+//                self.parentCollectionView?.insertItems(at: [ IndexPath(row: self.indexPath.row + 1, section: self.indexPath.section) ])
+//            }, completion: { _ in
+//                self.parentCollectionView?.reloadData()
+//            })
         }
     }
 

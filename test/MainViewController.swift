@@ -16,24 +16,74 @@ class MainViewwController: UITableViewController {
         super.viewDidLoad()
         MAinNavigationController = self.navigationController
 
-        testGroupDatas.append(TestGroupData(title: "View", testDatas: [TestData(titleName: "Gif", viewControllerType: GifImageViewController.self),
-                                                                       TestData(titleName: "Gradient", viewControllerType: GradientViewController.self),
-                                                                       TestData(titleName: "AddViewTest", viewControllerType: AddViewTestViewController.self),
-                                                                       TestData(titleName: "WebLoadTest", viewControllerType: WebLoadImageTestViewController.self),
-                                                                       TestData(titleName: "CollectionViewTest", viewControllerType: CollectionViewTestViewController.self)
-                                                                      ]))
+        testGroupDatas.append(
+            TestGroupData(
+                title: "View",
+                testDatas: [
+                    TestData(titleName: "Gif",
+                             viewControllerType: GifImageViewController.self),
+                    TestData(titleName: "Gradient",
+                             viewControllerType: GradientViewController.self),
+                    TestData(titleName: "AddViewTest",
+                             viewControllerType: AddViewTestViewController.self),
+                    TestData(titleName: "WebLoadTest",
+                             viewControllerType: WebLoadImageTestViewController.self),
+                    TestData(titleName: "CollectionViewTest",
+                             viewControllerType: CollectionViewTestViewController.self),
+                    TestData(titleName: "GridViewTest",
+                             viewControllerType: GridViewTestController.self)
+                ]
 
-        testGroupDatas.append(TestGroupData(title: "Animation", testDatas: [TestData(titleName: "DynamicAnimator Sample", viewControllerType: DynamicAnimatorViewController.self),
-                                                                            TestData(titleName: "DragAbleView", viewControllerType: DragAbleViewController.self),
-                                                                            TestData(titleName: "Dynamic Effects Test", viewControllerType: DynamicffectsTabViewController.self),
-                                                                            TestData(titleName: "UIFieldBehavior", viewControllerType: Field​BehaviorViewController.self)
-                                                                           ]))
+            )
+        )
+
+        testGroupDatas.append(
+            TestGroupData(
+                title: "Animation",
+                testDatas: [
+                    TestData(
+                        titleName: "DynamicAnimator Sample",
+                        viewControllerType: DynamicAnimatorViewController.self
+                    ),
+                    TestData(
+                        titleName: "DragAbleView",
+                        viewControllerType: DragAbleViewController.self
+                    ),
+                    TestData(
+                        titleName: "Dynamic Effects Test",
+                        viewControllerType: DynamicffectsTabViewController.self
+                    ),
+                    TestData(
+                        titleName: "UIFieldBehavior",
+                        viewControllerType: Field​BehaviorViewController.self
+                    )
+                ]
+            )
+        )
 
 
 
-        testGroupDatas.append(TestGroupData(title: "Thread", testDatas: [TestData(titleName: "Thread", viewControllerType: ThreadViewController.self)]))
+        testGroupDatas
+            .append(
+                TestGroupData(
+                    title: "Thread",
+                    testDatas: [TestData(
+                        titleName: "Thread",
+                        viewControllerType: ThreadViewController.self
+                    )]
+                )
+            )
 
-        testGroupDatas.append(TestGroupData(title: "Push", testDatas: [TestData(titleName: "Xib ViewController", viewControllerType: PushViewController.self)]))
+        testGroupDatas
+            .append(
+                TestGroupData(
+                    title: "Push",
+                    testDatas: [TestData(
+                        titleName: "Xib ViewController",
+                        viewControllerType: PushViewController.self
+                    )]
+                )
+            )
 
         
     }
