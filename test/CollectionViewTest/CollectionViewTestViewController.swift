@@ -19,11 +19,7 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.collectionViewLayout = AlignmentFlowLayout().apply {
-            $0.minimumInteritemSpacing = 10
-            $0.minimumLineSpacing = 10
-            $0.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-        }
+
         collectionView.adapterData = makeApterData()
         collectionView.reloadData()
 

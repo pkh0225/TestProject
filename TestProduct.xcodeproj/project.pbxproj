@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		200E2D8B2AE0DC1F004C13C5 /* CollectionViewTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200E2D8A2AE0DC1F004C13C5 /* CollectionViewTextController.swift */; };
+		200E2D8B2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200E2D8A2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift */; };
 		2014985F2AEF712D00E26335 /* PushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2014985D2AEF712D00E26335 /* PushViewController.swift */; };
 		201498602AEF712D00E26335 /* PushViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2014985E2AEF712D00E26335 /* PushViewController.xib */; };
 		201498622AEF72CA00E26335 /* VVVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201498612AEF72CA00E26335 /* VVVView.swift */; };
@@ -46,7 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		200E2D8A2AE0DC1F004C13C5 /* CollectionViewTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTextController.swift; sourceTree = "<group>"; };
+		200E2D8A2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTestViewController.swift; sourceTree = "<group>"; };
 		2014985D2AEF712D00E26335 /* PushViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewController.swift; sourceTree = "<group>"; };
 		2014985E2AEF712D00E26335 /* PushViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PushViewController.xib; sourceTree = "<group>"; };
 		201498612AEF72CA00E26335 /* VVVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VVVView.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		200E2D892AE0DBFF004C13C5 /* CollectionViewTest */ = {
 			isa = PBXGroup;
 			children = (
-				200E2D8A2AE0DC1F004C13C5 /* CollectionViewTextController.swift */,
+				200E2D8A2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift */,
 				20FE360B2C6C32D90000255D /* AlignmentFlowLayout.swift */,
 			);
 			path = CollectionViewTest;
@@ -144,12 +144,12 @@
 		205CAE8728AB1EDF002999A8 /* test */ = {
 			isa = PBXGroup;
 			children = (
-				20C7AA912CC7395F007D01D4 /* GridView */,
-				201498652AEF7AD500E26335 /* PuahViewController */,
 				205CAE8828AB1EDF002999A8 /* AppDelegate.swift */,
 				205CAE8A28AB1EDF002999A8 /* SceneDelegate.swift */,
 				2089E84229E265FC00CE6908 /* MainViewController.swift */,
 				205CAE8E28AB1EDF002999A8 /* Main.storyboard */,
+				20C7AA912CC7395F007D01D4 /* GridView */,
+				201498652AEF7AD500E26335 /* PuahViewController */,
 				20F57A7B29FBAE9800F9A7F6 /* addViewTest */,
 				2089E84129E265CD00CE6908 /* Thread */,
 				2089E84029E265B700CE6908 /* Gif */,
@@ -343,7 +343,7 @@
 				20C7AA992CC7397B007D01D4 /* TestCellCollectionViewCell.swift in Sources */,
 				20C7AA9A2CC7397B007D01D4 /* GridViewTestController.swift in Sources */,
 				20C7AA9B2CC7397B007D01D4 /* TestCellCollectionViewCell2.swift in Sources */,
-				200E2D8B2AE0DC1F004C13C5 /* CollectionViewTextController.swift in Sources */,
+				200E2D8B2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift in Sources */,
 				20A33D3C29D2BAE400075174 /* GIfImageExtension.swift in Sources */,
 				20FE360C2C6C32D90000255D /* AlignmentFlowLayout.swift in Sources */,
 				205CE6AB29E26E650028450C /* DynamicAnimatorViewController.swift in Sources */,
