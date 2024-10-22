@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/CollectionViewAdapter.git",
       "state" : {
-        "revision" : "fd7a936590fdb894fd3ac6d649893d57d7621674",
-        "version" : "1.3.4"
+        "revision" : "c2c62c322cb61bfe1ec4a1317f7329c61e511257",
+        "version" : "1.3.8"
       }
     },
     {

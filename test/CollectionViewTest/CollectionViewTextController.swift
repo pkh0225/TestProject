@@ -35,7 +35,7 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
         for _ in 0..<10 {
             let sectionData = UICollectionViewAdapterData.SectionInfo()
             for _ in 0..<4 {
-                let cellData = UICollectionViewAdapterData.CellInfo(contentObj: nil, cellType: TestCell.self)
+                let cellData = UICollectionViewAdapterData.CellInfo(cellType: TestCell.self)
                 sectionData.cells.append(cellData)
             }
             adapterData.sectionList.append(sectionData)
@@ -105,7 +105,7 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
 
         if let adapterData = self.parentCollectionView?.adapterData {
             let sectionData = adapterData.sectionList[self.indexPath.section]
-            let cellData = UICollectionViewAdapterData.CellInfo(contentObj: nil, cellType: TestCell.self)
+            let cellData = UICollectionViewAdapterData.CellInfo(cellType: TestCell.self)
 
             UIView.animate(withDuration: 0.1) {
                 sectionData.cells.insert(cellData, at: self.indexPath.row + 1)
@@ -128,7 +128,7 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
         if btn.tag == 0 {
             if let adapterData = self.parentCollectionView?.adapterData {
                 let sectionData = UICollectionViewAdapterData.SectionInfo()
-                let cellData = UICollectionViewAdapterData.CellInfo(contentObj: nil, cellType: TestCell.self)
+                let cellData = UICollectionViewAdapterData.CellInfo(cellType: TestCell.self)
                 sectionData.cells.append(cellData)
 
                 parentCollectionView?.performBatchUpdates({
@@ -155,7 +155,11 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
 
                 let sectionInsert = UICollectionViewAdapterData.SectionInfo().apply {
                     $0.dataType = "new"
-                    $0.cells.append(UICollectionViewAdapterData.CellInfo(contentObj: "new", cellType: TestCell.self))
+                    let cellInfo = UICollectionViewAdapterData.CellInfo(cellType: TestCell.self).apply {
+                        $0.contentObj = "new"
+                    }
+
+                    $0.cells.append(cellInfo)
                 }
 
                 parentCollectionView?.performBatchUpdates({
