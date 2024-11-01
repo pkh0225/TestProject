@@ -30,6 +30,10 @@ class MainViewwController: UITableViewController {
                              viewControllerType: WebLoadImageTestViewController.self),
                     TestData(titleName: "CollectionViewTest",
                              viewControllerType: CollectionViewTestViewController.self),
+                    TestData(titleName: "CompositionalLayout",
+                             viewControllerType: CompositionalLayoutTestViewController.self),
+                    TestData(titleName: "DiffableDataSource",
+                             viewControllerType: DiffableDataSourceViewController.self),
                     TestData(titleName: "GridViewTest",
                              viewControllerType: GridViewTestController.self)
                 ]

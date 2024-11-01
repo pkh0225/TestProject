@@ -41,7 +41,7 @@ class Item: Hashable {
 }
 
 @available(iOS 13.0, *)
-class DiffableDataSourceViewController: UIViewController {
+class DiffableDataSourceViewController: UIViewController, RouterProtocol {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
 

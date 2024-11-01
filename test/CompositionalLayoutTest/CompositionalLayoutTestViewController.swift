@@ -9,7 +9,7 @@ import UIKit
 import CollectionViewAdapter
 
 @available(iOS 13.0, *)
-class CompositionalLayoutTestViewController: UIViewController {
+class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.getLayout())
