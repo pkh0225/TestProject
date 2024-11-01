@@ -6,8 +6,9 @@
 //
 
 import UIKit
-import CollectionViewAdapter
 import SwiftHelper
+import CollectionViewAdapter
+import EasyConstraints
 
 class CollectionViewTestViewController: UIViewController, RouterProtocol {
     static var storyboardName: String = "Main"
@@ -25,13 +26,13 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
 
     }
 
-    func makeApterData() -> UICollectionViewAdapterData {
-        let adapterData = UICollectionViewAdapterData()
+    func makeApterData() -> CVAData {
+        let adapterData = CVAData()
 
         for _ in 0..<10 {
-            let sectionData = UICollectionViewAdapterData.SectionInfo()
+            let sectionData = CVASectionInfo()
             for _ in 0..<4 {
-                let cellData = UICollectionViewAdapterData.CellInfo(cellType: TestCell.self)
+                let cellData = CVACellInfo(cellType: TestCell.self)
                 sectionData.cells.append(cellData)
             }
             adapterData.sectionList.append(sectionData)
@@ -42,10 +43,9 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
 }
 
 
-class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
+class TestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
     static var SpanSize: Int = 0
 
-    var actionClosure: CollectionViewAdapter.ActionClosure?
     lazy var testLabel: UILabel = {
         let l = UILabel()
         self.contentView.addSubview(l)
@@ -101,7 +101,7 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
 
         if let adapterData = self.parentCollectionView?.adapterData {
             let sectionData = adapterData.sectionList[self.indexPath.section]
-            let cellData = UICollectionViewAdapterData.CellInfo(cellType: TestCell.self)
+            let cellData = CVACellInfo(cellType: TestCell.self)
 
             UIView.animate(withDuration: 0.1) {
                 sectionData.cells.insert(cellData, at: self.indexPath.row + 1)
@@ -123,8 +123,8 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
 
         if btn.tag == 0 {
             if let adapterData = self.parentCollectionView?.adapterData {
-                let sectionData = UICollectionViewAdapterData.SectionInfo()
-                let cellData = UICollectionViewAdapterData.CellInfo(cellType: TestCell.self)
+                let sectionData = CVASectionInfo()
+                let cellData = CVACellInfo(cellType: TestCell.self)
                 sectionData.cells.append(cellData)
 
                 parentCollectionView?.performBatchUpdates({
@@ -137,8 +137,8 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
         }
         else {
             if let adapterData = self.parentCollectionView?.adapterData {
-                let sectionList1 = UICollectionViewAdapterData.SectionInfo()
-                let sectionList2 = UICollectionViewAdapterData.SectionInfo()
+                let sectionList1 = CVASectionInfo()
+                let sectionList2 = CVASectionInfo()
 
                 for (idx,cell) in adapterData.sectionList[self.indexPath.section].cells.enumerated() {
                     if idx <= self.indexPath.row {
@@ -149,9 +149,9 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
                     }
                 }
 
-                let sectionInsert = UICollectionViewAdapterData.SectionInfo().apply {
+                let sectionInsert = CVASectionInfo().apply {
                     $0.dataType = "new"
-                    let cellInfo = UICollectionViewAdapterData.CellInfo(cellType: TestCell.self).apply {
+                    let cellInfo = CVACellInfo(cellType: TestCell.self).apply {
                         $0.contentObj = "new"
                     }
 
@@ -241,7 +241,7 @@ class TestCell: UICollectionViewCell, UICollectionViewAdapterCellProtocol {
     }
 
 
-    func configure(data: Any?, subData: Any?, collectionView: UICollectionView, indexPath: IndexPath, actionClosure: CollectionViewAdapter.ActionClosure?) {
+    func configure(data: Any?, subData: Any?, collectionView: UICollectionView, indexPath: IndexPath) {
         print("configure: \(indexPath.section) / \(indexPath.row)")
         let data = data as? String ?? ""
         self.backgroundColor = data == "new" ? .blue : .green

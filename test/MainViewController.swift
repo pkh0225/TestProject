@@ -129,6 +129,7 @@ protocol RouterProtocol: UIViewController {
 }
 
 extension RouterProtocol where Self: UIViewController {
+    static var storyboardName: String { return "" }
     // MARK:- assembleModule
     private static func assembleModule() -> Self {
         if !self.storyboardName.isEmpty {
@@ -151,8 +152,16 @@ extension RouterProtocol where Self: UIViewController {
 }
 
 func randomColor() -> UIColor {
-    let r: CGFloat = CGFloat(arc4random() % 11) / 10.0
-    let g: CGFloat = CGFloat(arc4random() % 11) / 10.0
-    let b: CGFloat = CGFloat(arc4random() % 11) / 10.0
-    return UIColor(red: r, green: g, blue: b, alpha: 1.0)
+    let red = CGFloat.random(in: 0...1)
+    let green = CGFloat.random(in: 0...1)
+    let blue = CGFloat.random(in: 0...1)
+
+    return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+}
+
+func alert(vc: UIViewController, title: String, message: String, addAction: (()->Void)? = nil) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
+        addAction?()
+    })
 }

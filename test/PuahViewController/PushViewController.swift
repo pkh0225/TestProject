@@ -9,8 +9,6 @@ import UIKit
 
 /// 스토리보드가 아닌 xib로 Push
 class PushViewController: UIViewController, RouterProtocol {
-    static var storyboardName: String = ""
-
 
     override func viewDidLoad() {
         super.viewDidLoad()

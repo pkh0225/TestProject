@@ -8,8 +8,6 @@
 import UIKit
 
 class DragAbleViewController: UIViewController, RouterProtocol {
-    static var storyboardName: String = ""
-
     var dragAbleViewManager: DragAbleViewManager?
     var blueBoxView: DragAbleView!
     var itemViews = [UIView]()
