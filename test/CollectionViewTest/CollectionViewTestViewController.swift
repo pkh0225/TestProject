@@ -44,7 +44,6 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
 
 
 class TestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
-    static var SpanSize: Int = 0
 
     lazy var testLabel: UILabel = {
         let l = UILabel()

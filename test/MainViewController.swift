@@ -7,35 +7,51 @@
 
 import UIKit
 
-var MAinNavigationController: UINavigationController?
+var MainNavigationController: UINavigationController?
 
 class MainViewwController: UITableViewController {
     var testGroupDatas = [TestGroupData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        MAinNavigationController = self.navigationController
+        MainNavigationController = self.navigationController
 
         testGroupDatas.append(
             TestGroupData(
                 title: "View",
                 testDatas: [
-                    TestData(titleName: "Gif",
-                             viewControllerType: GifImageViewController.self),
-                    TestData(titleName: "Gradient",
-                             viewControllerType: GradientViewController.self),
-                    TestData(titleName: "AddViewTest",
-                             viewControllerType: AddViewTestViewController.self),
-                    TestData(titleName: "WebLoadTest",
-                             viewControllerType: WebLoadImageTestViewController.self),
-                    TestData(titleName: "CollectionViewTest",
-                             viewControllerType: CollectionViewTestViewController.self),
-                    TestData(titleName: "CompositionalLayout",
-                             viewControllerType: CompositionalLayoutTestViewController.self),
-                    TestData(titleName: "DiffableDataSource",
-                             viewControllerType: DiffableDataSourceViewController.self),
-                    TestData(titleName: "GridViewTest",
-                             viewControllerType: GridViewTestController.self)
+                    TestData(
+                        titleName: "Gif",
+                        viewControllerType: GifImageViewController.self
+                    ),
+                    TestData(
+                        titleName: "Gradient",
+                        viewControllerType: GradientViewController.self
+                    ),
+                    TestData(
+                        titleName: "AddViewTest",
+                        viewControllerType: AddViewTestViewController.self
+                    ),
+                    TestData(
+                        titleName: "WebLoadTest",
+                        viewControllerType: WebLoadImageTestViewController.self
+                    ),
+                    TestData(
+                        titleName: "CollectionViewTest",
+                        viewControllerType: CollectionViewTestViewController.self
+                    ),
+                    TestData(
+                        titleName: "CompositionalLayout",
+                        viewControllerType: CompositionalLayoutTestViewController.self
+                    ),
+                    TestData(
+                        titleName: "DiffableDataSource",
+                        viewControllerType: DiffableDataSourceViewController.self
+                    ),
+                    TestData(
+                        titleName: "GridViewTest",
+                        viewControllerType: GridViewTestController.self
+                    )
                 ]
 
             )
@@ -151,7 +167,7 @@ extension RouterProtocol where Self: UIViewController {
     }
 
     static func pushViewController() {
-        MAinNavigationController?.pushViewController(getViewController(), animated: true)
+        MainNavigationController?.pushViewController(getViewController(), animated: true)
     }
 }
 
@@ -168,4 +184,5 @@ func alert(vc: UIViewController, title: String, message: String, addAction: (()-
     alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
         addAction?()
     })
+    vc.present(alert, animated: true, completion: nil)
 }
