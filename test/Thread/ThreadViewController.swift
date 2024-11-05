@@ -90,27 +90,55 @@ class ThreadViewController: UIViewController, RouterProtocol {
     }
 
     @IBAction func onAsyncAwait(_ sender: UIButton) {
+        self.reset()
         print(" ---------------- onAsyncAwait ---------------- ")
         isTest = true
         Task {
             async let test1 = self.test1()
             async let test2 = self.test2()
-            await print("\(test1), \(test2)")
+            await print("\nonAsyncAwait \(test1), \(test2)")
         }
     }
     @IBAction func onGlobal(_ sender: UIButton) {
+        self.reset()
         print(" ---------------- onGlobal ---------------- ")
         isTest = true
-        
+
+//        DispatchQueue.global().async {
+//            self.test3()
+//            self.test4()
+//        }
+
+        var result1 = ""
+        var result2 = ""
+        let semapore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
-            self.test3()
-            self.test4()
+            result1 = self.test3()
+            semapore.signal()
         }
-        
+        DispatchQueue.global().async {
+            result2 = self.test4()
+            semapore.signal()
+        }
+
+        DispatchQueue.global().async {
+            semapore.wait()
+            semapore.wait()
+
+            print("\nonGlobal \(result1), \(result2)")
+        }
+
+
+
     }
     @IBAction func onStop(_ sender: UIButton) {
         print(" ---------------- onStop ---------------- ")
         isTest = false
+    }
+
+    func reset() {
+        self.testLabel.text = "0"
+        self.testLabel2.text = "0"
     }
 }
 
