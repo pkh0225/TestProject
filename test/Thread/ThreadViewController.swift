@@ -13,7 +13,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
     var isTest: Bool = false
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var testLabel: UILabel!
+    @IBOutlet weak var testLabel2: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Date())
@@ -31,19 +33,15 @@ class ThreadViewController: UIViewController, RouterProtocol {
         print("some another code")
     }
 
-    @objc func aaaaaaaa(_ sender: Any) {
-        
-        if let btn = sender as? UIButton {
-            btn.setTitle("1111", for: .normal)
-        }
-        
-    }
-
     func test1() async -> String {
         print("test1 start ----------------------------------------")
         for i in 0..<100000 {
 //            sleep(1)
-            print(i)
+//            print(i)
+            await MainActor.run {
+                self.testLabel.text = "test1 \(i)"
+            }
+
             guard isTest else { break }
         }
         print(" ---------------- test1 end ---------------- ")
@@ -54,7 +52,10 @@ class ThreadViewController: UIViewController, RouterProtocol {
         print("test2 start ----------------------------------------")
         for i in 200000..<300000 {
 //            sleep(1)
-            print(i)
+//            print(i)
+            await MainActor.run {
+                self.testLabel2.text = "test2 \(i)"
+            }
             guard isTest else { break }
         }
         print(" ---------------- test2 end ---------------- ")
@@ -62,9 +63,13 @@ class ThreadViewController: UIViewController, RouterProtocol {
     }
     
     func test3() -> String {
-        for i in 5000000..<6000000 {
+        print("test3 start ----------------------------------------")
+        for i in 500000..<600000 {
 //            sleep(1)
-            print(i)
+//            print(i)
+            DispatchQueue.main.sync {
+                self.testLabel.text = "test3 \(i)"
+            }
             guard isTest else { break }
         }
         print(" ---------------- test3 end ---------------- ")
@@ -72,8 +77,13 @@ class ThreadViewController: UIViewController, RouterProtocol {
     }
     
     func test4() -> String {
-        for i in 600..<700 {
-            print(i)
+        print("test4 start ----------------------------------------")
+        for i in 800000..<900000 {
+//            print(i)
+            DispatchQueue.main.sync {
+                self.testLabel2.text = "test4 \(i)"
+            }
+            guard isTest else { break }
         }
         print(" ---------------- test4 end ---------------- ")
         return "test4 end"
@@ -82,9 +92,6 @@ class ThreadViewController: UIViewController, RouterProtocol {
     @IBAction func onAsyncAwait(_ sender: UIButton) {
         print(" ---------------- onAsyncAwait ---------------- ")
         isTest = true
-//        Task {
-//            await self.process()
-//        }
         Task {
             async let test1 = self.test1()
             async let test2 = self.test2()
@@ -97,23 +104,13 @@ class ThreadViewController: UIViewController, RouterProtocol {
         
         DispatchQueue.global().async {
             self.test3()
+            self.test4()
         }
         
     }
     @IBAction func onStop(_ sender: UIButton) {
         print(" ---------------- onStop ---------------- ")
         isTest = false
-        
-        
-        let btn = UIButton()
-        btn.setTitle("타이틀", for: .normal)
-        btn.setTitle("타이틀22222", for: .highlighted)
-        btn.setTitle("타이틀333333", for: .selected)
-        
-        btn.isSelected = true
-        
-        
-        
     }
 }
 
