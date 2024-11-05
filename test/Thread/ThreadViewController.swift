@@ -125,12 +125,34 @@ class ThreadViewController: UIViewController, RouterProtocol {
             semapore.wait()
             semapore.wait()
 
-            print("\nonGlobal \(result1), \(result2)")
+            print("\nDispatchQueue.global() DispatchSemaphore \(result1), \(result2)")
+        }
+    }
+
+    @IBAction func onGlobalGroup(_ sender: Any) {
+        self.reset()
+        print(" ---------------- onGlobalGroup ---------------- ")
+        isTest = true
+
+        // DispatchGroup을 생성합니다.
+        let group = DispatchGroup()
+        let queue = DispatchQueue.global()
+        var result1 = ""
+        var result2 = ""
+        queue.async(group: group) {
+            result1 = self.test3()
+        }
+        queue.async(group: group) {
+            result2 = self.test4()
         }
 
-
-
+        // 그룹 내 모든 작업이 완료되면 실행
+        group.notify(queue: DispatchQueue.main) {
+            print("\nDispatchQueue.global() Group \(result1), \(result2)")
+        }
     }
+    
+
     @IBAction func onStop(_ sender: UIButton) {
         print(" ---------------- onStop ---------------- ")
         isTest = false
