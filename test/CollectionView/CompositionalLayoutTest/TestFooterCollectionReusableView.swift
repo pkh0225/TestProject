@@ -10,11 +10,19 @@ import UIKit
 import CollectionViewAdapter
 
 class TestFooterCollectionReusableView: UICollectionReusableView, CollectionViewAdapterCellProtocol {
+    static var SpanSize: Int = 0
+
+    var actionClosure: ActionClosure?
+    
     @IBOutlet weak var label: UILabel!
 
 
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    static func getSize(data: Any?, width: CGFloat, collectionView: UICollectionView, indexPath: IndexPath) -> CGSize {
+        return CGSize(width: width, height: self.fromXibSize().height)
     }
 
     func configure(data: Any?, subData: Any?, collectionView: UICollectionView, indexPath: IndexPath) {

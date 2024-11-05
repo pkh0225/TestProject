@@ -8,6 +8,7 @@
 
 import UIKit
 import PkhGridView
+import SwiftHelper
 
 class GridViewTestController: UIViewController, RouterProtocol {
     static var storyboardName: String = "Main"
@@ -30,7 +31,7 @@ class GridViewTestController: UIViewController, RouterProtocol {
                 .setSubData(nil)
                 .setActionClosure( { [weak self] (name, object) in
                     guard let self else { return }
-                    self.showAlert(name: name, object: object)
+                    alert(vc: self, title: "\(name)", message: String(describing: object))
                 })
             gridListData.itemList.append(gridViewData)
         }
@@ -42,7 +43,7 @@ class GridViewTestController: UIViewController, RouterProtocol {
             .setCellType(TestCellCollectionViewCell2.self)
             .setActionClosure( { [weak self] (name, object) in
                 guard let self else { return }
-                self.showAlert(name: name, object: object)
+                alert(vc: self, title: "\(name)", message: String(describing: object))
             })
 
         gridListData.itemList.append(gridViewData)
@@ -52,26 +53,6 @@ class GridViewTestController: UIViewController, RouterProtocol {
 //        self.gridView.showLineCount = 1
 //        self.gridView.allItemHeightSame = true
         self.gridView.reloadData()
-    }
-
-    @MainActor
-    func showAlert(name: String, object: Any?) {
-        DispatchQueue.main.async {
-            func run() {
-                alert(vc: self, title: "\(name)", message: String(describing: object))
-            }
-
-            if let presentedVC = self.presentedViewController, presentedVC is UIAlertController {
-                // 이미 UIAlertController가 표시 중이면 이를 먼저 닫습니다.
-                presentedVC.dismiss(animated: true, completion: {
-                    // 경고창을 닫은 후 새로운 UIAlertController를 표시합니다.
-                    run()
-                })
-            } else {
-                // 표시 중인 UIAlertController가 없으면 바로 새로운 경고창을 표시합니다.
-                run()
-            }
-        }
     }
 
     override func didReceiveMemoryWarning() {

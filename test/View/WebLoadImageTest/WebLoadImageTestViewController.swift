@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 import SDWebImageWebPCoder
-
+import SwiftHelper
 
 class WebLoadImageTestViewController: UIViewController, RouterProtocol {
     static var storyboardName: String = "Main"

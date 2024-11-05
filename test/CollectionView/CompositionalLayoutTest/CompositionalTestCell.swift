@@ -10,6 +10,10 @@ import UIKit
 import CollectionViewAdapter
 
 class CompositionalTestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
+    static var SpanSize: Int = 0
+    
+    var actionClosure: ActionClosure?
+    
     lazy var label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
@@ -49,6 +53,10 @@ class CompositionalTestCell: UICollectionViewCell, CollectionViewAdapterCellProt
         self.backgroundColor = randomColor()
         self.label.isHidden = false
         self.button.isHidden = false
+    }
+
+    static func getSize(data: Any?, width: CGFloat, collectionView: UICollectionView, indexPath: IndexPath) -> CGSize {
+        return CGSize(width: width, height: self.fromXibSize().height)
     }
 
     func configure(data: Any?, subData: Any?, collectionView: UICollectionView, indexPath: IndexPath) {

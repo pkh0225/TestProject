@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftHelper
 
 class DynamicffectsTabViewController: UITabBarController, RouterProtocol {
     static var storyboardName: String = "Main"

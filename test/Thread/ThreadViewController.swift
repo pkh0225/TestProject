@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftHelper
 
 class ThreadViewController: UIViewController, RouterProtocol {
     static var storyboardName: String = "Main"

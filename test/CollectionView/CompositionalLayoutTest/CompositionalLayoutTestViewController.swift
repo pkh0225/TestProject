@@ -7,6 +7,7 @@
 
 import UIKit
 import CollectionViewAdapter
+import SwiftHelper
 
 @available(iOS 13.0, *)
 class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
@@ -16,6 +17,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         collectionView.backgroundColor = .lightGray
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(collectionView)
+
 
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftHelper
 
 var MainNavigationController: UINavigationController?
 
@@ -37,6 +38,30 @@ class MainViewwController: UITableViewController {
                         viewControllerType: WebLoadImageTestViewController.self
                     ),
                     TestData(
+                        titleName: "GridViewTest",
+                        viewControllerType: GridViewTestController.self
+                    )
+                ]
+            )
+        )
+
+        testGroupDatas.append(
+            TestGroupData(
+                title: "TableView",
+                testDatas: [
+                    TestData(
+                        titleName: "TableViewTest",
+                        viewControllerType: TableViewTestViewController.self
+                    ),
+                ]
+            )
+        )
+
+        testGroupDatas.append(
+            TestGroupData(
+                title: "CollectionView",
+                testDatas: [
+                    TestData(
                         titleName: "CollectionViewTest",
                         viewControllerType: CollectionViewTestViewController.self
                     ),
@@ -48,12 +73,7 @@ class MainViewwController: UITableViewController {
                         titleName: "DiffableDataSource",
                         viewControllerType: DiffableDataSourceViewController.self
                     ),
-                    TestData(
-                        titleName: "GridViewTest",
-                        viewControllerType: GridViewTestController.self
-                    )
                 ]
-
             )
         )
 
@@ -144,33 +164,6 @@ struct TestData {
     var viewControllerType: RouterProtocol.Type
 }
 
-protocol RouterProtocol: UIViewController {
-    static var storyboardName: String { get }
-}
-
-extension RouterProtocol where Self: UIViewController {
-    static var storyboardName: String { return "" }
-    // MARK:- assembleModule
-    private static func assembleModule() -> Self {
-        if !self.storyboardName.isEmpty {
-            let storyboard = UIStoryboard(name: self.storyboardName, bundle: Bundle.main)
-            if let vc = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as? Self {
-                return vc
-            }
-        }
-        return self.init()
-    }
-
-    // MARK:- getViewController
-    static func getViewController() -> Self {
-        return assembleModule()
-    }
-
-    static func pushViewController() {
-        MainNavigationController?.pushViewController(getViewController(), animated: true)
-    }
-}
-
 func randomColor() -> UIColor {
     let red = CGFloat.random(in: 0...1)
     let green = CGFloat.random(in: 0...1)
@@ -180,9 +173,24 @@ func randomColor() -> UIColor {
 }
 
 func alert(vc: UIViewController, title: String, message: String, addAction: (()->Void)? = nil) {
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
-        addAction?()
-    })
-    vc.present(alert, animated: true, completion: nil)
+    DispatchQueue.main.async {
+        func run() {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
+                addAction?()
+            })
+            vc.present(alert, animated: true, completion: nil)
+        }
+
+        if let presentedVC = vc.presentedViewController, presentedVC is UIAlertController {
+            presentedVC.dismiss(animated: true, completion: {
+                run()
+            })
+        } else {
+            run()
+        }
+    }
 }
+
+
+
