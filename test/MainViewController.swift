@@ -9,12 +9,12 @@ import UIKit
 import SwiftHelper
 
 class MainViewwController: UITableViewController {
-    var testGroupDatas = [TestGroupData]()
+    var testGroupDatas: [TestGroupData]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        testGroupDatas.append(
+        testGroupDatas = [
             TestGroupData(
                 title: "View",
                 testDatas: [
@@ -39,10 +39,8 @@ class MainViewwController: UITableViewController {
                         viewControllerType: GridViewTestController.self
                     )
                 ]
-            )
-        )
+            ),
 
-        testGroupDatas.append(
             TestGroupData(
                 title: "TableView",
                 testDatas: [
@@ -51,10 +49,8 @@ class MainViewwController: UITableViewController {
                         viewControllerType: TableViewTestViewController.self
                     ),
                 ]
-            )
-        )
+            ),
 
-        testGroupDatas.append(
             TestGroupData(
                 title: "CollectionView",
                 testDatas: [
@@ -71,10 +67,8 @@ class MainViewwController: UITableViewController {
                         viewControllerType: DiffableDataSourceViewController.self
                     ),
                 ]
-            )
-        )
+            ),
 
-        testGroupDatas.append(
             TestGroupData(
                 title: "Animation",
                 testDatas: [
@@ -95,19 +89,18 @@ class MainViewwController: UITableViewController {
                         viewControllerType: Field​BehaviorViewController.self
                     )
                 ]
-            )
-        )
+            ),
 
-        testGroupDatas
-            .append(
-                TestGroupData(
-                    title: "Thread",
-                    testDatas: [TestData(
+            TestGroupData(
+                title: "Thread",
+                testDatas: [
+                    TestData(
                         titleName: "Thread",
                         viewControllerType: ThreadViewController.self
-                    )]
-                )
+                    )
+                ]
             )
+        ]
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -132,7 +125,6 @@ class MainViewwController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         testGroupDatas[indexPath.section].testDatas[indexPath.row].viewControllerType.pushViewController()
-        //        self.navigationController?.pushViewController(AAAViewController(), animated: true)
     }
 }
 

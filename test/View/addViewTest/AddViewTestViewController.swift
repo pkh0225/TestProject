@@ -22,14 +22,10 @@ class AddViewTestViewController: UIViewController, RouterProtocol {
     }
 
     @IBAction func onButton2(_ sender: Any) {
-        targetView.frame.origin = .zero
         view2.addSubview(targetView)
-        print(targetView)
     }
 
     @IBAction func onButton1(_ sender: Any) {
-        targetView.frame.origin = .zero
         view1.addSubview(targetView)
-        print(targetView)
     }
 }
