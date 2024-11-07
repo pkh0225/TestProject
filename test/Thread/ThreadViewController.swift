@@ -18,6 +18,8 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Thread"
+
         print(Date())
         
         let srtDate = "2022-10-01 00:00:01"

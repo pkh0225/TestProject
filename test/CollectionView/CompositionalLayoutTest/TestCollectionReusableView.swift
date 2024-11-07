@@ -9,11 +9,10 @@
 import UIKit
 import CollectionViewAdapter
 
-class TestFooterCollectionReusableView: UICollectionReusableView, CollectionViewAdapterCellProtocol {
+class TestCollectionReusableView: UICollectionReusableView, CVACellProtocol {
     static var SpanSize: Int = 0
+    var actionClosure: ((String, Any?) -> Void)?
 
-    var actionClosure: ActionClosure?
-    
     @IBOutlet weak var label: UILabel!
 
 

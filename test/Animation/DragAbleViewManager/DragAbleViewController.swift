@@ -19,6 +19,7 @@ class DragAbleViewController: UIViewController, RouterProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.title = "DragAbleView"
 
         guard let window = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first else { return }
         let top = window.safeAreaInsets.top

@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/CollectionViewAdapter.git",
       "state" : {
-        "revision" : "2ba80d85808bf6b74b379500423e2089e06335d2",
-        "version" : "1.5.10"
+        "revision" : "4b3f52f8faaa22f1e90e1012fca2f910048fc2ad",
+        "version" : "1.5.11"
       }
     },
     {
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/TableViewAdapter.git",
       "state" : {
-        "revision" : "f1892dd4f158bf48ff6ae73cec6aae0d0103ba4b",
-        "version" : "1.0.2"
+        "revision" : "e6028d1ff2d64b66b978b109609f1d2230a22d79",
+        "version" : "1.0.3"
       }
     }
   ],

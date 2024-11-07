@@ -98,7 +98,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         for (s, sectionItem) in dataSource.enumerated() {
             let sectionInfo = CVASectionInfo()
             testData.sectionList.append(sectionInfo)
-            sectionInfo.header = CVACellInfo(cellType: TestFooterCollectionReusableView.self)
+            sectionInfo.header = CVACellInfo(cellType: TestCollectionReusableView.self)
                 .setContentObj("\(sectionItem.text) \(s)")
                 .setActionClosure({ [weak self] (name, object) in
                     guard let self else { return }

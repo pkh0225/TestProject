@@ -21,7 +21,7 @@ class WebLoadImageTestViewController: UIViewController, RouterProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "WebP Image"
         let WebPCoder = SDImageWebPCoder.shared
         SDImageCodersManager.shared.addCoder(WebPCoder)
 

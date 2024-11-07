@@ -53,7 +53,7 @@ class TableViewTestViewController: UIViewController, RouterProtocol {
     }
 }
 
-class TableTestCell: UITableViewCell, TableViewAdapterCellProtocol {
+class TableTestCell: UITableViewCell, TVACellProtocol {
     var actionClosure: ((String, Any?) -> Void)?
 
     // UI 요소 선언

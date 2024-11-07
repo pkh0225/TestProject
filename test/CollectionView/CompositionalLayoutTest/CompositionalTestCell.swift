@@ -9,11 +9,10 @@
 import UIKit
 import CollectionViewAdapter
 
-class CompositionalTestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
+class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
     static var SpanSize: Int = 0
-    
-    var actionClosure: ActionClosure?
-    
+    var actionClosure: ((String, Any?) -> Void)?
+
     lazy var label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1

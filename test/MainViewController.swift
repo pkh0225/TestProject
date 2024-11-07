@@ -8,14 +8,11 @@
 import UIKit
 import SwiftHelper
 
-var MainNavigationController: UINavigationController?
-
 class MainViewwController: UITableViewController {
     var testGroupDatas = [TestGroupData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        MainNavigationController = self.navigationController
 
         testGroupDatas.append(
             TestGroupData(
@@ -101,8 +98,6 @@ class MainViewwController: UITableViewController {
             )
         )
 
-
-
         testGroupDatas
             .append(
                 TestGroupData(
@@ -113,19 +108,6 @@ class MainViewwController: UITableViewController {
                     )]
                 )
             )
-
-        testGroupDatas
-            .append(
-                TestGroupData(
-                    title: "Push",
-                    testDatas: [TestData(
-                        titleName: "Xib ViewController",
-                        viewControllerType: PushViewController.self
-                    )]
-                )
-            )
-
-        
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -150,7 +132,7 @@ class MainViewwController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         testGroupDatas[indexPath.section].testDatas[indexPath.row].viewControllerType.pushViewController()
-//        self.navigationController?.pushViewController(AAAViewController(), animated: true)
+        //        self.navigationController?.pushViewController(AAAViewController(), animated: true)
     }
 }
 

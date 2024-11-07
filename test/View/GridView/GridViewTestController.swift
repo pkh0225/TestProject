@@ -19,6 +19,7 @@ class GridViewTestController: UIViewController, RouterProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "GridView"
 
 
         let texts = ["테스트1","테스트2","테스트3","테스트4","테스트5","테스트6","테스트7","테스트8","테스트9"]

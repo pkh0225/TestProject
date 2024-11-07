@@ -1,2 +1,6 @@
-
-TestProduct.xcodeproj/project.xcworkspace/xcuserdata/pkh0225.xcuserdatad/UserInterfaceState.xcuserstate
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
+DerivedData/

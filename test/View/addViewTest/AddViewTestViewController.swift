@@ -16,6 +16,10 @@ class AddViewTestViewController: UIViewController, RouterProtocol {
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var view1: UIView!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.title = "AddViewTest"
+    }
 
     @IBAction func onButton2(_ sender: Any) {
         targetView.frame.origin = .zero

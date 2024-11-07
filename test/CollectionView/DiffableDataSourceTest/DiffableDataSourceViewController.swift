@@ -73,6 +73,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.title = "Diffable Data Source"
 
         self.MakeAutoLayout()
 
@@ -82,7 +83,8 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         dataSource = DataSource(collectionView: collectionView) { [weak self] (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let self else { return nil }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CompositionalTestCell
-            cell.actionClosure = { _, _ in
+            cell.actionClosure = { [weak self] _, _ in
+                guard let self else { return }
                 print("select indexPath section: \(indexPath.section), item: \(indexPath.item)")
                 if indexPath.item == 0 {
                     self.updateItem(item: item, indexPath: indexPath)
