@@ -685,7 +685,7 @@
 			repositoryURL = "https://github.com/pkh0225/PkhGridView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.1;
+				minimumVersion = 0.1.2;
 			};
 		};
 		20FA8C632C6C605D00837939 /* XCRemoteSwiftPackageReference "EasyConstraints" */ = {

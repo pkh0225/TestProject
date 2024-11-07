@@ -10,7 +10,8 @@ import UIKit
 import PkhGridView
 
 class TestCellCollectionViewCell: UICollectionViewCell, PkhGridViewProtocol {
-    var actionClosure: OnActionClosure?
+    var actionClosure: ((String, Any?) -> Void)?
+    
     var data: String?
     @IBOutlet weak var titleLabel: UILabel!
 
