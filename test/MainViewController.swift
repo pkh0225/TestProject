@@ -24,7 +24,7 @@ class MainViewwController: UITableViewController {
                     ),
                     TestData(
                         titleName: "Gradient",
-                        viewControllerType: GradientViewController.self
+                        viewControllerType: CAGradientLayerTestViewController.self
                     ),
                     TestData(
                         titleName: "AddViewTest",
@@ -36,7 +36,7 @@ class MainViewwController: UITableViewController {
                     ),
                     TestData(
                         titleName: "GridViewTest",
-                        viewControllerType: CAGradientLayerTestViewController.self
+                        viewControllerType: GridViewTestController.self
                     )
                 ]
             ),

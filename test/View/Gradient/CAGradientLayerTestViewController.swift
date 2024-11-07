@@ -27,6 +27,7 @@ class CAGradientLayerTestViewController: UIViewController , RouterProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Gradient"
         self.hideKeyboardWhenTappedAroundAndCancelsTouchesInView()
 
         self.gradientLayer.frame = CGRect(x: 0, y: 0, width: self.gradientView.ec.width, height: self.gradientView.ec.height)
