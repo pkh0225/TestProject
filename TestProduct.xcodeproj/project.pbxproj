@@ -47,6 +47,8 @@
 		20C7AA9A2CC7397B007D01D4 /* GridViewTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C7AA962CC7397B007D01D4 /* GridViewTestController.swift */; };
 		20C7AA9B2CC7397B007D01D4 /* TestCellCollectionViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C7AA942CC7397B007D01D4 /* TestCellCollectionViewCell2.swift */; };
 		20F57A7D29FBAEBA00F9A7F6 /* AddViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F57A7C29FBAEBA00F9A7F6 /* AddViewTestViewController.swift */; };
+		20F77EF32CDC50C400107C75 /* TableTestCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20F77EF22CDC50C400107C75 /* TableTestCell2.xib */; };
+		20F77EF42CDC50C400107C75 /* TableTestCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F77EF12CDC50C400107C75 /* TableTestCell2.swift */; };
 		20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C642C6C605D00837939 /* EasyConstraints */; };
 		20FA8C742C6C7A8C00837939 /* SwiftHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C732C6C7A8C00837939 /* SwiftHelper */; };
 		20FE360C2C6C32D90000255D /* AlignmentFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FE360B2C6C32D90000255D /* AlignmentFlowLayout.swift */; };
@@ -91,6 +93,8 @@
 		20C7AA952CC7397B007D01D4 /* TestCellCollectionViewCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCellCollectionViewCell2.xib; sourceTree = "<group>"; };
 		20C7AA962CC7397B007D01D4 /* GridViewTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewTestController.swift; sourceTree = "<group>"; };
 		20F57A7C29FBAEBA00F9A7F6 /* AddViewTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewTestViewController.swift; sourceTree = "<group>"; };
+		20F77EF12CDC50C400107C75 /* TableTestCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTestCell2.swift; sourceTree = "<group>"; };
+		20F77EF22CDC50C400107C75 /* TableTestCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableTestCell2.xib; sourceTree = "<group>"; };
 		20FE360B2C6C32D90000255D /* AlignmentFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -234,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				207DA9C62CD99E3D0001BFF5 /* TableViewTestViewController.swift */,
+				20F77EF12CDC50C400107C75 /* TableTestCell2.swift */,
+				20F77EF22CDC50C400107C75 /* TableTestCell2.xib */,
 			);
 			path = TableViewTest;
 			sourceTree = "<group>";
@@ -416,6 +422,7 @@
 				205CAE9028AB1EDF002999A8 /* Main.storyboard in Resources */,
 				20C7AA972CC7397B007D01D4 /* TestCellCollectionViewCell.xib in Resources */,
 				20C7AA982CC7397B007D01D4 /* TestCellCollectionViewCell2.xib in Resources */,
+				20F77EF32CDC50C400107C75 /* TableTestCell2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +446,7 @@
 				202354C32CD4AA0B002BBBF2 /* CompositionalTestCell.swift in Sources */,
 				207DA9C72CD99E480001BFF5 /* TableViewTestViewController.swift in Sources */,
 				202354C42CD4AA0B002BBBF2 /* CompositionalLayoutTestViewController.swift in Sources */,
+				20F77EF42CDC50C400107C75 /* TableTestCell2.swift in Sources */,
 				202354C52CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift in Sources */,
 				201498622AEF72CA00E26335 /* VVVView.swift in Sources */,
 				205CAE8D28AB1EDF002999A8 /* ThreadViewController.swift in Sources */,
@@ -689,7 +697,7 @@
 			repositoryURL = "https://github.com/pkh0225/TableViewAdapter.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.0.2;
 			};
 		};
 		20C7AA8E2CC738A0007D01D4 /* XCRemoteSwiftPackageReference "PkhGridView" */ = {

@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/TableViewAdapter.git",
       "state" : {
-        "revision" : "981b52e1aad099892dffd8e8fc19d5115b802af1",
-        "version" : "1.0.0"
+        "revision" : "f1892dd4f158bf48ff6ae73cec6aae0d0103ba4b",
+        "version" : "1.0.2"
       }
     }
   ],

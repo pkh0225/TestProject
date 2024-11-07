@@ -13,7 +13,10 @@ import EasyConstraints
 class TableViewTestViewController: UIViewController, RouterProtocol {
 
     lazy var tableView: UITableView = {
-        let tv = UITableView()
+        let tv = UITableView(frame: .zero, style: .plain)
+        tv.backgroundColor = #colorLiteral(red: 0.9459366202, green: 0.9459366202, blue: 0.9459366202, alpha: 1)
+        tv.sectionHeaderHeight = 0
+        tv.sectionFooterHeight = 0
         self.view.addSubViewSafeArea(subView: tv, safeBottom: false)
         return tv
     }()
@@ -31,7 +34,14 @@ class TableViewTestViewController: UIViewController, RouterProtocol {
             tableData.sectionList.append(tableSection)
             for j in 0..<5 {
                 let tableCell = TVACellInfo(cellType: TableTestCell.self)
-                    .setContentObj("\(i)_\(j)")
+                    .setContentObj("section(\(i)) row(\(j)) - class")
+                    .setActionClosure { _, _ in
+                    }
+                tableSection.cells.append(tableCell)
+            }
+            for j in 0..<5 {
+                let tableCell = TVACellInfo(cellType: TableTestCell2.self)
+                    .setContentObj("section(\(i)) row(\(j)) - xib")
                     .setActionClosure { _, _ in
                     }
                 tableSection.cells.append(tableCell)
@@ -44,7 +54,7 @@ class TableViewTestViewController: UIViewController, RouterProtocol {
 }
 
 class TableTestCell: UITableViewCell, TableViewAdapterCellProtocol {
-    var actionClosure: ActionClosure?
+    var actionClosure: ((String, Any?) -> Void)?
 
     // UI 요소 선언
     let customLabel: UILabel = {
@@ -81,6 +91,8 @@ class TableTestCell: UITableViewCell, TableViewAdapterCellProtocol {
             customLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             customLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
+
+        self.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.7122581601, blue: 0.6296025515, alpha: 1)
     }
 
     // required initializer (필수)
