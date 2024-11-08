@@ -14,7 +14,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.getLayout())
-        collectionView.backgroundColor = .lightGray
+        collectionView.backgroundColor = #colorLiteral(red: 0.9355872273, green: 0.9355872273, blue: 0.9355872273, alpha: 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(collectionView)
 
@@ -55,7 +55,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                          .init(text: "사과ㅇㅇㅇ"),
                          .init(text: "사과")]),
         .init(text: "header",
-              layoutType: .horizontalList,
+              layoutType: .horizontalList1,
               subItems: [.init(text: "사과"),
                          .init(text: "사과"),
                          .init(text: "사과"),
@@ -69,7 +69,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                          .init(text: "사과"),
                          .init(text: "사과")]),
         .init(text: "header",
-              layoutType: .horizontalList,
+              layoutType: .horizontalList2,
               subItems: [.init(text: "사과"),
                          .init(text: "사과"),
                          .init(text: "사과"),
@@ -125,16 +125,21 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
     }
 
     private func getLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, env -> NSCollectionLayoutSection? in
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.interSectionSpacing = 20
+        let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
             switch self.dataSource[sectionIndex].layoutType {
             case .horizontalListAutoSize:
                 return self.getListSectionAutoSize()
             case .grid:
                 return self.getGridSection()
-            case .horizontalList:
-                return self.getListSection()
+            case .horizontalList1:
+                return self.getListSection(height: 0.3)
+            case .horizontalList2:
+                return self.getListSection(height: 0.13)
             }
         }
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
         layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
         return layout
     }
@@ -233,7 +238,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         return section
     }
 
-    private func getListSection() -> NSCollectionLayoutSection {
+    private func getListSection(height: CGFloat) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
@@ -242,7 +247,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 //        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.35),
-            heightDimension: .fractionalHeight(0.3)
+            heightDimension: .fractionalHeight(height)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         //        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(8)
@@ -292,7 +297,8 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
 private enum layoutType {
     case grid
-    case horizontalList
+    case horizontalList1
+    case horizontalList2
     case horizontalListAutoSize
 }
 private struct SectionItem {
