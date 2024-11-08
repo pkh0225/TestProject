@@ -82,6 +82,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         btn.layer.borderColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).cgColor
         btn.addAction(for: .touchUpInside) { [weak self] _ in
             guard let self else { return }
+            self.collectionView.isPagingEnabled = self.btn.isSelected
             self.btn.isSelected.toggle()
             self.collectionView.collectionViewLayout = self.getLayout()
         }
