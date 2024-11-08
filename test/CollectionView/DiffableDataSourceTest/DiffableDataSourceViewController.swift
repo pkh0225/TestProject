@@ -52,6 +52,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         collectionView.register(CompositionalTestCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.alwaysBounceHorizontal = false
         self.view.addSubview(collectionView)
 
         return collectionView
@@ -179,19 +180,25 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
     private func getLayout() -> UICollectionViewLayout {
         if self.btn.isSelected {
             let configuration = UICollectionViewCompositionalLayoutConfiguration()
+            configuration.interSectionSpacing = 10
             let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
                 return self.getGridSection()
             }
-            return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+            let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+            layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
+            return layout
         }
         else {
             let configuration = UICollectionViewCompositionalLayoutConfiguration()
             configuration.scrollDirection = .horizontal
+            configuration.interSectionSpacing = 10
             let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
 
-                return self.getListSection()
+                return self.getListSection(inEnvironment: env)
             }
-            return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+            let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+            layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
+            return layout
         }
     }
 
@@ -217,10 +224,14 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         section.interGroupSpacing = 8
 
 
+        // Decoration Item 추가
+        let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
+        section.decorationItems = [decorationItem]
+
         return section
     }
 
-    private func getListSection() -> NSCollectionLayoutSection {
+    private func getListSection(inEnvironment environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
@@ -228,7 +239,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.45),
+            widthDimension: .fractionalWidth(((environment.container.effectiveContentSize.width - 30 - 10) / 2) / environment.container.effectiveContentSize.width),
             heightDimension: .absolute(50)
         )
         let group = NSCollectionLayoutGroup.vertical(
@@ -242,6 +253,10 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
         section.interGroupSpacing = 8
 
+        // Decoration Item 추가
+        let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
+        section.decorationItems = [decorationItem]
+        
         return section
     }
 
@@ -301,3 +316,12 @@ extension DiffableDataSourceViewController: UICollectionViewDelegate {
 //        return 100
 //    }
 //}
+
+extension NSCollectionLayoutDimension {
+    static func fractionalWidth(forTargetSize size: CGFloat, inEnvironment environment: NSCollectionLayoutEnvironment) -> Self {
+        let containerWidth = environment.container.effectiveContentSize.width
+        let itemCount = containerWidth / size
+        let fractionWidth: CGFloat = 1 / (itemCount.rounded())
+        return Self.fractionalWidth(fractionWidth)
+    }
+}
