@@ -67,6 +67,26 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         self.view.addSubview(textField)
         return textField
     }()
+
+    private lazy var btn: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitleColor(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), for: .normal)
+        btn.setTitle("vertical", for: .normal)
+        btn.setTitle("horizontal", for: .selected)
+        btn.layer.cornerRadius = 10
+        btn.layer.masksToBounds = true
+        btn.layer.borderWidth = 1
+        btn.layer.borderColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).cgColor
+        btn.addAction(for: .touchUpInside) { [weak self] _ in
+            guard let self else { return }
+            self.btn.isSelected.toggle()
+            self.collectionView.collectionViewLayout = self.getLayout()
+        }
+        self.view.addSubview(btn)
+        return btn
+    }()
+
     private var dataSource: DataSource!
     @Atomic private var testItems = [Section]()
 
@@ -110,10 +130,15 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
     private func MakeAutoLayout() {
         NSLayoutConstraint.activate([
             textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             textField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             textField.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -5),
             textField.heightAnchor.constraint(equalToConstant: 50),
+
+            btn.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: 10),
+            btn.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            btn.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
+            btn.heightAnchor.constraint(equalToConstant: 40),
+            btn.widthAnchor.constraint(equalToConstant: 100),
 
             collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
@@ -152,10 +177,22 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
     }
 
     private func getLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, env -> NSCollectionLayoutSection? in
-            return self.getGridSection()
+        if self.btn.isSelected {
+            let configuration = UICollectionViewCompositionalLayoutConfiguration()
+            let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
+                return self.getGridSection()
+            }
+            return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
         }
-        return layout
+        else {
+            let configuration = UICollectionViewCompositionalLayoutConfiguration()
+            configuration.scrollDirection = .horizontal
+            let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
+
+                return self.getListSection()
+            }
+            return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+        }
     }
 
     private func getGridSection() -> NSCollectionLayoutSection {
@@ -179,6 +216,31 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
         section.interGroupSpacing = 8
 
+
+        return section
+    }
+
+    private func getListSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.45),
+            heightDimension: .absolute(50)
+        )
+        let group = NSCollectionLayoutGroup.vertical(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
+        section.interGroupSpacing = 8
 
         return section
     }
@@ -207,9 +269,9 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
 
     private func makeAdapterData() -> [Section] {
         var testData = [Section]()
-        for i in 0...10 {
+        for i in 0...1 {
             let section = Section()
-            for j in 0...3 {
+            for j in 0...30 {
                 let item = Item(title: "cell (\(i) : \(j))")
                 section.subItems.append(item)
             }
