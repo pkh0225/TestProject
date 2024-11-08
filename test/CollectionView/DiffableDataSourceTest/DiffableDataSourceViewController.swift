@@ -53,6 +53,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         collectionView.delegate = self
         collectionView.register(CompositionalTestCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.alwaysBounceHorizontal = false
+        collectionView.isPagingEnabled = true
         self.view.addSubview(collectionView)
 
         return collectionView
@@ -179,85 +180,85 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
 
     private func getLayout() -> UICollectionViewLayout {
         if self.btn.isSelected {
-            let configuration = UICollectionViewCompositionalLayoutConfiguration()
-            configuration.interSectionSpacing = 10
-            let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
-                return self.getGridSection()
-            }
-            let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
-            layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
-            return layout
+            return getGridSection()
         }
         else {
-            let configuration = UICollectionViewCompositionalLayoutConfiguration()
-            configuration.scrollDirection = .horizontal
-            configuration.interSectionSpacing = 10
-            let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
-
-                return self.getListSection(inEnvironment: env)
-            }
-            let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
-            layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
-            return layout
+            return getListSection()
         }
     }
 
-    private func getGridSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.5),
-            heightDimension: .absolute(50)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    private func getGridSection() -> UICollectionViewCompositionalLayout {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.interSectionSpacing = 10
+        let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(0.5),
+                heightDimension: .absolute(50)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(50)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitems: [item]
-        )
-        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(50)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+            group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
 
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
-        section.interGroupSpacing = 8
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
+            section.interGroupSpacing = 8
 
 
-        // Decoration Item 추가
-        let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
-        section.decorationItems = [decorationItem]
+            // Decoration Item 추가
+            let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
+            section.decorationItems = [decorationItem]
 
-        return section
+            return section
+        }
+
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+        layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
+        return layout
     }
 
-    private func getListSection(inEnvironment environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    private func getListSection() -> UICollectionViewCompositionalLayout {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.scrollDirection = .horizontal
+        let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(((environment.container.effectiveContentSize.width - 30 - 10) / 2) / environment.container.effectiveContentSize.width),
-            heightDimension: .absolute(50)
-        )
-        let group = NSCollectionLayoutGroup.vertical(
-            layoutSize: groupSize,
-            subitems: [item]
-        )
-        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .absolute((env.container.effectiveContentSize.width - 60) / 2.0),
+                heightDimension: .absolute(50)
+            )
+            let group = NSCollectionLayoutGroup.vertical(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+            group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
 
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
-        section.interGroupSpacing = 8
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
+            section.interGroupSpacing = 8
 
-        // Decoration Item 추가
-        let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
-        section.decorationItems = [decorationItem]
-        
-        return section
+            // Decoration Item 추가
+            let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
+            section.decorationItems = [decorationItem]
+
+            return section
+        }
+
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
+        layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
+        return layout
     }
 
     @objc private func onTextFieldDidChange(textField: UITextField) {
@@ -284,7 +285,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
 
     private func makeAdapterData() -> [Section] {
         var testData = [Section]()
-        for i in 0...1 {
+        for i in 0...3 {
             let section = Section()
             for j in 0...30 {
                 let item = Item(title: "cell (\(i) : \(j))")
