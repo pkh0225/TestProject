@@ -173,10 +173,10 @@ class TestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
 
                         let sectionIndex: Int
                         if newSectoinIndex < self.indexPath.section {
-                            sectionIndex = self.indexPath.section - 1
-
-                            adapterData.sectionList.remove(at: sectionIndex )
-                            self.parentCollectionView?.deleteSections(IndexSet(integer: sectionIndex ))
+//                            sectionIndex = self.indexPath.section - 1
+//
+//                            adapterData.sectionList.remove(at: sectionIndex )
+//                            self.parentCollectionView?.deleteSections(IndexSet(integer: sectionIndex ))
 
 //                            if sectionList1.cells.count > 0 {
 //                                adapterData.sectionList.insert(sectionList1, at: sectionIndex)
