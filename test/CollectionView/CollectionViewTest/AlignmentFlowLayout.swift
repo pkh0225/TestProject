@@ -282,6 +282,7 @@ class AlignmentFlowLayout: UICollectionViewFlowLayout {
     }
 }
 
+@MainActor
 private class FixedSpacingSectionElement {
     var lines: [FixedSpacingLineElement] = []
     var headerLayoutAttrributes: UICollectionViewLayoutAttributes?
@@ -388,6 +389,8 @@ private class FixedSpacingSectionElement {
     }
 }
 
+
+@MainActor
 private class FixedSpacingLineElement {
     var alignment: AlignmentType = .left
     var itemSpacing: CGFloat = 0

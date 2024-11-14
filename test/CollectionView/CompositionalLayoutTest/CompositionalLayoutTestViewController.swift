@@ -16,9 +16,8 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.getLayout())
         collectionView.backgroundColor = #colorLiteral(red: 0.9355872273, green: 0.9355872273, blue: 0.9355872273, alpha: 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.scrollViewDelegate = self
         self.view.addSubview(collectionView)
-
-
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
@@ -89,6 +88,23 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         self.title = "CompositionalLayout"
         self.view.backgroundColor = .white
 
+//        for _ in 0..<10 {
+//            self.dataSource.append(.init(text: "header",
+//                                         layoutType: .horizontalList2,
+//                                         subItems: [.init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과"),
+//                                                    .init(text: "사과")]))
+//        }
+
         self.collectionView.adapterData = makeAdapterData()
         self.collectionView.reloadData()
     }
@@ -114,7 +130,9 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                         guard let self else { return }
                         guard let object = object else { return }
                         alert(vc: self, title: name, message: "\(object)")
-                        self.collectionView.scrollToItem(at: IndexPath(item: i, section: s), at: .centeredHorizontally, animated: true)
+                        self.collectionView.scrollToItem(at: IndexPath(item:i, section: s), at: .centeredHorizontally, animated: true)
+//                        self.collectionView.contentOffset = CGPoint(x: 0, y: 100)
+                        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
                     })
 
                 sectionInfo.cells.append(cellInfo)
@@ -294,6 +312,30 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
     }
 
 }
+
+extension CompositionalLayoutTestViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let collectionView = scrollView as? UICollectionView else { return }
+
+        // 가로로 스크롤될 때 첫 번째 아이템을 항상 보이게 하려면
+        let visibleCells = collectionView.indexPathsForVisibleItems
+        if let firstVisibleItem = visibleCells.first {
+            let firstItemSection = firstVisibleItem.section
+
+            let indexPath = IndexPath(item: 0, section: firstItemSection)
+
+            // 현재 세로 스크롤 위치를 저장
+            let currentOffset = collectionView.contentOffset.y
+
+            // 첫 번째 아이템으로 가로 스크롤을 이동시키되, 세로 위치는 그대로 유지
+            collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
+
+            // 세로 스크롤 위치를 다시 설정 (변경하지 않음)
+            collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: currentOffset), animated: false)
+        }
+    }
+}
+
 
 private enum layoutType {
     case grid

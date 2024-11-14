@@ -11,7 +11,7 @@ import SwiftHelper
 import CollectionViewAdapter
 import SwiftHelper
 
-class Section: Hashable {
+class Section: Hashable, @unchecked Sendable {
     let id = UUID()
     var subItems = [Item]()
 
@@ -24,7 +24,7 @@ class Section: Hashable {
     }
 }
 
-class Item: Hashable {
+class Item: Hashable, @unchecked Sendable {
     let id = UUID()
     var title: String = ""
 
@@ -318,12 +318,3 @@ extension DiffableDataSourceViewController: UICollectionViewDelegate {
 //        return 100
 //    }
 //}
-
-extension NSCollectionLayoutDimension {
-    static func fractionalWidth(forTargetSize size: CGFloat, inEnvironment environment: NSCollectionLayoutEnvironment) -> Self {
-        let containerWidth = environment.container.effectiveContentSize.width
-        let itemCount = containerWidth / size
-        let fractionWidth: CGFloat = 1 / (itemCount.rounded())
-        return Self.fractionalWidth(fractionWidth)
-    }
-}

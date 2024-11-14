@@ -4,6 +4,7 @@
 //
 import UIKit
 import ImageIO
+import SwiftHelper
 
 
 extension UIImageView {
@@ -37,12 +38,13 @@ extension UIImage {
             print("image named \"\(gifUrl)\" doesn't exist")
             return completion(nil)
         }
+        let ucsw = UncheckedSendableWrapper(completion)
         DispatchQueue.global().async {
             guard let imageData = NSData(contentsOf: bundleURL as URL) else {
                 print("image named \"\(gifUrl)\" into NSData")
-                return completion(nil)
+                return ucsw.value(nil)
             }
-            completion( gifImageWithData(data: imageData) )
+            ucsw.value( gifImageWithData(data: imageData) )
         }
     }
 

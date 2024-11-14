@@ -63,6 +63,10 @@ class MainViewwController: UITableViewController {
                         viewControllerType: CompositionalLayoutTestViewController.self
                     ),
                     TestData(
+                        titleName: "CompositionalLayout Page",
+                        viewControllerType: CompositionalLayoutPageTestViewController.self
+                    ),
+                    TestData(
                         titleName: "DiffableDataSource",
                         viewControllerType: DiffableDataSourceViewController.self
                     ),
@@ -146,23 +150,22 @@ func randomColor() -> UIColor {
     return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
 }
 
+@MainActor
 func alert(vc: UIViewController, title: String, message: String, addAction: (()->Void)? = nil) {
-    DispatchQueue.main.async {
-        func run() {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
-                addAction?()
-            })
-            vc.present(alert, animated: true, completion: nil)
-        }
-
-        if let presentedVC = vc.presentedViewController, presentedVC is UIAlertController {
-            presentedVC.dismiss(animated: true, completion: {
-                run()
-            })
-        } else {
+    func run() {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
+            addAction?()
+        })
+        vc.present(alert, animated: true, completion: nil)
+    }
+    
+    if let presentedVC = vc.presentedViewController, presentedVC is UIAlertController {
+        presentedVC.dismiss(animated: true, completion: {
             run()
-        }
+        })
+    } else {
+        run()
     }
 }
 

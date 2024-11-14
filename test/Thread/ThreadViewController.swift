@@ -11,8 +11,8 @@ import SwiftHelper
 class ThreadViewController: UIViewController, RouterProtocol {
     static var storyboardName: String = "Main"
 
-    var isTest: Bool = false
-    
+    nonisolated(unsafe) var isTest: Bool = false
+
     @IBOutlet weak var testLabel: UILabel!
     @IBOutlet weak var testLabel2: UILabel!
 
@@ -64,7 +64,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
         return "test2 end"
     }
     
-    func test3() -> String {
+    nonisolated func test3() -> String {
         print("test3 start ----------------------------------------")
         for i in 500000..<600000 {
 //            sleep(1)
@@ -78,7 +78,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
         return "test3 end"
     }
     
-    func test4() -> String {
+    nonisolated func test4() -> String {
         print("test4 start ----------------------------------------")
         for i in 800000..<900000 {
 //            print(i)
@@ -101,18 +101,14 @@ class ThreadViewController: UIViewController, RouterProtocol {
             await print("\nonAsyncAwait \(test1), \(test2)")
         }
     }
+
     @IBAction func onGlobal(_ sender: UIButton) {
         self.reset()
         print(" ---------------- onGlobal ---------------- ")
         isTest = true
 
-//        DispatchQueue.global().async {
-//            self.test3()
-//            self.test4()
-//        }
-
-        var result1 = ""
-        var result2 = ""
+        nonisolated(unsafe) var result1 = ""
+        nonisolated(unsafe) var result2 = ""
         let semapore = DispatchSemaphore(value: 0)
         DispatchQueue.global().async {
             result1 = self.test3()
@@ -139,8 +135,8 @@ class ThreadViewController: UIViewController, RouterProtocol {
         // DispatchGroup을 생성합니다.
         let group = DispatchGroup()
         let queue = DispatchQueue.global()
-        var result1 = ""
-        var result2 = ""
+        nonisolated(unsafe) var result1 = ""
+        nonisolated(unsafe) var result2 = ""
         queue.async(group: group) {
             result1 = self.test3()
         }
@@ -153,7 +149,6 @@ class ThreadViewController: UIViewController, RouterProtocol {
             print("\nDispatchQueue.global() Group \(result1), \(result2)")
         }
     }
-    
 
     @IBAction func onStop(_ sender: UIButton) {
         print(" ---------------- onStop ---------------- ")
@@ -180,5 +175,3 @@ extension String {
         }
     }
 }
-
-

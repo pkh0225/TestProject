@@ -49,6 +49,7 @@
 		20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C642C6C605D00837939 /* EasyConstraints */; };
 		20FA8C742C6C7A8C00837939 /* SwiftHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C732C6C7A8C00837939 /* SwiftHelper */; };
 		20FE360C2C6C32D90000255D /* AlignmentFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FE360B2C6C32D90000255D /* AlignmentFlowLayout.swift */; };
+		20FF8E372CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		20F77EF12CDC50C400107C75 /* TableTestCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTestCell2.swift; sourceTree = "<group>"; };
 		20F77EF22CDC50C400107C75 /* TableTestCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableTestCell2.xib; sourceTree = "<group>"; };
 		20FE360B2C6C32D90000255D /* AlignmentFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentFlowLayout.swift; sourceTree = "<group>"; };
+		20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutPageTestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				202354BE2CD4AA0B002BBBF2 /* CompositionalLayoutTestViewController.swift */,
+				20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */,
 				202354BF2CD4AA0B002BBBF2 /* CompositionalTestCell.swift */,
 				202354C62CD4AAB9002BBBF2 /* TestCollectionReusableView.swift */,
 				202354C72CD4AAB9002BBBF2 /* TestCollectionReusableView.xib */,
@@ -380,6 +383,7 @@
 				20C7AA8E2CC738A0007D01D4 /* XCRemoteSwiftPackageReference "PkhGridView" */,
 				20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */,
 				2047EE322CD8AE1300FF3003 /* XCRemoteSwiftPackageReference "TableViewAdapter" */,
+				203FAB7D2CE58E040090A59D /* XCRemoteSwiftPackageReference "PKHJsonParser" */,
 			);
 			productRefGroup = 205CAE8628AB1EDF002999A8 /* Products */;
 			projectDirPath = "";
@@ -437,6 +441,7 @@
 				2089E84329E265FC00CE6908 /* MainViewController.swift in Sources */,
 				20A33D6229D2C22F00075174 /* GifImageViewController.swift in Sources */,
 				205CE6B829E3C2670028450C /* Field​BehaviorViewController.swift in Sources */,
+				20FF8E372CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift in Sources */,
 				20F57A7D29FBAEBA00F9A7F6 /* AddViewTestViewController.swift in Sources */,
 				203AF9602A295AF50018EE87 /* WebLoadImageTestViewController.swift in Sources */,
 				205CAE8B28AB1EDF002999A8 /* SceneDelegate.swift in Sources */,
@@ -523,6 +528,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -576,6 +582,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -605,7 +612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.beta.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -635,7 +642,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.beta.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -672,12 +679,20 @@
 				minimumVersion = 0.11.0;
 			};
 		};
+		203FAB7D2CE58E040090A59D /* XCRemoteSwiftPackageReference "PKHJsonParser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkh0225/PKHJsonParser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 		2047EE322CD8AE1300FF3003 /* XCRemoteSwiftPackageReference "TableViewAdapter" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pkh0225/TableViewAdapter.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
+				minimumVersion = 1.0.5;
 			};
 		};
 		20C7AA8E2CC738A0007D01D4 /* XCRemoteSwiftPackageReference "PkhGridView" */ = {
@@ -685,7 +700,7 @@
 			repositoryURL = "https://github.com/pkh0225/PkhGridView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.2;
+				minimumVersion = 0.1.3;
 			};
 		};
 		20FA8C632C6C605D00837939 /* XCRemoteSwiftPackageReference "EasyConstraints" */ = {
@@ -693,7 +708,7 @@
 			repositoryURL = "https://github.com/pkh0225/EasyConstraints.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.8;
+				minimumVersion = 1.0.9;
 			};
 		};
 		20FA8C722C6C7A8C00837939 /* XCRemoteSwiftPackageReference "SwiftHelper" */ = {
@@ -701,7 +716,7 @@
 			repositoryURL = "https://github.com/pkh0225/SwiftHelper.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.7;
+				minimumVersion = 1.4.10;
 			};
 		};
 		20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */ = {
@@ -709,7 +724,7 @@
 			repositoryURL = "https://github.com/pkh0225/CollectionViewAdapter.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.11;
+				minimumVersion = 1.6.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

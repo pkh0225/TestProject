@@ -1,13 +1,13 @@
 {
-  "originHash" : "f040f120fdce0ee2a6008b37d6b2be5bec7cce741f7a54279a1dbe9175a189ab",
+  "originHash" : "1e3079a33d3f2664af2e7bcdd27d4ad287ddb31685ec030f179ff75324a02669",
   "pins" : [
     {
       "identity" : "collectionviewadapter",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/CollectionViewAdapter.git",
       "state" : {
-        "revision" : "4b3f52f8faaa22f1e90e1012fca2f910048fc2ad",
-        "version" : "1.5.11"
+        "revision" : "0f27266abebbec65edea1fd398d19ec0b00e26cb",
+        "version" : "1.6.1"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/EasyConstraints.git",
       "state" : {
-        "revision" : "3083a5d9101bf1e6200b800fa0790fad86cf6234",
-        "version" : "1.0.8"
+        "revision" : "624bb474171e88206737eecfceefa22fd0751b47",
+        "version" : "1.0.9"
       }
     },
     {
@@ -33,8 +33,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/PkhGridView.git",
       "state" : {
-        "revision" : "af576cdd38c70eecc9a2eb2025d69160e0131767",
-        "version" : "0.1.2"
+        "revision" : "5e4c3c2d9cc8f0ea474598f2b24492aa27613502",
+        "version" : "0.1.3"
+      }
+    },
+    {
+      "identity" : "pkhjsonparser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pkh0225/PKHJsonParser.git",
+      "state" : {
+        "revision" : "fa95ae01d9bab91c6d65da75e4468b9c9da5a557",
+        "version" : "1.3.0"
       }
     },
     {
@@ -60,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/SwiftHelper.git",
       "state" : {
-        "revision" : "571bb1f318caf68c14f8328a3deb97de6d57e05d",
-        "version" : "1.4.7"
+        "revision" : "f3fd177da8b0f7cce2b313df525b5760bead9cfb",
+        "version" : "1.4.10"
       }
     },
     {
@@ -69,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/TableViewAdapter.git",
       "state" : {
-        "revision" : "e6028d1ff2d64b66b978b109609f1d2230a22d79",
-        "version" : "1.0.3"
+        "revision" : "f3fbbab4fccefc2ec453724643fb71efdf7a4b37",
+        "version" : "1.0.5"
       }
     }
   ],

@@ -33,14 +33,14 @@ class WebLoadImageTestViewController: UIViewController, RouterProtocol {
         do {
             let url = URL(string: "https://media.tenor.com/pS1K3X8FTrYAAAAC/test.gif")!
             gifImageView.sd_setImage(with: url) { img,_,_,_ in
-                print("imageLoopCount: \(img?.sd_imageLoopCount)")
+                print("imageLoopCount: \(img?.sd_imageLoopCount ?? 0)")
             }
         }
 
         do {
             let url = URL(string: "https://mathiasbynens.be/demo/animated-webp-supported.webp")!
             webpImageView.sd_setImage(with: url) { img,_,_,_ in
-                print("imageLoopCount: \(img?.sd_imageLoopCount)")
+                print("imageLoopCount: \(img?.sd_imageLoopCount ?? 0)")
                 img?.sd_imageLoopCount = 3
                 self.webpImageView.image?.sd_imageLoopCount = 3
             }
@@ -48,7 +48,7 @@ class WebLoadImageTestViewController: UIViewController, RouterProtocol {
         do {
             let url = URL(string: "https://sui.ssgcdn.com/cmpt/banner/202304/2023040710394543500068152106_62.gif")!
             webpImageView2.sd_setImage(with: url) { img,_,_,_ in
-                print("imageLoopCount: \(img?.sd_imageLoopCount)")
+                print("imageLoopCount: \(img?.sd_imageLoopCount ?? 0)")
                 img?.sd_imageLoopCount = 3
             }
         }

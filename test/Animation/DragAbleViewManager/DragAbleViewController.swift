@@ -78,7 +78,8 @@ class DragAbleViewController: UIViewController, RouterProtocol {
     }
 }
 
-public class DragAbleViewManager {
+@MainActor
+public final class DragAbleViewManager {
     weak var containerView: UIView?
     var itemViews = [UIView: UIPanGestureRecognizer]()
     // 다이나믹스 애니메이터 인스턴스 변수 선언
