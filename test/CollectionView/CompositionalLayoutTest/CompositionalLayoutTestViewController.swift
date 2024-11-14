@@ -315,24 +315,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
 extension CompositionalLayoutTestViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let collectionView = scrollView as? UICollectionView else { return }
-
-        // 가로로 스크롤될 때 첫 번째 아이템을 항상 보이게 하려면
-        let visibleCells = collectionView.indexPathsForVisibleItems
-        if let firstVisibleItem = visibleCells.first {
-            let firstItemSection = firstVisibleItem.section
-
-            let indexPath = IndexPath(item: 0, section: firstItemSection)
-
-            // 현재 세로 스크롤 위치를 저장
-            let currentOffset = collectionView.contentOffset.y
-
-            // 첫 번째 아이템으로 가로 스크롤을 이동시키되, 세로 위치는 그대로 유지
-            collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
-
-            // 세로 스크롤 위치를 다시 설정 (변경하지 않음)
-            collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: currentOffset), animated: false)
-        }
+        print("scrollViewDidScroll : \(scrollView.contentOffset)")
     }
 }
 

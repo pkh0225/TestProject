@@ -85,6 +85,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
             self.collectionView.isPagingEnabled = self.btn.isSelected
             self.btn.isSelected.toggle()
             self.collectionView.collectionViewLayout = self.getLayout()
+            self.collectionView.contentOffset = .zero
         }
         self.view.addSubview(btn)
         return btn
@@ -304,6 +305,12 @@ extension DiffableDataSourceViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 //        guard let cell = cell as? CompositionalTestCell else { return }
 //        print("will display cell at section: \(indexPath.section), item: \(indexPath.item)")
+    }
+}
+
+extension DiffableDataSourceViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrollViewDidScroll : \(scrollView.contentOffset)")
     }
 }
 
