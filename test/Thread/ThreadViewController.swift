@@ -35,11 +35,10 @@ class ThreadViewController: UIViewController, RouterProtocol {
         print("some another code")
     }
 
-    func test1() async -> String {
+    nonisolated(unsafe) func test1() async -> String {
         print("test1 start ----------------------------------------")
         for i in 0..<100000 {
-//            sleep(1)
-//            print(i)
+//            print("test1 \(i)")
             await MainActor.run {
                 self.testLabel.text = "test1 \(i)"
             }
@@ -50,11 +49,10 @@ class ThreadViewController: UIViewController, RouterProtocol {
         return "test1 end"
     }
 
-    func test2() async -> String {
+    nonisolated(unsafe) func test2() async -> String {
         print("test2 start ----------------------------------------")
         for i in 200000..<300000 {
-//            sleep(1)
-//            print(i)
+//            print("test2 \(i)")
             await MainActor.run {
                 self.testLabel2.text = "test2 \(i)"
             }
@@ -64,11 +62,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
         return "test2 end"
     }
     
-    nonisolated func test3() -> String {
+    nonisolated(unsafe) func test3() -> String {
         print("test3 start ----------------------------------------")
         for i in 500000..<600000 {
-//            sleep(1)
-//            print(i)
             DispatchQueue.main.sync {
                 self.testLabel.text = "test3 \(i)"
             }
@@ -78,10 +74,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
         return "test3 end"
     }
     
-    nonisolated func test4() -> String {
+    nonisolated(unsafe) func test4() -> String {
         print("test4 start ----------------------------------------")
         for i in 800000..<900000 {
-//            print(i)
             DispatchQueue.main.sync {
                 self.testLabel2.text = "test4 \(i)"
             }
@@ -93,25 +88,34 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
     @IBAction func onAsyncAwait(_ sender: UIButton) {
         self.reset()
-        print(" ---------------- onAsyncAwait ---------------- ")
-        isTest = true
+        print("\n ---------------- onAsyncAwait ---------------- ")
+        let startTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
+
         Task {
+//        Task.detached {
+            self.isTest = true
+            
             async let test1 = self.test1()
             async let test2 = self.test2()
-            await print("\nonAsyncAwait \(test1), \(test2)")
+            await print("onAsyncAwait \(test1), \(test2)")
+            let timeElapsed: Double = CFAbsoluteTimeGetCurrent() - startTime
+            print("Time elapsed for Task: \(String(format: "%.10f", timeElapsed)) s.")
         }
+//        print("---------------- onAsyncAwait end ----------------")
     }
 
     @IBAction func onGlobal(_ sender: UIButton) {
         self.reset()
-        print(" ---------------- onGlobal ---------------- ")
+        print("\n ---------------- onGlobal ---------------- ")
         isTest = true
 
         nonisolated(unsafe) var result1 = ""
         nonisolated(unsafe) var result2 = ""
         let semapore = DispatchSemaphore(value: 0)
+        let startTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
         DispatchQueue.global().async {
             result1 = self.test3()
+
             semapore.signal()
         }
         DispatchQueue.global().async {
@@ -123,13 +127,15 @@ class ThreadViewController: UIViewController, RouterProtocol {
             semapore.wait()
             semapore.wait()
 
-            print("\nDispatchQueue.global() DispatchSemaphore \(result1), \(result2)")
+            print("DispatchQueue.global() DispatchSemaphore \(result1), \(result2)")
+            let timeElapsed: Double = CFAbsoluteTimeGetCurrent() - startTime
+            print("Time elapsed for Task: \(String(format: "%.10f", timeElapsed)) s.")
         }
     }
 
     @IBAction func onGlobalGroup(_ sender: Any) {
         self.reset()
-        print(" ---------------- onGlobalGroup ---------------- ")
+        print("\n ---------------- onGlobalGroup ---------------- ")
         isTest = true
 
         // DispatchGroup을 생성합니다.
@@ -137,6 +143,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
         let queue = DispatchQueue.global()
         nonisolated(unsafe) var result1 = ""
         nonisolated(unsafe) var result2 = ""
+        let startTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
         queue.async(group: group) {
             result1 = self.test3()
         }
@@ -146,7 +153,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
         // 그룹 내 모든 작업이 완료되면 실행
         group.notify(queue: DispatchQueue.main) {
-            print("\nDispatchQueue.global() Group \(result1), \(result2)")
+            print("DispatchQueue.global() Group \(result1), \(result2)")
+            let timeElapsed: Double = CFAbsoluteTimeGetCurrent() - startTime
+            print("Time elapsed for Task: \(String(format: "%.10f", timeElapsed)) s.")
         }
     }
 

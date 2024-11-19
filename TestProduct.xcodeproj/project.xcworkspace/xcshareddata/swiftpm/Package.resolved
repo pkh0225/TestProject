@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/CollectionViewAdapter.git",
       "state" : {
-        "revision" : "b9bc6ebce77b452a951f78cd7fcb75b83fc79fcc",
-        "version" : "1.6.2"
+        "revision" : "d421fbe313a61d5d303ca40b9112a9a014ff1ae0",
+        "version" : "1.6.3"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/PkhGridView.git",
       "state" : {
-        "revision" : "5e4c3c2d9cc8f0ea474598f2b24492aa27613502",
-        "version" : "0.1.3"
+        "revision" : "3a7968db78b86e9c2fa46168c23a5fa0d645b013",
+        "version" : "1.3.5"
       }
     },
     {
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/SwiftHelper.git",
       "state" : {
-        "revision" : "5ff498ebed12e044b2f99e216026feb3cb771eba",
-        "version" : "1.4.11"
+        "revision" : "ad0c058e697394f33e9b6c9b9f8537f1b1b2ee8b",
+        "version" : "1.4.12"
       }
     },
     {
@@ -78,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/TableViewAdapter.git",
       "state" : {
-        "revision" : "f3fbbab4fccefc2ec453724643fb71efdf7a4b37",
-        "version" : "1.0.5"
+        "revision" : "6d06ce66b7c40b8b1a6ab22c725c8733d25d6705",
+        "version" : "1.0.7"
       }
     }
   ],

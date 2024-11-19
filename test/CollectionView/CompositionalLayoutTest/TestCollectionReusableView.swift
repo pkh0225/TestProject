@@ -18,8 +18,12 @@ class TestCollectionReusableView: UICollectionReusableView, CVACellProtocol {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        MainActor.assertIsolated()
+        MainActor.assumeIsolated {
+            self.label.text = "setup"
+        }
     }
-    
+
     static func getSize(data: Any?, width: CGFloat, collectionView: UICollectionView, indexPath: IndexPath) -> CGSize {
         return CGSize(width: width, height: self.fromXibSize().height)
     }

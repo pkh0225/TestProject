@@ -49,10 +49,10 @@ class GridViewTestController: UIViewController, RouterProtocol {
 
         gridListData.itemList.append(gridViewData)
 
-
         self.gridView.data = gridListData
 //        self.gridView.showLineCount = 1
 //        self.gridView.allItemHeightSame = true
+//        self.gridView.isVertical = true
         self.gridView.reloadData()
     }
 

@@ -43,7 +43,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                          .init(text: "사과ㅁㄴㅇㅎ"),
                          .init(text: "사과")]),
         .init(text: "header",
-              layoutType: .grid,
+              layoutType: .gridAutoSize,
               subItems: [.init(text: "사과"),
                          .init(text: "사과"),
                          .init(text: "사과ㅁㄴㅇㅎ"),
@@ -149,62 +149,17 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
             switch self.dataSource[sectionIndex].layoutType {
             case .horizontalListAutoSize:
                 return self.getListSectionAutoSize()
-            case .grid:
+            case .gridAutoSize:
                 return self.getGridSection()
             case .horizontalList1:
-                return self.getListSection(height: 0.3)
+                return self.getListSection(height: 0.3, env: env)
             case .horizontalList2:
-                return self.getListSection(height: 0.13)
+                return self.getListSection(height: 0.13, env: env)
             }
         }
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
         layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
         return layout
-    }
-
-
-    private func getGridSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(50),
-            heightDimension: .estimated(30)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
-//        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: NSCollectionLayoutSpacing.fixed(0),
-//                                                         top: NSCollectionLayoutSpacing.fixed(0),
-//                                                         trailing: NSCollectionLayoutSpacing.fixed(8),
-//                                                         bottom: NSCollectionLayoutSpacing.fixed(0))
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(30)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitems: [item]
-        )
-        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(8)
-//        group.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
-        section.interGroupSpacing = 8
-
-        // sectionHeader 사이즈 설정
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(50))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerSize,
-            elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top
-        )
-
-        // section에 헤더 추가
-        section.boundarySupplementaryItems = [sectionHeader]
-
-        // Decoration Item 추가
-        let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
-        section.decorationItems = [decorationItem]
-        return section
     }
 
     private func getListSectionAutoSize() -> NSCollectionLayoutSection {
@@ -244,7 +199,10 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
             alignment: .top
+//            ,absoluteOffset: CGPoint(x: 0, y: -50)
         )
+//        sectionHeader.pinToVisibleBounds = true
+//        sectionHeader.extendsBoundary = true
 
         // section에 헤더 추가
         section.boundarySupplementaryItems = [sectionHeader]
@@ -256,7 +214,52 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         return section
     }
 
-    private func getListSection(height: CGFloat) -> NSCollectionLayoutSection {
+    private func getGridSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .estimated(50),
+            heightDimension: .estimated(30)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+//        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: NSCollectionLayoutSpacing.fixed(0),
+//                                                         top: NSCollectionLayoutSpacing.fixed(0),
+//                                                         trailing: NSCollectionLayoutSpacing.fixed(8),
+//                                                         bottom: NSCollectionLayoutSpacing.fixed(0))
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(30)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(8)
+//        group.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
+        section.interGroupSpacing = 8
+
+        // sectionHeader 사이즈 설정
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(50))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        
+
+        // section에 헤더 추가
+        section.boundarySupplementaryItems = [sectionHeader]
+
+        // Decoration Item 추가
+        let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
+        section.decorationItems = [decorationItem]
+        return section
+    }
+
+    private func getListSection(height: CGFloat, env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
@@ -277,7 +280,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
+//        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
         section.interGroupSpacing = 8
         //        section.visibleItemsInvalidationHandler = { [weak self] (visibleItems, offset, env) in
         //            //            print("sub scrollView \(offset)")
@@ -293,7 +296,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         //        }
 
         // sectionHeader 사이즈 설정
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+        let headerSize = NSCollectionLayoutSize(widthDimension: .absolute(env.container.effectiveContentSize.width - 30),
                                                 heightDimension: .absolute(50))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
@@ -315,13 +318,13 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
 extension CompositionalLayoutTestViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrollViewDidScroll : \(scrollView.contentOffset)")
+//        print("scrollViewDidScroll : \(scrollView.contentOffset)")
     }
 }
 
 
 private enum layoutType {
-    case grid
+    case gridAutoSize
     case horizontalList1
     case horizontalList2
     case horizontalListAutoSize
