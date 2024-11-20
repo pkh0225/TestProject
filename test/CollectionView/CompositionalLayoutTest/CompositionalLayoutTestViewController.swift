@@ -116,11 +116,10 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
             testData.sectionList.append(sectionInfo)
             sectionInfo.header = CVACellInfo(cellType: TestCollectionReusableView.self)
                 .setContentObj("\(sectionItem.text) \(s)")
-                .setActionClosure({ [weak self] (name, object) in
-                    guard let self else { return }
+                .setActionClosure({ (name, object) in
                     guard let object = object else { return }
 
-                    alert(vc: self, title: "", message: "\(object) : \(name)")
+                    alert(title: name, message: "\(object)")
                 })
 
             for (i, subItem) in sectionItem.subItems.enumerated() {
@@ -129,7 +128,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                     .setActionClosure({ [weak self] (name, object) in
                         guard let self else { return }
                         guard let object = object else { return }
-                        alert(vc: self, title: name, message: "\(object)")
+                        alert(title: name, message: "\(object)")
                         self.collectionView.scrollToItem(at: IndexPath(item:i, section: s), at: .centeredHorizontally, animated: true)
 //                        self.collectionView.contentOffset = CGPoint(x: 0, y: 100)
                         self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)

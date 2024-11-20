@@ -18,23 +18,23 @@ class MainViewwController: UITableViewController {
             TestGroupData(
                 title: "View",
                 testDatas: [
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "Gif",
                         viewControllerType: GifImageViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "Gradient",
                         viewControllerType: CAGradientLayerTestViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "AddViewTest",
                         viewControllerType: AddViewTestViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "WebLoadTest",
                         viewControllerType: WebLoadImageTestViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "GridViewTest",
                         viewControllerType: GridViewTestController.self
                     )
@@ -44,7 +44,7 @@ class MainViewwController: UITableViewController {
             TestGroupData(
                 title: "TableView",
                 testDatas: [
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "TableViewTest",
                         viewControllerType: TableViewTestViewController.self
                     ),
@@ -54,19 +54,19 @@ class MainViewwController: UITableViewController {
             TestGroupData(
                 title: "CollectionView",
                 testDatas: [
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "CollectionViewTest",
                         viewControllerType: CollectionViewTestViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "CompositionalLayout",
                         viewControllerType: CompositionalLayoutTestViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "CompositionalLayout Page",
                         viewControllerType: CompositionalLayoutPageTestViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "DiffableDataSource",
                         viewControllerType: DiffableDataSourceViewController.self
                     ),
@@ -76,19 +76,19 @@ class MainViewwController: UITableViewController {
             TestGroupData(
                 title: "Animation",
                 testDatas: [
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "DynamicAnimator Sample",
                         viewControllerType: DynamicAnimatorViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "DragAbleView",
                         viewControllerType: DragAbleViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "Dynamic Effects Test",
                         viewControllerType: DynamicffectsTabViewController.self
                     ),
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "UIFieldBehavior",
                         viewControllerType: Field​BehaviorViewController.self
                     )
@@ -98,7 +98,7 @@ class MainViewwController: UITableViewController {
             TestGroupData(
                 title: "Thread",
                 testDatas: [
-                    TestData(
+                    TestGroupData.TestData(
                         titleName: "Thread",
                         viewControllerType: ThreadViewController.self
                     )
@@ -128,45 +128,20 @@ class MainViewwController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        testGroupDatas[indexPath.section].testDatas[indexPath.row].viewControllerType.pushViewController()
+        testGroupDatas[indexPath.section]
+            .testDatas[indexPath.row]
+            .viewControllerType.pushViewController()
     }
 }
 
 struct TestGroupData {
+    struct TestData {
+        var titleName: String
+        var viewControllerType: RouterProtocol.Type
+    }
+
     var title: String
     var testDatas: [TestData]
-}
-
-struct TestData {
-    var titleName: String
-    var viewControllerType: RouterProtocol.Type
-}
-
-func randomColor() -> UIColor {
-    let red = CGFloat.random(in: 0...1)
-    let green = CGFloat.random(in: 0...1)
-    let blue = CGFloat.random(in: 0...1)
-
-    return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-}
-
-@MainActor
-func alert(vc: UIViewController, title: String, message: String, addAction: (()->Void)? = nil) {
-    func run() {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
-            addAction?()
-        })
-        vc.present(alert, animated: true, completion: nil)
-    }
-    
-    if let presentedVC = vc.presentedViewController, presentedVC is UIAlertController {
-        presentedVC.dismiss(animated: true, completion: {
-            run()
-        })
-    } else {
-        run()
-    }
 }
 
 

@@ -11,6 +11,7 @@ import SwiftHelper
 class ThreadViewController: UIViewController, RouterProtocol {
     static var storyboardName: String = "Main"
 
+    var asyncIsTest: Bool = false
     nonisolated(unsafe) var isTest: Bool = false
 
     @IBOutlet weak var testLabel: UILabel!
@@ -20,19 +21,19 @@ class ThreadViewController: UIViewController, RouterProtocol {
         super.viewDidLoad()
         self.title = "Thread"
 
-        print(Date())
-        
-        let srtDate = "2022-10-01 00:00:01"
-        print(srtDate.dateWithFormat())
-
-        print("will enter task block")
-        Task {
-            print("did enter task block")
-            try? await Task.sleep(nanoseconds: 10000)
-//            sleep(for: .seconds(10)) // await를 만남 -> 다음 라인의 코드 실행시키지 않고 대기
-            print("will out task block")
-        }
-        print("some another code")
+//        print(Date())
+//        
+//        let srtDate = "2022-10-01 00:00:01"
+//        print(srtDate.dateWithFormat())
+//
+//        print("will enter task block")
+//        Task {
+//            print("did enter task block")
+//            try? await Task.sleep(nanoseconds: 10000)
+////            sleep(for: .seconds(10)) // await를 만남 -> 다음 라인의 코드 실행시키지 않고 대기
+//            print("will out task block")
+//        }
+//        print("some another code")
     }
 
     nonisolated(unsafe) func test1() async -> String {
@@ -43,7 +44,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
                 self.testLabel.text = "test1 \(i)"
             }
 
-            guard isTest else { break }
+            guard await asyncIsTest else { break }
         }
         print(" ---------------- test1 end ---------------- ")
         return "test1 end"
@@ -56,7 +57,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
             await MainActor.run {
                 self.testLabel2.text = "test2 \(i)"
             }
-            guard isTest else { break }
+            guard await asyncIsTest else { break }
         }
         print(" ---------------- test2 end ---------------- ")
         return "test2 end"
@@ -93,8 +94,8 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
         Task {
 //        Task.detached {
-            self.isTest = true
-            
+            self.asyncIsTest = true
+
             async let test1 = self.test1()
             async let test2 = self.test2()
             await print("onAsyncAwait \(test1), \(test2)")
@@ -162,6 +163,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
     @IBAction func onStop(_ sender: UIButton) {
         print(" ---------------- onStop ---------------- ")
         isTest = false
+        asyncIsTest = false
     }
 
     func reset() {

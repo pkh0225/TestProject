@@ -694,7 +694,7 @@
 			repositoryURL = "https://github.com/pkh0225/TableViewAdapter.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.7;
+				minimumVersion = 1.0.8;
 			};
 		};
 		20C7AA8E2CC738A0007D01D4 /* XCRemoteSwiftPackageReference "PkhGridView" */ = {
@@ -702,7 +702,7 @@
 			repositoryURL = "https://github.com/pkh0225/PkhGridView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.5;
+				minimumVersion = 1.3.8;
 			};
 		};
 		20FA8C632C6C605D00837939 /* XCRemoteSwiftPackageReference "EasyConstraints" */ = {
@@ -718,7 +718,7 @@
 			repositoryURL = "https://github.com/pkh0225/SwiftHelper.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.12;
+				minimumVersion = 1.4.13;
 			};
 		};
 		20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */ = {
@@ -726,7 +726,7 @@
 			repositoryURL = "https://github.com/pkh0225/CollectionViewAdapter.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.6.3;
+				minimumVersion = 1.6.5;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

@@ -56,7 +56,7 @@ class DragAbleViewController: UIViewController, RouterProtocol {
         let top = window.safeAreaInsets.top
         let bottom = window.safeAreaInsets.bottom
         let v = TestView(frame: CGRect(x: 100, y: top + 100, width: 100, height: 100))
-        v.backgroundColor = randomColor()
+        v.backgroundColor = UIColor.random
 //        window.addSubview(v)
         self.view.addSubview(v)
 

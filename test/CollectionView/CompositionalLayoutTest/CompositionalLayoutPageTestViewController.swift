@@ -64,7 +64,7 @@ class CompositionalLayoutPageTestViewController: UIViewController, RouterProtoco
                         .setActionClosure({ [weak self] (name, object) in
                             guard let self else { return }
                             guard let object = object else { return }
-                            alert(vc: self, title: name, message: "\(object)")
+                            alert(title: name, message: "\(object)")
                             self.collectionView.scrollToItem(at: IndexPath(item: i, section: s), at: .centeredHorizontally, animated: true)
                         })
 
@@ -76,7 +76,7 @@ class CompositionalLayoutPageTestViewController: UIViewController, RouterProtoco
                         .setActionClosure({ [weak self] (name, object) in
                             guard let self else { return }
                             guard let object = object else { return }
-                            alert(vc: self, title: name, message: "\(object)")
+                            alert(title: name, message: "\(object)")
                             self.collectionView.scrollToItem(at: IndexPath(item: i, section: s), at: .centeredHorizontally, animated: true)
                         })
 
@@ -159,7 +159,7 @@ class PageTestCell: UICollectionViewCell, CVACellProtocol {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.backgroundColor = randomColor()
+        self.contentView.backgroundColor = UIColor.random
     }
     
     required init?(coder: NSCoder) {

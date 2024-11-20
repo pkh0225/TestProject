@@ -30,9 +30,8 @@ class GridViewTestController: UIViewController, RouterProtocol {
             let gridViewData = GridViewData()
                 .setContentObj(item)
                 .setSubData(nil)
-                .setActionClosure( { [weak self] (name, object) in
-                    guard let self else { return }
-                    alert(vc: self, title: "\(name)", message: String(describing: object))
+                .setActionClosure( { (name, object) in
+                    alert(title: "\(name)", message: String(describing: object))
                 })
             gridListData.itemList.append(gridViewData)
         }
@@ -42,9 +41,8 @@ class GridViewTestController: UIViewController, RouterProtocol {
             .setContentObj("CustomView")
             .setSubData(nil)
             .setCellType(TestCellCollectionViewCell2.self)
-            .setActionClosure( { [weak self] (name, object) in
-                guard let self else { return }
-                alert(vc: self, title: "\(name)", message: String(describing: object))
+            .setActionClosure( { (name, object) in
+                alert(title: "\(name)", message: String(describing: object))
             })
 
         gridListData.itemList.append(gridViewData)

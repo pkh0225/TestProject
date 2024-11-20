@@ -20,7 +20,7 @@ class TestCollectionReusableView: UICollectionReusableView, CVACellProtocol {
         super.awakeFromNib()
         MainActor.assertIsolated()
         MainActor.assumeIsolated {
-            self.label.text = "setup"
+            self.label.text = "awakeFromNib"
         }
     }
 
@@ -34,7 +34,7 @@ class TestCollectionReusableView: UICollectionReusableView, CVACellProtocol {
     }
 
     @IBAction func onButton(_ sender: UIButton) {
-        self.actionClosure?("Footer Button", self.label.text)
+        self.actionClosure?("ReusableView Button", self.label.text)
     }
     // UICollectionViewAdapterCellProtocol Function
     func willDisplay(collectionView: UICollectionView, indexPath: IndexPath) {
