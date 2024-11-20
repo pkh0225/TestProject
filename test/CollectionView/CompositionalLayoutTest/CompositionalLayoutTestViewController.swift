@@ -322,19 +322,19 @@ extension CompositionalLayoutTestViewController: UIScrollViewDelegate {
 }
 
 
-private enum layoutType {
-    case gridAutoSize
-    case horizontalList1
-    case horizontalList2
-    case horizontalListAutoSize
-}
 private struct SectionItem {
+    enum layoutType {
+        case gridAutoSize
+        case horizontalList1
+        case horizontalList2
+        case horizontalListAutoSize
+    }
+
+    struct SubItem {
+        let text: String
+    }
+
     let text: String
     let layoutType: layoutType
     let subItems: [SubItem]
 }
-
-private struct SubItem {
-    let text: String
-}
-

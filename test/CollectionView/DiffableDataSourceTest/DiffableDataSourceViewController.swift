@@ -9,7 +9,6 @@
 import UIKit
 import SwiftHelper
 import CollectionViewAdapter
-import SwiftHelper
 
 class Section: Hashable, @unchecked Sendable {
     let id = UUID()
@@ -194,22 +193,23 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         configuration.interSectionSpacing = 10
         let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(0.5),
+                widthDimension: .fractionalWidth(0.8),
                 heightDimension: .absolute(50)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(50)
+                widthDimension: .fractionalWidth(0.5),
+                heightDimension: .absolute(170)
             )
-            let group = NSCollectionLayoutGroup.horizontal(
+            let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: groupSize,
                 subitems: [item]
             )
             group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
 
             let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
             section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
             section.interGroupSpacing = 8
 
@@ -287,7 +287,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
 
     private func makeAdapterData() -> [Section] {
         var testData = [Section]()
-        for i in 0...3 {
+        for i in 0...5 {
             let section = Section()
             for j in 0...30 {
                 let item = Item(title: "cell (\(i) : \(j))")
@@ -310,7 +310,7 @@ extension DiffableDataSourceViewController: UICollectionViewDelegate {
 
 extension DiffableDataSourceViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrollViewDidScroll : \(scrollView.contentOffset)")
+//        print("scrollViewDidScroll : \(scrollView.contentOffset)")
     }
 }
 
