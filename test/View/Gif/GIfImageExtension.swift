@@ -4,12 +4,12 @@
 //
 import UIKit
 import ImageIO
-import SwiftHelper
 
 
 extension UIImageView {
-    public func gifImageWithURL(gifUrl:String, completion: ((UIImage?) -> Void)? = nil) {
-        UIImage.gifImageWithURL(gifUrl: gifUrl) { image in
+    public func gifImageWithURL(gifUrl:String, completion: (@Sendable (UIImage?) -> Void)? = nil) {
+        UIImage.gifImageWithURL(gifUrl: gifUrl) { [weak self] image in
+            guard let self else { return }
             DispatchQueue.main.sync {
                 self.image = image
                 completion?(image)
@@ -32,19 +32,18 @@ extension UIImage {
         return UIImage.animatedImageWithSource(source: source)
     }
 
-    public class func gifImageWithURL(gifUrl:String, completion: @escaping (UIImage?) -> Void) {
+    public class func gifImageWithURL(gifUrl:String, completion: @escaping @Sendable (UIImage?) -> Void) {
         guard let bundleURL = NSURL(string: gifUrl)
         else {
             print("image named \"\(gifUrl)\" doesn't exist")
             return completion(nil)
         }
-        let ucsw = UncheckedSendableWrapper(completion)
         DispatchQueue.global().async {
             guard let imageData = NSData(contentsOf: bundleURL as URL) else {
                 print("image named \"\(gifUrl)\" into NSData")
-                return ucsw.value(nil)
+                return completion(nil)
             }
-            ucsw.value( gifImageWithData(data: imageData) )
+            completion( gifImageWithData(data: imageData) )
         }
     }
 

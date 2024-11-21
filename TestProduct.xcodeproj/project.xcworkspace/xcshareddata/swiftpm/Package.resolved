@@ -1,5 +1,5 @@
 {
-  "originHash" : "1e3079a33d3f2664af2e7bcdd27d4ad287ddb31685ec030f179ff75324a02669",
+  "originHash" : "36562bacbd053cc7f853858697cdbb25ffe0d97254e946a4bc271946c3c4662e",
   "pins" : [
     {
       "identity" : "collectionviewadapter",
@@ -47,6 +47,15 @@
       }
     },
     {
+      "identity" : "pushanimation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pkh0225/PushAnimation.git",
+      "state" : {
+        "revision" : "cacfc7a9f321b6ec3a907cd211fa036c176832de",
+        "version" : "1.0.1"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
@@ -69,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/SwiftHelper.git",
       "state" : {
-        "revision" : "f5d335c46f6ff49e59e8d9fe94f3386434b15881",
-        "version" : "1.4.13"
+        "revision" : "9ed34742b644d8590132bb5256ebc43a0fb6f7bc",
+        "version" : "1.4.14"
       }
     },
     {

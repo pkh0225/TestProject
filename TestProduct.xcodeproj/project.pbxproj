@@ -384,6 +384,7 @@
 				20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */,
 				2047EE322CD8AE1300FF3003 /* XCRemoteSwiftPackageReference "TableViewAdapter" */,
 				203FAB7D2CE58E040090A59D /* XCRemoteSwiftPackageReference "PKHJsonParser" */,
+				20E3492C2CEEBDF3001FD516 /* XCRemoteSwiftPackageReference "PushAnimation" */,
 			);
 			productRefGroup = 205CAE8628AB1EDF002999A8 /* Products */;
 			projectDirPath = "";
@@ -529,6 +530,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				_EXPERIMENTAL_SWIFT_EXPLICIT_MODULES = YES;
 			};
 			name = Debug;
 		};
@@ -584,6 +586,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
+				_EXPERIMENTAL_SWIFT_EXPLICIT_MODULES = YES;
 			};
 			name = Release;
 		};
@@ -705,6 +708,14 @@
 				minimumVersion = 1.3.8;
 			};
 		};
+		20E3492C2CEEBDF3001FD516 /* XCRemoteSwiftPackageReference "PushAnimation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkh0225/PushAnimation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 		20FA8C632C6C605D00837939 /* XCRemoteSwiftPackageReference "EasyConstraints" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pkh0225/EasyConstraints.git";
@@ -718,7 +729,7 @@
 			repositoryURL = "https://github.com/pkh0225/SwiftHelper.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.13;
+				minimumVersion = 1.4.14;
 			};
 		};
 		20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */ = {
