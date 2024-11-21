@@ -33,8 +33,7 @@ extension UIImage {
     }
 
     public class func gifImageWithURL(gifUrl:String, completion: @escaping @Sendable (UIImage?) -> Void) {
-        guard let bundleURL = NSURL(string: gifUrl)
-        else {
+        guard let bundleURL = NSURL(string: gifUrl) else {
             print("image named \"\(gifUrl)\" doesn't exist")
             return completion(nil)
         }
@@ -48,8 +47,7 @@ extension UIImage {
     }
 
     public class func gifImageWithName(name: String) -> UIImage? {
-        guard let bundleURL = Bundle.main
-            .url(forResource: name, withExtension: "gif") else {
+        guard let bundleURL = Bundle.main.url(forResource: name, withExtension: "gif") else {
             print("SwiftGif: This image named \"\(name)\" does not exist")
             return nil
         }

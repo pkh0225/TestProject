@@ -104,18 +104,18 @@ class TestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
             let sectionData = adapterData.sectionList[self.indexPath.section]
             let cellData = CVACellInfo(cellType: TestCell.self)
 
-            UIView.animate(withDuration: 0.1) {
-                sectionData.cells.insert(cellData, at: self.indexPath.row + 1)
-                self.parentCollectionView?.insertItems(at: [ IndexPath(row: self.indexPath.row + 1, section: self.indexPath.section) ])
-            } completion: { _ in
-                self.parentCollectionView?.reloadData()
-            }
-//            parentCollectionView?.performBatchUpdates({
+//            UIView.animate(withDuration: 0.1) {
 //                sectionData.cells.insert(cellData, at: self.indexPath.row + 1)
 //                self.parentCollectionView?.insertItems(at: [ IndexPath(row: self.indexPath.row + 1, section: self.indexPath.section) ])
-//            }, completion: { _ in
+//            } completion: { _ in
 //                self.parentCollectionView?.reloadData()
-//            })
+//            }
+            parentCollectionView?.performBatchUpdates({
+                sectionData.cells.insert(cellData, at: self.indexPath.row + 1)
+                self.parentCollectionView?.insertItems(at: [ IndexPath(row: self.indexPath.row + 1, section: self.indexPath.section) ])
+            }, completion: { _ in
+                self.parentCollectionView?.reloadData()
+            })
         }
     }
 
@@ -209,9 +209,7 @@ class TestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
                                 adapterData.sectionList.insert(sectionList2, at: sectionIndex + 2)
                                 self.parentCollectionView?.insertSections(IndexSet(integer: sectionIndex + 2))
                             }
-
                         }
-
                     }
                     else {
                         adapterData.sectionList.remove(at: self.indexPath.section)
@@ -230,9 +228,6 @@ class TestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
                         }
                     }
 
-
-
-
                 }, completion: { _ in
                     self.parentCollectionView?.reloadData()
                 })
@@ -249,7 +244,7 @@ class TestCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
 
         self.testLabel.text = "\(indexPath.section) / \(indexPath.row)"
         self.testLabel.sizeToFit()
-        self.testLabel.center = CGPoint(x: self.contentView.frame.size.width / 2.0, y: self.contentView.frame.size.height / 2.0)
+        self.testLabel.centerInSuperView()
 
         self.reloadButton.tag = indexPath.section
         self.addButton.tag_value = data

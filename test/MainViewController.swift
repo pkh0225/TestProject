@@ -33,11 +33,17 @@ class MainViewwController: UITableViewController {
                     TestGroupData.TestData(
                         titleName: "WebLoadTest",
                         viewControllerType: WebLoadImageTestViewController.self
-                    ),
+                    )
+                ]
+            ),
+
+            TestGroupData(
+                title: "GridView",
+                testDatas: [
                     TestGroupData.TestData(
                         titleName: "GridViewTest",
                         viewControllerType: GridViewTestController.self
-                    )
+                    ),
                 ]
             ),
 

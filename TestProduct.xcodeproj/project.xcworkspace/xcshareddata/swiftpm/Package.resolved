@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/PKHJsonParser.git",
       "state" : {
-        "revision" : "c57b4307d3ac3d3d02492e87be28ea84929e5706",
-        "version" : "1.3.1"
+        "revision" : "100592c5531f790d9f0e05f643fd8e90395d8b0e",
+        "version" : "1.3.2"
       }
     },
     {
