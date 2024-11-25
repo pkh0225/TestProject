@@ -11,8 +11,15 @@ import SwiftHelper
 class MainViewwController: UITableViewController {
     var testGroupDatas: [TestGroupData]!
 
+    var a = 1
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        gcd_main_safe11 {
+            print("viewDidLoad")
+            self.a = 2
+        }
 
         testGroupDatas = [
             TestGroupData(
@@ -152,3 +159,14 @@ struct TestGroupData {
 
 
 
+public func gcd_main_safe11(_ work: @escaping () -> Void) {
+    let ucsw = UncheckedSendableWrapper(work)
+    if Thread.isMainThread {
+        ucsw.value()
+    }
+    else {
+        DispatchQueue.main.async {
+            ucsw.value()
+        }
+    }
+}

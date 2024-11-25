@@ -192,8 +192,10 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         //        }
 
         // sectionHeader 사이즈 설정
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(50))
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(50)
+        )
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
@@ -240,15 +242,15 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         section.interGroupSpacing = 8
 
         // sectionHeader 사이즈 설정
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(50))
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(50)
+        )
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
             alignment: .top
         )
-        
-
         // section에 헤더 추가
         section.boundarySupplementaryItems = [sectionHeader]
 
@@ -279,7 +281,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-//        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
         section.interGroupSpacing = 8
         //        section.visibleItemsInvalidationHandler = { [weak self] (visibleItems, offset, env) in
         //            //            print("sub scrollView \(offset)")
@@ -295,8 +297,10 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         //        }
 
         // sectionHeader 사이즈 설정
-        let headerSize = NSCollectionLayoutSize(widthDimension: .absolute(env.container.effectiveContentSize.width - 30),
-                                                heightDimension: .absolute(50))
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(env.container.effectiveContentSize.width - 30),
+            heightDimension: .absolute(50)
+        )
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,

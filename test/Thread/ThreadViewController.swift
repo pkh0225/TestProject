@@ -21,19 +21,20 @@ class ThreadViewController: UIViewController, RouterProtocol {
         super.viewDidLoad()
         self.title = "Thread"
 
-//        print(Date())
-//        
-//        let srtDate = "2022-10-01 00:00:01"
-//        print(srtDate.dateWithFormat())
-//
 //        print("will enter task block")
 //        Task {
 //            print("did enter task block")
-//            try? await Task.sleep(nanoseconds: 10000)
-////            sleep(for: .seconds(10)) // await를 만남 -> 다음 라인의 코드 실행시키지 않고 대기
+//            let startTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
+//            try? await Task.sleep(nanoseconds: 1_000_000_000)
+//            print("Time elapsed for Task: \(String(format: "%.10f", CFAbsoluteTimeGetCurrent() - startTime)) s.")
 //            print("will out task block")
 //        }
 //        print("some another code")
+    }
+
+    func reset() {
+        self.testLabel.text = "0"
+        self.testLabel2.text = "0"
     }
 
     nonisolated(unsafe) func test1() async -> String {
@@ -164,25 +165,89 @@ class ThreadViewController: UIViewController, RouterProtocol {
         print(" ---------------- onStop ---------------- ")
         isTest = false
         asyncIsTest = false
+
+        processData()
     }
 
-    func reset() {
-        self.testLabel.text = "0"
-        self.testLabel2.text = "0"
+    @IBAction func onTaskTest(_ sender: UIButton) {
+        print("\n ---------------- onTaskTest ---------------- ")
+        processData()
+    }
+
+    @IBAction func onTaskMainActorTest(_ sender: UIButton) {
+        print("\n ---------------- onTaskMainActorTest ---------------- ")
+        Task { @MainActor in
+            for i in 0..<99999 {
+                print("label 1 = \(i)")
+                await MainActor.run {
+                    self.testLabel.text = "\(i)"
+                }
+
+            }
+        }
+        Task { @MainActor in
+            for i in 0..<99999 {
+                print("label 2 = \(i)")
+                await MainActor.run {
+                    self.testLabel2.text = "\(i)"
+                }
+            }
+        }
+    }
+
+    func processData() {
+        self.testLabel.text = "No data"
+        Task { @DatabaseActor in
+            self.actorTest = "No data" // @DatabaseActor 변수 이기에 @DatabaseActor in 채택해줘야 함
+            await saveDataToDatabase("Sample Data")
+
+            let data = actorTest
+            Task { @MainActor in
+                updateUI(data)
+            }
+        }
+    }
+
+    @DatabaseActor var actorTest = "No data"
+
+    @DatabaseActor func saveDataToDatabase(_ data: String) async {
+        print("Saving data 5초 대기")
+        for i in stride(from:5, through: 0, by: -1) {
+            print("대기 ... \(i)")
+            await MainActor.run {
+                self.testLabel2.text = "대기 ... \(i)"
+            }
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+        }
+        print("Saving data: \(data)")
+        self.actorTest = data
+    }
+
+    func updateUI(_ data: String) {
+        MainActor.assertIsolated() // MainActor 검사
+//        MainActor.assumeIsolated { // MainActor 무시하고 실행 개발자가 직접 검증
+            print("Updating UI = \(data)")
+        self.testLabel.text = data
+//        }
     }
 }
 
-extension String {
-    public func dateWithFormat() -> Date {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+@globalActor
+actor DatabaseActor {
+    static let shared = DatabaseActor()
+}
 
-        if let dateString = formatter.date(from: self) {
-            return dateString
-        }
-        else {
-            return Date()
+extension Task where Failure == Error {
+    @discardableResult
+    static public func delayed(
+        byTimeInterval delayInterval: TimeInterval,
+        priority: TaskPriority? = nil,
+        @_implicitSelfCapture operation: @escaping @Sendable () async throws -> Success
+    ) -> Task {
+        Task(priority: priority) {
+            let delay = UInt64(delayInterval * 1_000_000_000)
+            try await Task<Never, Never>.sleep(nanoseconds: delay)
+            return try await operation()
         }
     }
 }
