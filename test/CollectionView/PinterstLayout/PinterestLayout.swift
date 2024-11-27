@@ -2,7 +2,7 @@
 //  PinterestLayout.swift
 //  TestProduct
 //
-//  Created by 박길호(파트너) - 서비스개발담당App개발팀 on 11/27/24.
+//  김재형님 블로그 내용 인용 (https://velog.io/@little_tail/PinterestLayout2%ED%83%84-Compositional)
 //
 
 import UIKit

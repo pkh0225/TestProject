@@ -45,7 +45,7 @@ class PCLViewController: UIViewController, RouterProtocol {
         for item in datas {
             let cellInfo = CVACellInfo(cellType: PCLTestCell.self)
                 .setContentObj(item)
-                .setActionClosure({ [weak self] (name, object) in
+                .setActionClosure({ (name, object) in
                     guard let object = object else { return }
                     alert(title: name, message: "\(object)")
                 })
@@ -104,6 +104,14 @@ class PCLTestCell: UICollectionViewCell, CVACellProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.backgroundColor = UIColor.random
+
+        let btn = UIButton().apply { btn in
+            btn.addAction(for: .touchUpInside) { [weak self] btn in
+                self?.actionClosure?("", self?.label.text)
+            }
+        }
+
+        self.contentView.addSubViewAutoLayout(btn)
     }
 
     required init?(coder: NSCoder) {
