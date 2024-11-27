@@ -62,6 +62,7 @@ class PCLViewController: UIViewController, RouterProtocol {
         let layout = PinterestCompostionalLayout.makeLayoutSection(
             config: .init(numberOfColumns: 2, // 몇줄?
                           interItemSpacing: 8, // 간격은?
+                          contentInsets: .init(top: 10, leading: 10, bottom: 10, trailing: 10),
                           contentInsetsReference: UIContentInsetsReference.automatic, // 알아서
                           itemHeightProvider: { index, _ in
                               return models[index].height

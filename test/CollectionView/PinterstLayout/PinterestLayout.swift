@@ -12,18 +12,21 @@ final class PinterestCompostionalLayout {
     struct Configuration {
         let numberOfColumns: Int // 열 갯수
         let interItemSpacing: CGFloat // 열과 행 간격 -> 아이템 간격
+        let contentInsets: NSDirectionalEdgeInsets
         let contentInsetsReference: UIContentInsetsReference // 섹션 ( 컨텐츠 ) 인셋
         let itemHeightProvider: (_ index: Int,_ itemWidth: CGFloat) -> CGFloat // 특정 인뎃스 아이템 높이 클로저
         let itemCountProfider: () -> Int // 섹션의 항목(아이템)수 제공하는 클로저
 
         init( numberOfColumns: Int = 2, // 상동
               interItemSpacing: CGFloat = 8, // 상동
+              contentInsets: NSDirectionalEdgeInsets = .zero,
               contentInsetsReference: UIContentInsetsReference = .automatic, // 상동
               itemHeightProvider: @escaping (_: Int, _: CGFloat) -> CGFloat, // 상동 -> 개발자 깃허브 조사해보니 사이즈를 미리 알아야 하니 클로저로 해결한 케이스
               itemCountProfider: @escaping () -> Int // 상동
         ) {
             self.numberOfColumns = numberOfColumns
             self.interItemSpacing = interItemSpacing
+            self.contentInsets = contentInsets
             self.contentInsetsReference = contentInsetsReference
             self.itemHeightProvider = itemHeightProvider
             self.itemCountProfider = itemCountProfider
@@ -34,6 +37,7 @@ final class PinterestCompostionalLayout {
         private var columnHeights: [CGFloat] // 열 높이들을 저장하죠
         private let numberOfColumns: CGFloat // 열 갯수
         private let interItemSpacing: CGFloat // 열과 행 (아이템) 간격
+        private let contentInsets: NSDirectionalEdgeInsets
         private let itemHeightProvider: (_ index: Int,_ itemWidth: CGFloat) -> CGFloat // 특정 아이템 높이 계산하는 클로저
         private let collectionWidth: CGFloat // 컬렉션뷰 넓이
 
@@ -42,6 +46,7 @@ final class PinterestCompostionalLayout {
             // 모든 열의 초기 높이를 0으로 설정해요
             columnHeights = [CGFloat](repeating: 0, count: configuration.numberOfColumns)
             numberOfColumns = CGFloat(configuration.numberOfColumns)
+            contentInsets = configuration.contentInsets
             itemHeightProvider = configuration.itemHeightProvider
             interItemSpacing = configuration.interItemSpacing
             self.collectionWidth = collectionWidth
@@ -52,7 +57,7 @@ final class PinterestCompostionalLayout {
             // 행 갯수 - 1 (총 인덱스) * 아이템 간격
             let spacing = (numberOfColumns - 1) * interItemSpacing
             // 전체 컬렉션뷰 넓이에서 간격을 제거 -> 행 갯수를 나눔 -> 하나의 행 넓이
-            return (collectionWidth - spacing) / numberOfColumns
+            return (collectionWidth - contentInsets.leading - contentInsets.trailing - spacing) / numberOfColumns
         }
 
         /// 특정 아이템의 프레임을 계산하는 메서드에요
@@ -133,6 +138,7 @@ final class PinterestCompostionalLayout {
             }
 
         let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = config.contentInsets
 
         section.contentInsetsReference = config.contentInsetsReference // 색션 여백 설정
         return section
