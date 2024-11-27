@@ -86,7 +86,31 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                          .init(text: "사과"),
                          .init(text: "사과"),
                          .init(text: "사과"),
-                         .init(text: "사과")])
+                         .init(text: "사과")]),
+        .init(text: "header",
+              layoutType: .groups,
+              subItems: [.init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과"),
+                         .init(text: "사과")]),
+
     ]
 
     override func viewDidLoad() {
@@ -160,6 +184,8 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                 return self.getListSection(height: 0.3, env: env)
             case .horizontalList2:
                 return self.getListSection(height: 0.13, env: env)
+            case .groups:
+                return self.getGroupsSection()
             }
         }
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
@@ -323,6 +349,59 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         return section
     }
 
+    func getGroupsSection() -> NSCollectionLayoutSection {
+        let leadingItemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let leadingItem = NSCollectionLayoutItem(layoutSize: leadingItemSize)
+        leadingItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        let leadingGroupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.7),
+            heightDimension: .fractionalHeight(1)
+        )
+        let leadingGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: leadingGroupSize,
+            subitem: leadingItem,
+            count: 1
+        )
+
+        let trailingItemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let trailingItem = NSCollectionLayoutItem(layoutSize: trailingItemSize)
+        trailingItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        let trailingGroupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.3),
+            heightDimension: .fractionalHeight(1)
+        )
+        let trailingGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: trailingGroupSize,
+            subitem: trailingItem,
+            count: 2
+        )
+
+        let containerGroupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(250)
+        )
+        let containerGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: containerGroupSize,
+            subitems: [leadingGroup, trailingGroup]
+        )
+
+        let section = NSCollectionLayoutSection(group: containerGroup)
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
+
+        // Decoration Item 추가
+        let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
+        section.decorationItems = [decorationItem]
+
+        return section
+    }
+
 }
 
 extension CompositionalLayoutTestViewController: UIScrollViewDelegate {
@@ -338,6 +417,7 @@ private struct SectionItem {
         case horizontalList1
         case horizontalList2
         case horizontalListAutoSize
+        case groups
     }
 
     struct SubItem {
