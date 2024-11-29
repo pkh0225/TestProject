@@ -52,7 +52,6 @@
 		20F77EF42CDC50C400107C75 /* TableTestCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F77EF12CDC50C400107C75 /* TableTestCell2.swift */; };
 		20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C642C6C605D00837939 /* EasyConstraints */; };
 		20FA8C742C6C7A8C00837939 /* SwiftHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C732C6C7A8C00837939 /* SwiftHelper */; };
-		20FE360C2C6C32D90000255D /* AlignmentFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FE360B2C6C32D90000255D /* AlignmentFlowLayout.swift */; };
 		20FF8E372CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,7 +96,6 @@
 		20F57A7C29FBAEBA00F9A7F6 /* AddViewTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewTestViewController.swift; sourceTree = "<group>"; };
 		20F77EF12CDC50C400107C75 /* TableTestCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTestCell2.swift; sourceTree = "<group>"; };
 		20F77EF22CDC50C400107C75 /* TableTestCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableTestCell2.xib; sourceTree = "<group>"; };
-		20FE360B2C6C32D90000255D /* AlignmentFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentFlowLayout.swift; sourceTree = "<group>"; };
 		20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutPageTestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,7 +122,6 @@
 			children = (
 				200E2D8A2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift */,
 				20A4E7DB2CF9861D005C3368 /* TestCollectionViewCell.swift */,
-				20FE360B2C6C32D90000255D /* AlignmentFlowLayout.swift */,
 			);
 			path = CollectionViewTest;
 			sourceTree = "<group>";
@@ -449,7 +446,6 @@
 				202354C92CD4AAB9002BBBF2 /* TestCollectionReusableView.swift in Sources */,
 				200E2D8B2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift in Sources */,
 				20A33D3C29D2BAE400075174 /* GIfImageExtension.swift in Sources */,
-				20FE360C2C6C32D90000255D /* AlignmentFlowLayout.swift in Sources */,
 				205CE6AB29E26E650028450C /* DynamicAnimatorViewController.swift in Sources */,
 				205CE6AE29E273BC0028450C /* DragAbleViewController.swift in Sources */,
 				202354C32CD4AA0B002BBBF2 /* CompositionalTestCell.swift in Sources */,
