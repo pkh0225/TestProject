@@ -258,10 +258,10 @@
 		207DA9CA2CD9C7DA0001BFF5 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				20A027D52CF69F9A002D6650 /* PinterstLayout */,
 				200E2D892AE0DBFF004C13C5 /* CollectionViewTest */,
 				202354C02CD4AA0B002BBBF2 /* CompositionalLayoutTest */,
 				202354C22CD4AA0B002BBBF2 /* DiffableDataSourceTest */,
+				20A027D52CF69F9A002D6650 /* PinterstLayout */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";

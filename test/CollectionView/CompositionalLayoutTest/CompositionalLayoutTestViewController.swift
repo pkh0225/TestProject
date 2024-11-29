@@ -355,7 +355,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
             heightDimension: .fractionalHeight(1.0)
         )
         let leadingItem = NSCollectionLayoutItem(layoutSize: leadingItemSize)
-        leadingItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        leadingItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 8)
         let leadingGroupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.7),
             heightDimension: .fractionalHeight(1)
@@ -371,7 +371,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
             heightDimension: .fractionalHeight(1.0)
         )
         let trailingItem = NSCollectionLayoutItem(layoutSize: trailingItemSize)
-        trailingItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        trailingItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 16)
         let trailingGroupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.3),
             heightDimension: .fractionalHeight(1)
@@ -392,8 +392,8 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         )
 
         let section = NSCollectionLayoutSection(group: containerGroup)
-        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
+        section.orthogonalScrollingBehavior = .groupPaging
+        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 0)
 
         // Decoration Item 추가
         let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
