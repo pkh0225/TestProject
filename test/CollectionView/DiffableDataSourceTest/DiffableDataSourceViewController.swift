@@ -235,21 +235,22 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
                 heightDimension: .fractionalHeight(1.0)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
 
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .absolute((env.container.effectiveContentSize.width - 60) / 2.0),
+                widthDimension: .fractionalWidth(0.5),
                 heightDimension: .absolute(50)
             )
-            let group = NSCollectionLayoutGroup.vertical(
+            let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
-                subitems: [item]
+                subitem: item,
+                count: 1
             )
-            group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
 
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
-            section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 15)
-            section.interGroupSpacing = 8
+            section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0)
+            section.interGroupSpacing = 10
 
             // Decoration Item 추가
             let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
