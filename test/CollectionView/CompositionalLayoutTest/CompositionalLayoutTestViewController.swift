@@ -14,9 +14,10 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.getLayout())
-        collectionView.backgroundColor = #colorLiteral(red: 0.9355872273, green: 0.9355872273, blue: 0.9355872273, alpha: 1)
+        collectionView.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.scrollViewDelegate = self
+        collectionView.contentInset = .init(top: 10, left: 0, bottom: 10, right: 0)
         self.view.addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
@@ -161,7 +162,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                         alert(title: name, message: "\(object)")
                         self.collectionView.scrollToItem(at: IndexPath(item:i, section: s), at: .centeredHorizontally, animated: true)
 //                        self.collectionView.contentOffset = CGPoint(x: 0, y: 100)
-                        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
+//                        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
                     })
 
                 sectionInfo.cells.append(cellInfo)
