@@ -748,7 +748,7 @@
 			repositoryURL = "https://github.com/pkh0225/SwiftHelper.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.1;
+				minimumVersion = 1.5.3;
 			};
 		};
 		20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */ = {

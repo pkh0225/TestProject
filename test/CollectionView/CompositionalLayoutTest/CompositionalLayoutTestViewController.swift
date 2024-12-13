@@ -18,6 +18,8 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.scrollViewDelegate = self
         collectionView.contentInset = .init(top: 10, left: 0, bottom: 10, right: 0)
+        collectionView.automaticallyAdjustsScrollIndicatorInsets = false
+        collectionView.contentInsetAdjustmentBehavior = .never
         self.view.addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
@@ -25,100 +27,21 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
             collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
         ])
+
+//        collectionView.dataSource = self
+//        collectionView.registerHeader(TestCollectionReusableView.self)
+//        collectionView.register(CompositionalTestCell.self)
+
         return collectionView
     }()
 
-    private var dataSource: [SectionItem] = [
-        .init(text: "header",
-              layoutType: .horizontalListAutoSize,
-              subItems: [.init(text: "사과"),
-                         .init(text: "사과ㄴㅁㅇㅎ"),
-                         .init(text: "사과ㅁㄴㅇㅎㅁㄴㅇㅎㅎ"),
-                         .init(text: "사과"),
-                         .init(text: "사과ㅁㄴㅇㅎㅁㄴㅇㅎ"),
-                         .init(text: "사과ㅁㅇㅎ"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과ㅁㄴㅇㅎㅇㄴㅁ"),
-                         .init(text: "사과"),
-                         .init(text: "사과ㅁㄴㅇㅎ"),
-                         .init(text: "사과")]),
-        .init(text: "header",
-              layoutType: .gridAutoSize,
-              subItems: [.init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과ㅁㄴㅇㅎ"),
-                         .init(text: "사과"),
-                         .init(text: "사과ㅁㅇㅇ"),
-                         .init(text: "사과"),
-                         .init(text: "사과ㅇㅇㅇ"),
-                         .init(text: "사과ㅁㅇㅇ"),
-                         .init(text: "사과"),
-                         .init(text: "사과ㅇㅇㅇ"),
-                         .init(text: "사과ㅁㅇㅇ"),
-                         .init(text: "사과"),
-                         .init(text: "사과ㅇㅇㅇ"),
-                         .init(text: "사과ㅇㅇㅇ"),
-                         .init(text: "사과")]),
-        .init(text: "header",
-              layoutType: .horizontalList1,
-              subItems: [.init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과")]),
-        .init(text: "header",
-              layoutType: .horizontalList2,
-              subItems: [.init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과")]),
-        .init(text: "header",
-              layoutType: .groups,
-              subItems: [.init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과"),
-                         .init(text: "사과")]),
-
-    ]
+    private var dataSource: [SectionItem]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "CompositionalLayout"
         self.view.backgroundColor = .white
-
+        self.setData()
 //        for _ in 0..<10 {
 //            self.dataSource.append(.init(text: "header",
 //                                         layoutType: .horizontalList2,
@@ -140,6 +63,96 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         self.collectionView.reloadData()
     }
 
+    func setData() {
+        dataSource = [
+            .init(text: "header",
+                  layoutType: .horizontalListAutoSize,
+                  subItems: [.init(text: "사과"),
+                             .init(text: "사과ㄴㅁㅇㅎ"),
+                             .init(text: "사과ㅁㄴㅇㅎㅁㄴㅇㅎㅎ"),
+                             .init(text: "사과"),
+                             .init(text: "사과ㅁㄴㅇㅎㅁㄴㅇㅎ"),
+                             .init(text: "사과ㅁㅇㅎ"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과ㅁㄴㅇㅎㅇㄴㅁ"),
+                             .init(text: "사과"),
+                             .init(text: "사과ㅁㄴㅇㅎ"),
+                             .init(text: "사과")]),
+            .init(text: "header",
+                  layoutType: .gridAutoSize,
+                  subItems: [.init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과ㅁㄴㅇㅎ"),
+                             .init(text: "사과"),
+                             .init(text: "사과ㅁㅇㅇ"),
+                             .init(text: "사과"),
+                             .init(text: "사과ㅇㅇㅇ"),
+                             .init(text: "사과ㅁㅇㅇ"),
+                             .init(text: "사과"),
+                             .init(text: "사과ㅇㅇㅇ"),
+                             .init(text: "사과ㅁㅇㅇ"),
+                             .init(text: "사과"),
+                             .init(text: "사과ㅇㅇㅇ"),
+                             .init(text: "사과ㅇㅇㅇ"),
+                             .init(text: "사과")]),
+            .init(text: "header",
+                  layoutType: .horizontalList1,
+                  subItems: [.init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과")]),
+            .init(text: "header",
+                  layoutType: .horizontalList2,
+                  subItems: [.init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과")]),
+            .init(text: "header",
+                  layoutType: .groups,
+                  subItems: [.init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과"),
+                             .init(text: "사과")]),
+
+        ]
+    }
+
+    var indexPath: IndexPath?
+
     private func makeAdapterData() -> CVAData {
         let testData = CVAData()
         for (s, sectionItem) in dataSource.enumerated() {
@@ -147,10 +160,56 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
             testData.sectionList.append(sectionInfo)
             sectionInfo.header = CVACellInfo(cellType: TestCollectionReusableView.self)
                 .setContentObj("\(sectionItem.text) \(s)")
-                .setActionClosure({ (name, object) in
+                .setActionClosure({ [weak self] (name, object) in
+                    guard let self else { return }
                     guard let object = object else { return }
+                    print("1111")
 
-                    alert(title: name, message: "\(object)")
+//                    self.isSave = false
+//                    self.collectionView.adapterData = self.makeAdapterData()
+
+
+
+
+                    self.collectionView.collectionViewLayout = self.getLayout()
+                    print("2222")
+                    self.collectionView.reloadData()
+                    self.collectionView.collectionViewLayout.invalidateLayout()
+
+
+                    self.collectionView.performBatchUpdates {
+
+                    } completion: { _ in
+////
+////                    self.collectionView.contentOffset = CGPoint(x: self.offset.x, y: self.collectionView.contentOffset.y)
+                    if let indexPath = self.indexPath {
+                        print("go \(indexPath)")
+                        self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+                    }
+
+                        print("3333")
+                    }
+
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                        self.collectionView.isScrollEnabled = false
+//                        if let indexPath = self.indexPath {
+//                            print("go \(indexPath)")
+//                            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+//                        }
+//
+////                        for v in self.collectionView.subviews {
+////                            if let sv = v as? UIScrollView {
+////                                sv.contentOffset = CGPoint(x: self.offset.x, y: sv.contentOffset.y)
+////                                break
+////                            }
+////                        }
+//
+//                        self.isSave = true
+//                        self.collectionView.isScrollEnabled = true
+//                    }
+                    print("444")
+
+//                    alert(title: name, message: "\(object)")
                 })
 
             for (i, subItem) in sectionItem.subItems.enumerated() {
@@ -158,8 +217,9 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                     .setContentObj("\(subItem.text) \(i)")
                     .setActionClosure({ [weak self] (name, object) in
                         guard let self else { return }
-                        guard let object = object else { return }
-                        alert(title: name, message: "\(object)")
+//                        guard let object = object else { return }
+//                        alert(title: name, message: "\(object)")
+                        self.indexPath = IndexPath(item:i, section: s)
                         self.collectionView.scrollToItem(at: IndexPath(item:i, section: s), at: .centeredHorizontally, animated: true)
 //                        self.collectionView.contentOffset = CGPoint(x: 0, y: 100)
 //                        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
@@ -172,7 +232,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         return testData
     }
 
-    private func getLayout() -> UICollectionViewLayout {
+    private func getLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
         let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, env -> NSCollectionLayoutSection? in
@@ -194,15 +254,19 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         return layout
     }
 
+
+    var offset: CGPoint = .zero
+    var isSave = true
+
     private func getListSectionAutoSize() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(50),
+            widthDimension: .estimated(30),
             heightDimension: .estimated(30)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 //        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(50),
+            widthDimension: .estimated(30),
             heightDimension: .estimated(30)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
@@ -211,18 +275,23 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
         section.interGroupSpacing = 8
-        //        section.visibleItemsInvalidationHandler = { [weak self] (visibleItems, offset, env) in
-        //            //            print("sub scrollView \(offset)")
-        //            guard let ss = self else { return }
-        //            let normalizedOffsetX = offset.x
-        //            let centerPoint = CGPoint(x: normalizedOffsetX + ss.collectionView.bounds.width / 2, y: 20)
-        //            visibleItems.forEach({ item in
-        //                guard let cell = ss.collectionView.cellForItem(at: item.indexPath) else { return }
-        //                UIView.animate(withDuration: 0.3) {
-        //                    cell.transform = item.frame.contains(centerPoint) ? .identity : CGAffineTransform(scaleX: 0.9, y: 0.9)
-        //                }
-        //            })
-        //        }
+        section.visibleItemsInvalidationHandler = { [weak self] (visibleItems, offset, env) in
+            //            print("sub scrollView \(offset)")
+            guard let self = self else { return }
+            if isSave {
+                print("offset : \(offset)")
+                self.offset = offset
+            }
+
+//            let normalizedOffsetX = offset.x
+//            let centerPoint = CGPoint(x: normalizedOffsetX + ss.collectionView.bounds.width / 2, y: 20)
+//            visibleItems.forEach({ item in
+//                guard let cell = ss.collectionView.cellForItem(at: item.indexPath) else { return }
+//                UIView.animate(withDuration: 0.3) {
+//                    cell.transform = item.frame.contains(centerPoint) ? .identity : CGAffineTransform(scaleX: 0.9, y: 0.9)
+//                }
+//            })
+        }
 
         // sectionHeader 사이즈 설정
         let headerSize = NSCollectionLayoutSize(
@@ -244,7 +313,6 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         // Decoration Item 추가
         let decorationItem = NSCollectionLayoutDecorationItem.background(elementKind: "BackgroundDecorationView")
         section.decorationItems = [decorationItem]
-
         return section
     }
 
@@ -407,7 +475,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
 
 extension CompositionalLayoutTestViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scrollViewDidScroll : \(scrollView.contentOffset)")
+        print("scrollViewDidScroll : \(scrollView.contentOffset)")
     }
 }
 
@@ -428,4 +496,47 @@ private struct SectionItem {
     let text: String
     let layoutType: layoutType
     let subItems: [SubItem]
+}
+
+
+extension CompositionalLayoutTestViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return dataSource.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource[section].subItems.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(CompositionalTestCell.self, for: indexPath)
+
+        let data = dataSource[indexPath.section].subItems[indexPath.item].text
+        cell.configure(data: data, subData: nil, collectionView: collectionView, indexPath: indexPath)
+        cell.actionClosure = {[weak self] (_, _) in
+            guard let self else { return }
+            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        if kind == UICollectionView.elementKindSectionHeader {
+            let view = collectionView.dequeueReusableHeader(TestCollectionReusableView.self, for: indexPath)
+            let data = "\(dataSource[indexPath.section].text) \(indexPath.section)"
+            view.configure(data: data, subData: nil, collectionView: collectionView, indexPath: indexPath)
+            view.actionClosure = {[weak self] (_, _) in
+                guard let self else { return }
+                self.setData()
+                self.collectionView.reloadData()
+            }
+            return view
+        } else {
+            return UICollectionReusableView()
+        }
+    }
+
+
+
 }

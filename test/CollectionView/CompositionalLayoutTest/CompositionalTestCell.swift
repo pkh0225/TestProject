@@ -50,11 +50,13 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.random
+        self.contentView.backgroundColor = .random
         self.label.isHidden = false
+        self.label.textColor = self.contentView.backgroundColor?.getComplementaryForColorUsingHSB()
         self.button.isHidden = false
     }
 
+    
     static func getSize(data: Any?, width: CGFloat, collectionView: UICollectionView, indexPath: IndexPath) -> CGSize {
         return CGSize(width: width, height: self.fromXibSize().height)
     }
@@ -62,6 +64,8 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
     func configure(data: Any?, subData: Any?, collectionView: UICollectionView, indexPath: IndexPath) {
         guard let data = data as? String else { return }
         self.label.text = data
+
+
     }
 
     @objc func onBtnAction(btn: UIButton) {
@@ -72,14 +76,14 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
         super.layoutSubviews()
         
         if indexPath.section == 0 || indexPath.section == 1 {
-            self.layer.cornerRadius = self.frame.size.height / 2.0
-            self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor.gray.cgColor
+            self.contentView.layer.cornerRadius = self.frame.size.height / 2.0
+            self.contentView.layer.borderWidth = 1
+            self.contentView.layer.borderColor = UIColor.gray.cgColor
         }
         else {
-            self.layer.cornerRadius = 10
-            self.layer.borderWidth = 0
-            self.layer.borderColor = UIColor.clear.cgColor
+            self.contentView.layer.cornerRadius = 10
+            self.contentView.layer.borderWidth = 0
+            self.contentView.layer.borderColor = UIColor.clear.cgColor
         }
     }
 }
@@ -87,10 +91,9 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
 class BackgroundDecorationView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = #colorLiteral(red: 1, green: 0.5410095453, blue: 0.7267025113, alpha: 1)
         self.layer.cornerRadius = 10 // 모서리 둥글기 설정
 
-        self.backgroundColor = UIColor.random
+        self.backgroundColor = .random
     }
 
     required init?(coder: NSCoder) {

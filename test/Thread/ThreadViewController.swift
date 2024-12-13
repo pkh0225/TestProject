@@ -165,8 +165,6 @@ class ThreadViewController: UIViewController, RouterProtocol {
         print(" ---------------- onStop ---------------- ")
         isTest = false
         asyncIsTest = false
-
-        processData()
     }
 
     @IBAction func onTaskTest(_ sender: UIButton) {
@@ -176,7 +174,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
     @IBAction func onTaskMainActorTest(_ sender: UIButton) {
         print("\n ---------------- onTaskMainActorTest ---------------- ")
-        Task { @MainActor in
+        Task {
             for i in 0..<99999 {
                 print("label 1 = \(i)")
                 await MainActor.run {
@@ -185,7 +183,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
             }
         }
-        Task { @MainActor in
+        Task {
             for i in 0..<99999 {
                 print("label 2 = \(i)")
                 await MainActor.run {
@@ -228,6 +226,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
 //        MainActor.assumeIsolated { // MainActor 무시하고 실행 개발자가 직접 검증
             print("Updating UI = \(data)")
         self.testLabel.text = data
+        self.testLabel2.text = "완료"
 //        }
     }
 }
