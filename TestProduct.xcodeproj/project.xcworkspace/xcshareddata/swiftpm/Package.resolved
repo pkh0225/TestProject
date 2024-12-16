@@ -78,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/SwiftHelper.git",
       "state" : {
-        "revision" : "543b858aab9398d6e460fbff07c9c9b2547303f0",
-        "version" : "1.5.3"
+        "revision" : "9cc933baa823491683bb2da91f9f39e4f1e56945",
+        "version" : "1.5.4"
       }
     },
     {

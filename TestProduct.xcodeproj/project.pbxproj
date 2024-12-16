@@ -40,6 +40,8 @@
 		20A33D4029D2BD4200075174 /* cmm_all_ani_pop_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 20A33D3F29D2BD4200075174 /* cmm_all_ani_pop_loading.gif */; };
 		20A33D6229D2C22F00075174 /* GifImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A33D6129D2C22F00075174 /* GifImageViewController.swift */; };
 		20A4E7DC2CF9861E005C3368 /* TestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4E7DB2CF9861D005C3368 /* TestCollectionViewCell.swift */; };
+		20C1A2002D0FC1B10017EF99 /* ViewLayoutControler.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20C1A1FF2D0FC1B10017EF99 /* ViewLayoutControler.xib */; };
+		20C1A2012D0FC1B10017EF99 /* ViewLayoutControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C1A1FE2D0FC1B10017EF99 /* ViewLayoutControler.swift */; };
 		20C29C7C2CD4B9CB00F23EFD /* CollectionViewAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 20C29C7B2CD4B9CB00F23EFD /* CollectionViewAdapter */; };
 		20C7AA902CC738A0007D01D4 /* PkhGridView in Frameworks */ = {isa = PBXBuildFile; productRef = 20C7AA8F2CC738A0007D01D4 /* PkhGridView */; };
 		20C7AA972CC7397B007D01D4 /* TestCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20C7AA932CC7397B007D01D4 /* TestCellCollectionViewCell.xib */; };
@@ -88,6 +90,8 @@
 		20A33D3F29D2BD4200075174 /* cmm_all_ani_pop_loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cmm_all_ani_pop_loading.gif; sourceTree = "<group>"; };
 		20A33D6129D2C22F00075174 /* GifImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImageViewController.swift; sourceTree = "<group>"; };
 		20A4E7DB2CF9861D005C3368 /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
+		20C1A1FE2D0FC1B10017EF99 /* ViewLayoutControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLayoutControler.swift; sourceTree = "<group>"; };
+		20C1A1FF2D0FC1B10017EF99 /* ViewLayoutControler.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewLayoutControler.xib; sourceTree = "<group>"; };
 		20C7AA922CC7397B007D01D4 /* TestCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		20C7AA932CC7397B007D01D4 /* TestCellCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCellCollectionViewCell.xib; sourceTree = "<group>"; };
 		20C7AA942CC7397B007D01D4 /* TestCellCollectionViewCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCellCollectionViewCell2.swift; sourceTree = "<group>"; };
@@ -239,6 +243,7 @@
 		207DA9C82CD9A00A0001BFF5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				20C1A1FB2D0FC10B0017EF99 /* ViewLayout */,
 				2089E84029E265B700CE6908 /* Gif */,
 				2089E84429E26B9E00CE6908 /* Gradient */,
 				20F57A7B29FBAE9800F9A7F6 /* addViewTest */,
@@ -311,6 +316,15 @@
 				20A027D62CF6A408002D6650 /* PCLViewController.swift */,
 			);
 			path = PinterstLayout;
+			sourceTree = "<group>";
+		};
+		20C1A1FB2D0FC10B0017EF99 /* ViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+				20C1A1FE2D0FC1B10017EF99 /* ViewLayoutControler.swift */,
+				20C1A1FF2D0FC1B10017EF99 /* ViewLayoutControler.xib */,
+			);
+			path = ViewLayout;
 			sourceTree = "<group>";
 		};
 		20C29C7A2CD4B9CB00F23EFD /* Frameworks */ = {
@@ -417,6 +431,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20C1A2002D0FC1B10017EF99 /* ViewLayoutControler.xib in Resources */,
 				205CAE9528AB1EE0002999A8 /* LaunchScreen.storyboard in Resources */,
 				209E19A12941C075008FEE89 /* E_i_tab_food_p_t@3x.png in Resources */,
 				202354C82CD4AAB9002BBBF2 /* TestCollectionReusableView.xib in Resources */,
@@ -445,6 +460,7 @@
 				208662012CDC936A00DECAF6 /* CAGradientLayerTestViewController.swift in Sources */,
 				202354C92CD4AAB9002BBBF2 /* TestCollectionReusableView.swift in Sources */,
 				200E2D8B2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift in Sources */,
+				20C1A2012D0FC1B10017EF99 /* ViewLayoutControler.swift in Sources */,
 				20A33D3C29D2BAE400075174 /* GIfImageExtension.swift in Sources */,
 				205CE6AB29E26E650028450C /* DynamicAnimatorViewController.swift in Sources */,
 				205CE6AE29E273BC0028450C /* DragAbleViewController.swift in Sources */,
@@ -748,7 +764,7 @@
 			repositoryURL = "https://github.com/pkh0225/SwiftHelper.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.3;
+				minimumVersion = 1.5.4;
 			};
 		};
 		20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */ = {

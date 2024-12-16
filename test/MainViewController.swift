@@ -19,6 +19,10 @@ class MainViewwController: UITableViewController {
                 title: "View",
                 testDatas: [
                     TestGroupData.TestData(
+                        titleName: "ViewLayout Show",
+                        viewControllerType: ViewLayoutControler.self
+                    ),
+                    TestGroupData.TestData(
                         titleName: "Gif",
                         viewControllerType: GifImageViewController.self
                     ),
@@ -167,3 +171,4 @@ class TestGroupData {
         self.testDatas = testDatas
     }
 }
+
