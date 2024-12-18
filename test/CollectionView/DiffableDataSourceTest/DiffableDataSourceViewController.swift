@@ -53,8 +53,6 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         collectionView.register(CompositionalTestCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.alwaysBounceHorizontal = false
         collectionView.isPagingEnabled = true
-        self.view.addSubview(collectionView)
-
         return collectionView
     }()
     
@@ -65,7 +63,6 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         textField.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.968627451, blue: 0.9019607843, alpha: 1)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.addTarget(self, action: #selector(onTextFieldDidChange(textField:)), for: .editingChanged)
-        self.view.addSubview(textField)
         return textField
     }()
 
@@ -86,7 +83,6 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
             self.collectionView.collectionViewLayout = self.getLayout()
             self.collectionView.contentOffset = .zero
         }
-        self.view.addSubview(btn)
         return btn
     }()
 
@@ -131,22 +127,25 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
     }
 
     private func MakeAutoLayout() {
-        NSLayoutConstraint.activate([
-            textField.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            textField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            textField.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -5),
-            textField.heightAnchor.constraint(equalToConstant: 50),
+        self.view.addSubviews([textField, btn, collectionView])
+        textField.ec.make()
+            .leading(self.view.safeAreaLayoutGuide.leadingAnchor, 15)
+            .top(self.view.safeAreaLayoutGuide.topAnchor, 0)
+            .bottom(collectionView.topAnchor, -10)
+            .height(50)
 
-            btn.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: 10),
-            btn.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            btn.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
-            btn.heightAnchor.constraint(equalToConstant: 40),
-            btn.widthAnchor.constraint(equalToConstant: 100),
+        btn.ec.make()
+            .leading(textField.trailingAnchor, 10)
+            .trailing(self.view.safeAreaLayoutGuide.trailingAnchor, -10)
+            .centerY(textField.centerYAnchor, 0)
+            .width(100)
+            .height(50)
 
-            collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
-        ])
+        collectionView.ec.make()
+            .leading(self.view.safeAreaLayoutGuide.leadingAnchor, 0)
+            .trailing(self.view.safeAreaLayoutGuide.trailingAnchor, 0)
+            .bottom(self.view.bottomAnchor, 0)
+
     }
 
     private func addNewItem(item: Item, indexPath: IndexPath) {

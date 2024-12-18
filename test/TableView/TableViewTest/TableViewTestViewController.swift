@@ -33,16 +33,16 @@ class TableViewTestViewController: UIViewController, RouterProtocol {
             let tableSection = TVASectionInfo()
             tableData.sectionList.append(tableSection)
             for j in 0..<5 {
-                let tableCell = TVACellInfo(cellType: TableTestCell.self)
-                    .setContentObj("section(\(i)) row(\(j)) - class")
-                    .setActionClosure { _, _ in
+                let tableCell = TVACellInfo(TableTestCell.self)
+                    .contentObj("section(\(i)) row(\(j)) - class")
+                    .actionClosure { _, _ in
                     }
                 tableSection.cells.append(tableCell)
             }
             for j in 0..<5 {
-                let tableCell = TVACellInfo(cellType: TableTestCell2.self)
-                    .setContentObj("section(\(i)) row(\(j)) - xib")
-                    .setActionClosure { _, _ in
+                let tableCell = TVACellInfo(TableTestCell2.self)
+                    .contentObj("section(\(i)) row(\(j)) - xib")
+                    .actionClosure { _, _ in
                     }
                 tableSection.cells.append(tableCell)
             }

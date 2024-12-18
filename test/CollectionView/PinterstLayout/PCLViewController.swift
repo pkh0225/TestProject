@@ -43,9 +43,9 @@ class PCLViewController: UIViewController, RouterProtocol {
         let sectionInfo = CVASectionInfo()
         testData.sectionList.append(sectionInfo)
         for item in datas {
-            let cellInfo = CVACellInfo(cellType: PCLTestCell.self)
-                .setContentObj(item)
-                .setActionClosure({ (name, object) in
+            let cellInfo = CVACellInfo(PCLTestCell.self)
+                .contentObj(item)
+                .actionClosure({ (name, object) in
                     guard let object = object else { return }
                     alert(title: name, message: "\(object)")
                 })

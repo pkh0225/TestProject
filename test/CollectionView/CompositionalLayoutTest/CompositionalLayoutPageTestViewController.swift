@@ -18,7 +18,6 @@ class CompositionalLayoutPageTestViewController: UIViewController, RouterProtoco
         collectionView.backgroundColor = #colorLiteral(red: 0.9355872273, green: 0.9355872273, blue: 0.9355872273, alpha: 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isPagingEnabled = true
-        self.view.addSubViewSafeArea(subView: collectionView, safeBottom: false)
         return collectionView
     }()
 
@@ -38,6 +37,8 @@ class CompositionalLayoutPageTestViewController: UIViewController, RouterProtoco
         super.viewDidLoad()
         self.title = "CompositionalLayout"
         self.view.backgroundColor = .white
+
+        self.view.addSubViewSafeArea(subView: collectionView, safeBottom: false)
 
         self.collectionView.adapterData = makeAdapterData()
         self.collectionView.reloadData()
@@ -59,9 +60,9 @@ class CompositionalLayoutPageTestViewController: UIViewController, RouterProtoco
 
             for (i, subItem) in sectionItem.subItems.enumerated() {
                 if i == 0 {
-                    let cellInfo = CVACellInfo(cellType: PageTestSubPageCell.self)
-                        .setContentObj(subItem)
-                        .setActionClosure({ [weak self] (name, object) in
+                    let cellInfo = CVACellInfo(PageTestSubPageCell.self)
+                        .contentObj(subItem)
+                        .actionClosure({ [weak self] (name, object) in
                             guard let self else { return }
                             guard let object = object else { return }
                             alert(title: name, message: "\(object)")
@@ -71,9 +72,9 @@ class CompositionalLayoutPageTestViewController: UIViewController, RouterProtoco
                     sectionInfo.cells.append(cellInfo)
                 }
                 else {
-                    let cellInfo = CVACellInfo(cellType: PageTestCell.self)
-                        .setContentObj(subItem.text)
-                        .setActionClosure({ [weak self] (name, object) in
+                    let cellInfo = CVACellInfo(PageTestCell.self)
+                        .contentObj(subItem.text)
+                        .actionClosure({ [weak self] (name, object) in
                             guard let self else { return }
                             guard let object = object else { return }
                             alert(title: name, message: "\(object)")
@@ -153,13 +154,15 @@ class PageTestCell: UICollectionViewCell, CVACellProtocol {
         label.textColor = .black
         label.font = .systemFont(ofSize: 30)
         label.textAlignment = .center
-        self.contentView.addSubViewAutoLayout(label)
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.backgroundColor = UIColor.random
+        self.contentView.apply {
+            $0.backgroundColor = UIColor.random
+            $0.addSubViewAutoLayout(label)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -188,7 +191,6 @@ class PageTestSubPageCell: UICollectionViewCell, CVACellProtocol {
         collectionView.isPagingEnabled = true
         collectionView.tag = 100
         collectionView.bounces = false
-        self.contentView.addSubViewAutoLayout(collectionView)
         return collectionView
     }()
 
@@ -200,11 +202,6 @@ class PageTestSubPageCell: UICollectionViewCell, CVACellProtocol {
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Sub Page CollectionView"
-        self.contentView.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
-            label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
-        ])
         return label
     }()
 
@@ -218,9 +215,15 @@ class PageTestSubPageCell: UICollectionViewCell, CVACellProtocol {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        self.collectionView.isHidden = false
-        self.label.isHidden = false
+        self.contentView.apply {
+            $0.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            $0.addSubViewAutoLayout(collectionView)
+            $0.addSubview(label)
+        }
+
+        label.ec.make()
+            .top(contentView.topAnchor, 10)
+            .leading(contentView.leadingAnchor, 10)
 
     }
 
@@ -277,8 +280,7 @@ class PageTestSubPageCell: UICollectionViewCell, CVACellProtocol {
         let sectionInfo = CVASectionInfo()
         testData.sectionList.append(sectionInfo)
         for (_, subItem) in dataSource.enumerated() {
-            let cellInfo = CVACellInfo(cellType: PageTestCell.self)
-                .setContentObj(subItem.text)
+            let cellInfo = CVACellInfo(PageTestCell.self).contentObj(subItem.text)
             sectionInfo.cells.append(cellInfo)
         }
 

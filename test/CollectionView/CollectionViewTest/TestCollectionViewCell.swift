@@ -12,10 +12,8 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
     static var SpanSize: Int = 0
     var actionClosure: ((String, Any?) -> Void)?
 
-    lazy var testLabel: UILabel = {
+    lazy var titleLable: UILabel = {
         let l = UILabel()
-        self.contentView.addSubview(l)
-
         return l
     }()
 
@@ -24,7 +22,6 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         btn.setImage(UIImage(systemName: "arrow.circlepath"), for: .normal)
         btn.addTarget(self, action: #selector(self.onReloadButton), for: .touchUpInside)
         btn.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        self.contentView.addSubview(btn)
         return btn
     }()
 
@@ -35,7 +32,6 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         btn.frame = CGRect(x: self.frame.size.width - 60, y: 0, width: 50, height: 50)
         btn.layer.borderColor = UIColor.red.cgColor
         btn.layer.borderWidth = 1
-        self.contentView.addSubview(btn)
         return btn
     }()
 
@@ -47,10 +43,20 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         btn.layer.borderColor = UIColor.red.cgColor
         btn.layer.borderWidth = 1
         btn.tag = 1
-        self.contentView.addSubview(btn)
         return btn
     }()
 
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        self.contentView.addSubviews([reloadButton, titleLable, addButton, addSectionButton])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     @objc func onReloadButton(btn: UIButton) {
         if self.indexPath.row == 0 {
             print("reloadSections: \(self.indexPath.section)")
@@ -67,7 +73,7 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
 
         if let adapterData = self.parentCollectionView?.adapterData {
             let sectionData = adapterData.sectionList[self.indexPath.section]
-            let cellData = CVACellInfo(cellType: Self.self)
+            let cellData = CVACellInfo(Self.self)
 
 //            UIView.animate(withDuration: 0.1) {
 //                sectionData.cells.insert(cellData, at: self.indexPath.row + 1)
@@ -90,7 +96,7 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         if btn.tag == 0 {
             if let adapterData = self.parentCollectionView?.adapterData {
                 let sectionData = CVASectionInfo()
-                let cellData = CVACellInfo(cellType: Self.self)
+                let cellData = CVACellInfo(Self.self)
                 sectionData.cells.append(cellData)
 
                 parentCollectionView?.performBatchUpdates({
@@ -116,8 +122,8 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
                 }
 
                 let sectionInsert = CVASectionInfo()
-                    .setDataType("new")
-                    .setCells([CVACellInfo(cellType: Self.self).setContentObj("new")])
+                    .dataType("new")
+                    .cells([CVACellInfo(Self.self).contentObj("new")])
 
                 parentCollectionView?.performBatchUpdates({
                     var newSectoinIndex = -1
@@ -202,9 +208,9 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         let data = data as? String ?? ""
         self.backgroundColor = data == "new" ? .blue : .green
 
-        self.testLabel.text = "\(indexPath.section) / \(indexPath.row)"
-        self.testLabel.sizeToFit()
-        self.testLabel.centerInSuperView()
+        self.titleLable.text = "\(indexPath.section) / \(indexPath.row)"
+        self.titleLable.sizeToFit()
+        self.titleLable.centerInSuperView()
 
         self.reloadButton.tag = indexPath.section
         self.addButton.tag_value = data

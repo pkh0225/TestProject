@@ -32,7 +32,7 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
         for _ in 0..<10 {
             let sectionData = CVASectionInfo()
             for _ in 0..<4 {
-                let cellData = CVACellInfo(cellType: TestCollectionViewCell.self)
+                let cellData = CVACellInfo(TestCollectionViewCell.self)
                 sectionData.cells.append(cellData)
             }
             adapterData.sectionList.append(sectionData)

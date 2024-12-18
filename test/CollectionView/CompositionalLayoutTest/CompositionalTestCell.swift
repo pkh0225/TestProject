@@ -9,6 +9,7 @@
 import UIKit
 import CollectionViewAdapter
 import SwiftHelper
+import EasyConstraints
 
 class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
     static var SpanSize: Int = 0
@@ -18,29 +19,12 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
         let label = UILabel()
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 12),
-            label.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -12),
-            label.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5),
-            label.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5),
-        ])
-
         return label
     }()
 
     lazy var button: UIButton = {
         let btn = UIButton(frame: frame)
-        self.contentView.addSubview(btn)
         btn.addTarget(self, action: #selector(self.onBtnAction), for: .touchUpInside)
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            btn.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
-            btn.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 0),
-            btn.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 0),
-            btn.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: 0),
-        ])
         return btn
     }()
 
@@ -50,10 +34,26 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.backgroundColor = .random
-        self.label.isHidden = false
-        self.label.textColor = self.contentView.backgroundColor?.getComplementaryForColorUsingHSB()
-        self.button.isHidden = false
+        let bgColor = UIColor.random
+        self.contentView.apply {
+            $0.backgroundColor = bgColor
+            $0.addSubviews([label, button])
+        }
+        self.label.apply {
+            $0.textColor = bgColor.getComplementaryForColorUsingHSB()
+            $0.ec.make()
+                .leading(contentView.leadingAnchor, 12)
+                .trailing(contentView.trailingAnchor, -12)
+                .top(contentView.topAnchor, 5)
+                .bottom(contentView.bottomAnchor, -5)
+        }
+        self.button.apply {
+            $0.ec.make()
+                .leading(contentView.leadingAnchor, 0)
+                .trailing(contentView.trailingAnchor, 0)
+                .bottom(contentView.bottomAnchor, 0)
+                .top(contentView.topAnchor, 0)
+        }
     }
 
     
@@ -74,16 +74,17 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        if indexPath.section == 0 || indexPath.section == 1 {
-            self.contentView.layer.cornerRadius = self.frame.size.height / 2.0
-            self.contentView.layer.borderWidth = 1
-            self.contentView.layer.borderColor = UIColor.gray.cgColor
-        }
-        else {
-            self.contentView.layer.cornerRadius = 10
-            self.contentView.layer.borderWidth = 0
-            self.contentView.layer.borderColor = UIColor.clear.cgColor
+        self.contentView.layer.apply {
+            if indexPath.section == 0 || indexPath.section == 1 {
+                $0.cornerRadius = self.frame.size.height / 2.0
+                $0.borderWidth = 1
+                $0.borderColor = UIColor.gray.cgColor
+            }
+            else {
+                $0.cornerRadius = 10
+                $0.borderWidth = 0
+                $0.borderColor = UIColor.clear.cgColor
+            }
         }
     }
 }

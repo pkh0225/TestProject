@@ -8,6 +8,7 @@
 import UIKit
 import CollectionViewAdapter
 import SwiftHelper
+import EasyConstraints
 
 @available(iOS 13.0, *)
 class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
@@ -20,13 +21,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         collectionView.contentInset = .init(top: 10, left: 0, bottom: 10, right: 0)
         collectionView.automaticallyAdjustsScrollIndicatorInsets = false
         collectionView.contentInsetAdjustmentBehavior = .never
-        self.view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
-        ])
+        self.view.addSubViewSafeArea(subView: collectionView, safeBottom: false)
 
 //        collectionView.dataSource = self
 //        collectionView.registerHeader(TestCollectionReusableView.self)
@@ -158,9 +153,9 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         for (s, sectionItem) in dataSource.enumerated() {
             let sectionInfo = CVASectionInfo()
             testData.sectionList.append(sectionInfo)
-            sectionInfo.header = CVACellInfo(cellType: TestCollectionReusableView.self)
-                .setContentObj("\(sectionItem.text) \(s)")
-                .setActionClosure({ [weak self] (name, object) in
+            sectionInfo.header = CVACellInfo(TestCollectionReusableView.self)
+                .contentObj("\(sectionItem.text) \(s)")
+                .actionClosure({ [weak self] (name, object) in
                     guard let self else { return }
                     guard let object = object else { return }
                     print("1111")
@@ -213,9 +208,9 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
                 })
 
             for (i, subItem) in sectionItem.subItems.enumerated() {
-                let cellInfo = CVACellInfo(cellType: CompositionalTestCell.self)
-                    .setContentObj("\(subItem.text) \(i)")
-                    .setActionClosure({ [weak self] (name, object) in
+                let cellInfo = CVACellInfo(CompositionalTestCell.self)
+                    .contentObj("\(subItem.text) \(i)")
+                    .actionClosure({ [weak self] (name, object) in
                         guard let self else { return }
 //                        guard let object = object else { return }
 //                        alert(title: name, message: "\(object)")
