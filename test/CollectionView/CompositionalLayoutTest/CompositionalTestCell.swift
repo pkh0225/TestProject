@@ -34,6 +34,7 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         let bgColor = UIColor.random
         self.contentView.apply {
             $0.backgroundColor = bgColor
@@ -47,13 +48,12 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
                 .top(contentView.topAnchor, 5)
                 .bottom(contentView.bottomAnchor, -5)
         }
-        self.button.apply {
-            $0.ec.make()
-                .leading(contentView.leadingAnchor, 0)
-                .trailing(contentView.trailingAnchor, 0)
-                .bottom(contentView.bottomAnchor, 0)
-                .top(contentView.topAnchor, 0)
-        }
+
+        self.button.ec.make()
+            .leading(contentView.leadingAnchor, 0)
+            .trailing(contentView.trailingAnchor, 0)
+            .bottom(contentView.bottomAnchor, 0)
+            .top(contentView.topAnchor, 0)
     }
 
     

@@ -98,21 +98,25 @@ class PCLTestCell: UICollectionViewCell, CVACellProtocol {
         label.textColor = .black
         label.font = .systemFont(ofSize: 30)
         label.textAlignment = .center
-        self.contentView.addSubViewAutoLayout(label)
         return label
+    }()
+
+    private lazy var btn: UIButton = {
+        let btn = UIButton()
+        btn.addAction(for: .touchUpInside) { [weak self] btn in
+            self?.actionClosure?("", self?.label.text)
+        }
+        return btn
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.backgroundColor = UIColor.random
-
-        let btn = UIButton().apply { btn in
-            btn.addAction(for: .touchUpInside) { [weak self] btn in
-                self?.actionClosure?("", self?.label.text)
-            }
+        self.contentView.apply {
+            $0.backgroundColor = UIColor.random
+            $0.addSubViewAutoLayout(label)
+            $0.addSubViewAutoLayout(btn)
         }
 
-        self.contentView.addSubViewAutoLayout(btn)
     }
 
     required init?(coder: NSCoder) {

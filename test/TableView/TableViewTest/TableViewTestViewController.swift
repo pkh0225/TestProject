@@ -76,23 +76,22 @@ class TableTestCell: UITableViewCell, TVACellProtocol {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // UI 요소 추가
-        contentView.addSubview(customLabel)
-        contentView.addSubview(customImageView)
+        self.contentView.apply {
+            $0.backgroundColor = #colorLiteral(red: 1, green: 0.7122581601, blue: 0.6296025515, alpha: 1)
+            $0.addSubviews([customLabel, customImageView])
+        }
 
-        // 레이아웃 설정
-        NSLayoutConstraint.activate([
-            customImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            customImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            customImageView.widthAnchor.constraint(equalToConstant: 40),
-            customImageView.heightAnchor.constraint(equalToConstant: 40),
+        customImageView.ec.make()
+            .leading(contentView.leadingAnchor, 10)
+            .centerY(contentView.centerYAnchor, 0)
+            .width(40)
+            .height(40)
 
-            customLabel.leadingAnchor.constraint(equalTo: customImageView.trailingAnchor, constant: 10),
-            customLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            customLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
-        ])
+        customLabel.ec.make()
+            .leading(customImageView.trailingAnchor, 10)
+            .centerY(contentView.centerYAnchor, 0)
+            .trailing(contentView.trailingAnchor, -10)
 
-        self.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.7122581601, blue: 0.6296025515, alpha: 1)
     }
 
     // required initializer (필수)

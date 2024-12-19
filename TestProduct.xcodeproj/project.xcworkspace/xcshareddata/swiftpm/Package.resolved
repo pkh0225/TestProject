@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/PkhGridView.git",
       "state" : {
-        "revision" : "7eb4bc6c4d23059b9b9467a2f099536f3ea5a2cc",
-        "version" : "1.3.8"
+        "revision" : "fc37a9b021d0a18ed8ecf499a8db0d6ff9e267d4",
+        "version" : "1.3.9"
       }
     },
     {

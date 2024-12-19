@@ -508,7 +508,7 @@ extension CompositionalLayoutTestViewController: UICollectionViewDataSource {
 
         let data = dataSource[indexPath.section].subItems[indexPath.item].text
         cell.configure(data: data, subData: nil, collectionView: collectionView, indexPath: indexPath)
-        cell.actionClosure = {[weak self] (_, _) in
+        cell.actionClosure = { [weak self] (_, _) in
             guard let self else { return }
             self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
@@ -521,7 +521,7 @@ extension CompositionalLayoutTestViewController: UICollectionViewDataSource {
             let view = collectionView.dequeueReusableHeader(TestCollectionReusableView.self, for: indexPath)
             let data = "\(dataSource[indexPath.section].text) \(indexPath.section)"
             view.configure(data: data, subData: nil, collectionView: collectionView, indexPath: indexPath)
-            view.actionClosure = {[weak self] (_, _) in
+            view.actionClosure = { [weak self] (_, _) in
                 guard let self else { return }
                 self.setData()
                 self.collectionView.reloadData()
