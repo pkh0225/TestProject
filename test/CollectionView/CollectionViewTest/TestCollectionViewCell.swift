@@ -7,6 +7,7 @@
 
 import UIKit
 import CollectionViewAdapter
+import EasyConstraints
 
 class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellProtocol {
     static var SpanSize: Int = 0
@@ -14,35 +15,52 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
 
     lazy var titleLable: UILabel = {
         let l = UILabel()
+        l.textAlignment = .center
+        l.translatesAutoresizingMaskIntoConstraints = false
         return l
     }()
 
     lazy var reloadButton: UIButton = {
         let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "arrow.circlepath"), for: .normal)
         btn.addTarget(self, action: #selector(self.onReloadButton), for: .touchUpInside)
         btn.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        btn.layer.borderColor = UIColor.red.cgColor
+        btn.layer.borderWidth = 1
+        btn.ec.make()
+            .width(50)
+            .height(50)
+
         return btn
     }()
 
     lazy var addButton: UIButton = {
         let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         btn.addTarget(self, action: #selector(self.onAddButton), for: .touchUpInside)
         btn.frame = CGRect(x: self.frame.size.width - 60, y: 0, width: 50, height: 50)
         btn.layer.borderColor = UIColor.red.cgColor
         btn.layer.borderWidth = 1
+        btn.ec.make()
+            .width(50)
+            .height(50)
         return btn
     }()
 
     lazy var addSectionButton: UIButton = {
         let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         btn.addTarget(self, action: #selector(self.onAddSectionButton), for: .touchUpInside)
         btn.frame = CGRect(x: self.frame.size.width - 120, y: 0, width: 50, height: 50)
         btn.layer.borderColor = UIColor.red.cgColor
         btn.layer.borderWidth = 1
         btn.tag = 1
+        btn.ec.make()
+            .width(50)
+            .height(50)
         return btn
     }()
 
@@ -50,7 +68,13 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.contentView.addSubviews([reloadButton, titleLable, addButton, addSectionButton])
+        let stv = UIStackView(arrangedSubviews: [reloadButton, titleLable, addSectionButton, addButton]).apply {
+            $0.axis = .horizontal
+            $0.spacing = 10
+            $0.alignment = .center
+            $0.distribution = .fill
+        }
+        self.contentView.addSubViewAutoLayout(stv, edgeInsets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
     }
     
     required init?(coder: NSCoder) {
@@ -209,8 +233,8 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         self.backgroundColor = data == "new" ? .blue : .green
 
         self.titleLable.text = "\(indexPath.section) / \(indexPath.row)"
-        self.titleLable.sizeToFit()
-        self.titleLable.centerInSuperView()
+//        self.titleLable.sizeToFit()
+//        self.titleLable.centerInSuperView()
 
         self.reloadButton.tag = indexPath.section
         self.addButton.tag_value = data

@@ -106,11 +106,15 @@ class MainViewwController: UITableViewController {
             ),
 
             TestGroupData(
-                title: "Thread",
+                title: "ETC",
                 testDatas: [
                     TestGroupData.TestData(
                         titleName: "Thread",
                         viewControllerType: ThreadViewController.self
+                    ),
+                    TestGroupData.TestData(
+                        titleName: "Type erasure",
+                        viewControllerType: TypeErasureViewController.self
                     )
                 ]
             )

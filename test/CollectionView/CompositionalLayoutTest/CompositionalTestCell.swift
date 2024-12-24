@@ -16,7 +16,8 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
     var actionClosure: ((String, Any?) -> Void)?
 
     lazy var label: UILabel = {
-        let label = UILabel()
+        let label = UILabel(frame: frame)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.textAlignment = .center
         return label
@@ -24,6 +25,7 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
 
     lazy var button: UIButton = {
         let btn = UIButton(frame: frame)
+        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(self.onBtnAction), for: .touchUpInside)
         return btn
     }()
@@ -35,25 +37,14 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        let bgColor = UIColor.random
         self.contentView.apply {
-            $0.backgroundColor = bgColor
-            $0.addSubviews([label, button])
+            $0.addSubViewAutoLayout(label, edgeInsets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+            $0.addSubViewAutoLayout(button)
         }
-        self.label.apply {
-            $0.textColor = bgColor.getComplementaryForColorUsingHSB()
-            $0.ec.make()
-                .leading(contentView.leadingAnchor, 12)
-                .trailing(contentView.trailingAnchor, -12)
-                .top(contentView.topAnchor, 5)
-                .bottom(contentView.bottomAnchor, -5)
+        UIColor.random.apply {
+            self.contentView.backgroundColor = $0
+            self.label.textColor = $0.getComplementaryForColorUsingHSB()
         }
-
-        self.button.ec.make()
-            .leading(contentView.leadingAnchor, 0)
-            .trailing(contentView.trailingAnchor, 0)
-            .bottom(contentView.bottomAnchor, 0)
-            .top(contentView.topAnchor, 0)
     }
 
     

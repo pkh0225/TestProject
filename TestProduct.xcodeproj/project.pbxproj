@@ -13,6 +13,7 @@
 		202354C52CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202354C12CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift */; };
 		202354C82CD4AAB9002BBBF2 /* TestCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 202354C72CD4AAB9002BBBF2 /* TestCollectionReusableView.xib */; };
 		202354C92CD4AAB9002BBBF2 /* TestCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202354C62CD4AAB9002BBBF2 /* TestCollectionReusableView.swift */; };
+		20332E202D152CB700777F6B /* TypeErasureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20332E1F2D152CAC00777F6B /* TypeErasureViewController.swift */; };
 		203AF9602A295AF50018EE87 /* WebLoadImageTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203AF95F2A295AF50018EE87 /* WebLoadImageTestViewController.swift */; };
 		203AF9672A2966B60018EE87 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 203AF9662A2966B60018EE87 /* SDWebImageWebPCoder */; };
 		205CAE8928AB1EDF002999A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CAE8828AB1EDF002999A8 /* AppDelegate.swift */; };
@@ -63,6 +64,7 @@
 		202354C12CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDataSourceViewController.swift; sourceTree = "<group>"; };
 		202354C62CD4AAB9002BBBF2 /* TestCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionReusableView.swift; sourceTree = "<group>"; };
 		202354C72CD4AAB9002BBBF2 /* TestCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionReusableView.xib; sourceTree = "<group>"; };
+		20332E1F2D152CAC00777F6B /* TypeErasureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeErasureViewController.swift; sourceTree = "<group>"; };
 		203AF95F2A295AF50018EE87 /* WebLoadImageTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLoadImageTestViewController.swift; sourceTree = "<group>"; };
 		205CAE8528AB1EDF002999A8 /* TestProduct.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestProduct.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		205CAE8828AB1EDF002999A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -185,7 +187,7 @@
 				207DA9C92CD9C7CE0001BFF5 /* TableView */,
 				207DA9CA2CD9C7DA0001BFF5 /* CollectionView */,
 				207DA9CB2CD9C7F90001BFF5 /* Animation */,
-				2089E84129E265CD00CE6908 /* Thread */,
+				2089E84129E265CD00CE6908 /* ETC */,
 				205CAE9128AB1EE0002999A8 /* Assets.xcassets */,
 				205CAE9328AB1EE0002999A8 /* LaunchScreen.storyboard */,
 				205CAE9628AB1EE0002999A8 /* Info.plist */,
@@ -289,12 +291,13 @@
 			path = Gif;
 			sourceTree = "<group>";
 		};
-		2089E84129E265CD00CE6908 /* Thread */ = {
+		2089E84129E265CD00CE6908 /* ETC */ = {
 			isa = PBXGroup;
 			children = (
 				205CAE8C28AB1EDF002999A8 /* ThreadViewController.swift */,
+				20332E1F2D152CAC00777F6B /* TypeErasureViewController.swift */,
 			);
-			path = Thread;
+			path = ETC;
 			sourceTree = "<group>";
 		};
 		2089E84429E26B9E00CE6908 /* Gradient */ = {
@@ -463,6 +466,7 @@
 				202354C32CD4AA0B002BBBF2 /* CompositionalTestCell.swift in Sources */,
 				207DA9C72CD99E480001BFF5 /* TableViewTestViewController.swift in Sources */,
 				202354C42CD4AA0B002BBBF2 /* CompositionalLayoutTestViewController.swift in Sources */,
+				20332E202D152CB700777F6B /* TypeErasureViewController.swift in Sources */,
 				20F77EF42CDC50C400107C75 /* TableTestCell2.swift in Sources */,
 				202354C52CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift in Sources */,
 				205CAE8D28AB1EDF002999A8 /* ThreadViewController.swift in Sources */,
@@ -752,7 +756,7 @@
 			repositoryURL = "https://github.com/pkh0225/EasyConstraints.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.2;
+				minimumVersion = 1.2.4;
 			};
 		};
 		20FA8C722C6C7A8C00837939 /* XCRemoteSwiftPackageReference "SwiftHelper" */ = {

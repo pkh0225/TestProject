@@ -155,56 +155,8 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
             testData.sectionList.append(sectionInfo)
             sectionInfo.header = CVACellInfo(TestCollectionReusableView.self)
                 .contentObj("\(sectionItem.text) \(s)")
-                .actionClosure({ [weak self] (name, object) in
-                    guard let self else { return }
-                    guard let object = object else { return }
-                    print("1111")
-
-//                    self.isSave = false
-//                    self.collectionView.adapterData = self.makeAdapterData()
-
-
-
-
-                    self.collectionView.collectionViewLayout = self.getLayout()
-                    print("2222")
-                    self.collectionView.reloadData()
-                    self.collectionView.collectionViewLayout.invalidateLayout()
-
-
-                    self.collectionView.performBatchUpdates {
-
-                    } completion: { _ in
-////
-////                    self.collectionView.contentOffset = CGPoint(x: self.offset.x, y: self.collectionView.contentOffset.y)
-                    if let indexPath = self.indexPath {
-                        print("go \(indexPath)")
-                        self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-                    }
-
-                        print("3333")
-                    }
-
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        self.collectionView.isScrollEnabled = false
-//                        if let indexPath = self.indexPath {
-//                            print("go \(indexPath)")
-//                            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-//                        }
-//
-////                        for v in self.collectionView.subviews {
-////                            if let sv = v as? UIScrollView {
-////                                sv.contentOffset = CGPoint(x: self.offset.x, y: sv.contentOffset.y)
-////                                break
-////                            }
-////                        }
-//
-//                        self.isSave = true
-//                        self.collectionView.isScrollEnabled = true
-//                    }
-                    print("444")
-
-//                    alert(title: name, message: "\(object)")
+                .actionClosure({ (name, object) in
+                    alert(title: name, message: "\(String(describing: object))")
                 })
 
             for (i, subItem) in sectionItem.subItems.enumerated() {
@@ -247,6 +199,7 @@ class CompositionalLayoutTestViewController: UIViewController, RouterProtocol {
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: configuration)
         layout.register(BackgroundDecorationView.self, forDecorationViewOfKind: "BackgroundDecorationView")
         return layout
+        
     }
 
 

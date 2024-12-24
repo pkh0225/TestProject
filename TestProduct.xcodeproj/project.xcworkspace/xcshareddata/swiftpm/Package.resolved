@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/EasyConstraints.git",
       "state" : {
-        "revision" : "985816da18da19ce1bb8bd5a757bdb7e9697b9b1",
-        "version" : "1.1.2"
+        "revision" : "2190d35f78b1d519971fc99087c6d3bb463f824b",
+        "version" : "1.2.4"
       }
     },
     {

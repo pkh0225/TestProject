@@ -69,6 +69,9 @@ class TableTestCell: UITableViewCell, TVACellProtocol {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.ec.make()
+            .width(50)
+            .height(50)
         return imageView
     }()
 
@@ -78,19 +81,13 @@ class TableTestCell: UITableViewCell, TVACellProtocol {
 
         self.contentView.apply {
             $0.backgroundColor = #colorLiteral(red: 1, green: 0.7122581601, blue: 0.6296025515, alpha: 1)
-            $0.addSubviews([customLabel, customImageView])
+            //            $0.addSubviews([customLabel, customImageView])
+            $0.addSubViewAutoLayout(subviews: [customImageView,customLabel],
+                                    addType: .horizontal,
+                                    equally: false,
+                                    edgeInsets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10),
+                                    itemSpacing: 10)
         }
-
-        customImageView.ec.make()
-            .leading(contentView.leadingAnchor, 10)
-            .centerY(contentView.centerYAnchor, 0)
-            .width(40)
-            .height(40)
-
-        customLabel.ec.make()
-            .leading(customImageView.trailingAnchor, 10)
-            .centerY(contentView.centerYAnchor, 0)
-            .trailing(contentView.trailingAnchor, -10)
 
     }
 
