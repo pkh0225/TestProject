@@ -85,7 +85,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iKY-QG-LFi">
-                                <rect key="frame" x="0.0" y="44" width="414" height="726"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="760"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lAy-W5-n92">
                                     <size key="itemSize" width="128" height="128"/>
@@ -104,7 +104,7 @@
                             <constraint firstItem="iKY-QG-LFi" firstAttribute="leading" secondItem="nHb-Iv-br5" secondAttribute="leading" id="Au2-dn-OFJ"/>
                             <constraint firstItem="nHb-Iv-br5" firstAttribute="trailing" secondItem="iKY-QG-LFi" secondAttribute="trailing" id="LBw-eB-MP3"/>
                             <constraint firstItem="iKY-QG-LFi" firstAttribute="top" secondItem="ofe-Sb-b1X" secondAttribute="bottom" id="PGU-Gq-c6o"/>
-                            <constraint firstItem="nHb-Iv-br5" firstAttribute="bottom" secondItem="iKY-QG-LFi" secondAttribute="bottom" id="aHI-So-Bll"/>
+                            <constraint firstAttribute="bottom" secondItem="iKY-QG-LFi" secondAttribute="bottom" id="aHI-So-Bll"/>
                             <constraint firstItem="ofe-Sb-b1X" firstAttribute="leading" secondItem="nHb-Iv-br5" secondAttribute="leading" id="cNn-XO-2iE"/>
                         </constraints>
                     </view>

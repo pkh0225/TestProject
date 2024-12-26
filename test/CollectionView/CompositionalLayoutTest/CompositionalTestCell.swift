@@ -16,18 +16,18 @@ class CompositionalTestCell: UICollectionViewCell, CVACellProtocol {
     var actionClosure: ((String, Any?) -> Void)?
 
     lazy var label: UILabel = {
-        let label = UILabel(frame: frame)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 1
-        label.textAlignment = .center
-        return label
+        UILabel(frame: frame).apply {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.numberOfLines = 1
+            $0.textAlignment = .center
+        }
     }()
 
     lazy var button: UIButton = {
-        let btn = UIButton(frame: frame)
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addTarget(self, action: #selector(self.onBtnAction), for: .touchUpInside)
-        return btn
+        UIButton(frame: frame).apply {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.addTarget(self, action: #selector(self.onBtnAction), for: .touchUpInside)
+        }
     }()
 
     required init?(coder: NSCoder) {

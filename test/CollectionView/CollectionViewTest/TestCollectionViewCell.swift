@@ -25,9 +25,8 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "arrow.circlepath"), for: .normal)
         btn.addTarget(self, action: #selector(self.onReloadButton), for: .touchUpInside)
-        btn.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         btn.layer.borderColor = UIColor.red.cgColor
-        btn.layer.borderWidth = 1
+        btn.layer.borderWidth = 0.5
         btn.ec.make()
             .width(50)
             .height(50)
@@ -40,9 +39,8 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         btn.addTarget(self, action: #selector(self.onAddButton), for: .touchUpInside)
-        btn.frame = CGRect(x: self.frame.size.width - 60, y: 0, width: 50, height: 50)
         btn.layer.borderColor = UIColor.red.cgColor
-        btn.layer.borderWidth = 1
+        btn.layer.borderWidth = 0.5
         btn.ec.make()
             .width(50)
             .height(50)
@@ -54,9 +52,8 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         btn.addTarget(self, action: #selector(self.onAddSectionButton), for: .touchUpInside)
-        btn.frame = CGRect(x: self.frame.size.width - 120, y: 0, width: 50, height: 50)
         btn.layer.borderColor = UIColor.red.cgColor
-        btn.layer.borderWidth = 1
+        btn.layer.borderWidth = 0.5
         btn.tag = 1
         btn.ec.make()
             .width(50)
@@ -73,8 +70,10 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
             $0.spacing = 10
             $0.alignment = .center
             $0.distribution = .fill
+            $0.isLayoutMarginsRelativeArrangement = true
+            $0.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         }
-        self.contentView.addSubViewAutoLayout(stv, edgeInsets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
+        self.contentView.addSubViewAutoLayout(stv)
     }
     
     required init?(coder: NSCoder) {

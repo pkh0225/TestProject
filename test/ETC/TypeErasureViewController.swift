@@ -33,6 +33,14 @@ class TypeErasureViewController: UIViewController, RouterProtocol {
         return data
     }()
 
+    let menu: [any MenuItem] = [
+        Coffee(type: .latte),
+        Coffee(type: .mocha),
+        Food(type: .croissant),
+        Food(type: .muffin),
+    ]
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "TypeErasure"
@@ -43,7 +51,25 @@ class TypeErasureViewController: UIViewController, RouterProtocol {
         self.view.addSubViewSafeArea(subView: collectionView, safeBottom: false)
         collectionView.reloadData()
 
+
+
+        for item in menu {
+            print("Prices for \(item.description)")
+            for pricelist in getPriceList(for: item) {
+                print("- \(pricelist.size): $\(pricelist.price)")
+            }
+        }
+
+        func getPriceList<T: MenuItem>(for item: T) -> [(size: T.ItemSize, price: Float)] {
+            var prices: [(T.ItemSize, Float)] = []
+            for size in item.sizes {
+                prices.append((size: size, price: item.price(for: size)))
+            }
+            return prices
+        }
     }
+
+    
 
 }
 
@@ -195,7 +221,7 @@ class BaseTestCell: UICollectionViewCell, TestCellProtocol {
 
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubViewAutoLayout(containerView)
+        self.contentView.addSubViewAutoLayout(containerView, edgeInsets: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
             .ec.priority()
             .bottom(.fittingSizeLevel)
         containerView.addSubViewAutoLayout(subviews: [label1, label2], addType: .vertical, equally: false, itemSpacing: 5)
@@ -221,9 +247,6 @@ class TestAdapterCell1: BaseTestCell {
     }
 }
 
-
-
-
 class TestAdapterCell2: BaseTestCell {
     override func configure(data: (any AnyDataProtocal)?) {
         super.configure(data: data)
@@ -245,3 +268,108 @@ class TestAdapterCell4: BaseTestCell {
     }
 }
 
+struct Coffee {
+    enum CoffeeType: String {
+        case latte
+        case cappuccino
+        case mocha
+    }
+
+    let type: CoffeeType
+}
+
+struct Food {
+    enum FoodType: String {
+        case croissant
+        case muffin
+        case sandwich
+    }
+
+    let type: FoodType
+}
+
+protocol MenuItem {
+    associatedtype ItemSize: CaseIterable
+    func price(for size: ItemSize) -> Float
+    var description: String { get } // 메뉴 설명
+}
+
+extension MenuItem {
+    var sizes: [ItemSize] {
+        ItemSize.allCases as! [Self.ItemSize]
+    }
+}
+extension Coffee: MenuItem {
+    enum ItemSize: CaseIterable {
+        case small
+        case medium
+        case large
+    }
+
+    func price(for size: ItemSize) -> Float {
+        return prices[type]?[size] ?? 0
+    }
+
+    var prices: [CoffeeType: [ItemSize: Float]] {
+        return [
+            .latte: [
+                .small: 4.5,
+                .medium: 5.5,
+                .large: 6.0
+            ],
+            .cappuccino: [
+                .small: 4.5,
+                .medium: 5.5,
+                .large: 6.0
+            ],
+            .mocha: [
+                .small: 4.5,
+                .medium: 5.5,
+                .large: 6.0
+            ]
+        ]
+    }
+
+//    var sizes: [ItemSize] {
+//        ItemSize.allCases
+//    }
+
+    var description: String {
+        return type.rawValue
+    }
+}
+
+extension Food: MenuItem {
+    enum ItemSize: CaseIterable {
+        case small
+        case regular
+    }
+
+    func price(for size: ItemSize) -> Float {
+        prices[type]?[size] ?? 0
+    }
+
+    private var prices: [FoodType: [ItemSize: Float]] {
+        return [
+            .croissant: [
+                .small: 8,
+                .regular: 12,
+            ],
+            .muffin: [
+                .small: 6.5,
+                .regular: 8,
+            ],
+            .sandwich: [
+                .regular: 8.5
+            ]
+        ]
+    }
+
+//    var sizes: [ItemSize] {
+//        ItemSize.allCases
+//    }
+
+    var description: String {
+        return type.rawValue
+    }
+}
