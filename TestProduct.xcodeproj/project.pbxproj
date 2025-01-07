@@ -55,6 +55,7 @@
 		20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C642C6C605D00837939 /* EasyConstraints */; };
 		20FA8C742C6C7A8C00837939 /* SwiftHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C732C6C7A8C00837939 /* SwiftHelper */; };
 		20FF8E372CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */; };
+		20FF90D92D226C5F00872ED6 /* DeinitChecker in Frameworks */ = {isa = PBXBuildFile; productRef = 20FF90D82D226C5F00872ED6 /* DeinitChecker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 				20C29C7C2CD4B9CB00F23EFD /* CollectionViewAdapter in Frameworks */,
 				209BBFBD2CEEC94C00100285 /* PushAnimation in Frameworks */,
 				20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */,
+				20FF90D92D226C5F00872ED6 /* DeinitChecker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +380,7 @@
 				20C29C7B2CD4B9CB00F23EFD /* CollectionViewAdapter */,
 				207DA9A62CD8AECF0001BFF5 /* TableViewAdapter */,
 				209BBFBC2CEEC94C00100285 /* PushAnimation */,
+				20FF90D82D226C5F00872ED6 /* DeinitChecker */,
 			);
 			productName = test;
 			productReference = 205CAE8528AB1EDF002999A8 /* TestProduct.app */;
@@ -416,6 +419,7 @@
 				2047EE322CD8AE1300FF3003 /* XCRemoteSwiftPackageReference "TableViewAdapter" */,
 				203FAB7D2CE58E040090A59D /* XCRemoteSwiftPackageReference "PKHJsonParser" */,
 				20E3492C2CEEBDF3001FD516 /* XCRemoteSwiftPackageReference "PushAnimation" */,
+				2058367B2D226BAD0069323D /* XCRemoteSwiftPackageReference "DeinitChecker" */,
 			);
 			productRefGroup = 205CAE8628AB1EDF002999A8 /* Products */;
 			projectDirPath = "";
@@ -735,6 +739,14 @@
 				minimumVersion = 1.0.9;
 			};
 		};
+		2058367B2D226BAD0069323D /* XCRemoteSwiftPackageReference "DeinitChecker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkh0225/DeinitChecker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		20C7AA8E2CC738A0007D01D4 /* XCRemoteSwiftPackageReference "PkhGridView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pkh0225/PkhGridView.git";
@@ -764,7 +776,7 @@
 			repositoryURL = "https://github.com/pkh0225/SwiftHelper.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.5;
+				minimumVersion = 1.5.6;
 			};
 		};
 		20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */ = {
@@ -812,6 +824,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20FA8C722C6C7A8C00837939 /* XCRemoteSwiftPackageReference "SwiftHelper" */;
 			productName = SwiftHelper;
+		};
+		20FF90D82D226C5F00872ED6 /* DeinitChecker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2058367B2D226BAD0069323D /* XCRemoteSwiftPackageReference "DeinitChecker" */;
+			productName = DeinitChecker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

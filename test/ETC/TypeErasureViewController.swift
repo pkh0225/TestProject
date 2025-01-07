@@ -30,6 +30,12 @@ class TypeErasureViewController: UIViewController, RouterProtocol {
             TestAnyDataClass(TestAdapterCell3.self, value: StructABC()),
             TestAnyDataClass(TestAdapterCell4.self, value: ClssXYZ())
         ]
+        data.cellss.forEach {
+            collectionView.register(
+                $0.cellType as! UICollectionViewCell.Type,
+                forCellWithReuseIdentifier: String(describing: type(of: $0.cellType))
+            )
+        }
         return data
     }()
 
@@ -50,8 +56,6 @@ class TypeErasureViewController: UIViewController, RouterProtocol {
 
         self.view.addSubViewSafeArea(subView: collectionView, safeBottom: false)
         collectionView.reloadData()
-
-
 
         for item in menu {
             print("Prices for \(item.description)")
@@ -75,13 +79,6 @@ class TypeErasureViewController: UIViewController, RouterProtocol {
 
 extension TypeErasureViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        dataSource.cellss.forEach {
-            collectionView.register(
-                $0.cellType as! UICollectionViewCell.Type,
-                forCellWithReuseIdentifier: String(describing: type(of: $0.cellType))
-            )
-        }
-
         return 1
     }
 
@@ -110,7 +107,7 @@ extension TypeErasureViewController: UICollectionViewDelegateFlowLayout {
 
 protocol AnyDataProtocal {
     associatedtype DataType
-    var storedValue: DataType? { get set }
+    var storedValue: DataType { get set }
     var cellType: TestCellProtocol.Type { get set}
 
     var description: String { get }
@@ -141,11 +138,11 @@ extension TestCellProtocol {
 }
 
 class TestAnyDataClass<DataType>: AnyDataProtocal {
-    var storedValue: DataType?
+    var storedValue: DataType
     var cellType: TestCellProtocol.Type
 
 
-    init(_ type: TestCellProtocol.Type, value: DataType?) {
+    init(_ type: TestCellProtocol.Type, value: DataType) {
         self.cellType = type
         self.storedValue = value
     }
@@ -157,26 +154,7 @@ class TestAnyDataClass<DataType>: AnyDataProtocal {
     class var className: String {
         return String(describing: self)
     }
-
 }
-
-class AnyDataProtocalWrapper: AnyDataProtocal {
-    typealias DataType = Any
-
-    var storedValue: Any?
-    var cellType: TestCellProtocol.Type
-
-    init<T: AnyDataProtocal>(_ base: T) {
-        self.storedValue = base.storedValue
-        self.cellType = base.cellType
-    }
-
-    var description: String {
-        "Type: \(type(of: storedValue)), Value: \(String(describing: storedValue))"
-    }
-}
-
-
 
 
 class AnyDataSectionItem {
@@ -203,7 +181,7 @@ class BaseTestCell: UICollectionViewCell, TestCellProtocol {
         let l = UILabel()
         l.textColor = .black
         l.textAlignment = .center
-        l.font = UIFont.systemFont(ofSize: 13, weight: .heavy)
+        l.font = UIFont.systemFont(ofSize: 15, weight: .heavy)
         l.numberOfLines = 0
         return l
     }()
@@ -211,7 +189,7 @@ class BaseTestCell: UICollectionViewCell, TestCellProtocol {
         let l = UILabel()
         l.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         l.textAlignment = .center
-        l.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        l.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         l.numberOfLines = 0
         return l
     }()

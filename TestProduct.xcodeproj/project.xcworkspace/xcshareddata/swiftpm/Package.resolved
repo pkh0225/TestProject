@@ -1,5 +1,5 @@
 {
-  "originHash" : "36562bacbd053cc7f853858697cdbb25ffe0d97254e946a4bc271946c3c4662e",
+  "originHash" : "71ef604c2b880b0b472eb4022a869e9c1236c7c6da3f62e82b9cc8f443a42572",
   "pins" : [
     {
       "identity" : "collectionviewadapter",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "362f8f75a9bb17b9429288f636a4a8932e761a18",
         "version" : "1.6.6"
+      }
+    },
+    {
+      "identity" : "deinitchecker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pkh0225/DeinitChecker.git",
+      "state" : {
+        "revision" : "25d2d09b67d48dbc43f632820b9a22ab2b26db28",
+        "version" : "1.0.0"
       }
     },
     {
@@ -78,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/SwiftHelper.git",
       "state" : {
-        "revision" : "5b077af8555b177149927bb7d19d42554bce9e93",
-        "version" : "1.5.5"
+        "revision" : "229dcbd333a6e711383c5178f7064d54031c836a",
+        "version" : "1.5.6"
       }
     },
     {
