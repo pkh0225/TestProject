@@ -61,31 +61,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ofe-Sb-b1X">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SqW-SL-gCw">
-                                        <rect key="frame" x="326" y="5" width="80" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="PV2-Cz-41e"/>
-                                            <constraint firstAttribute="height" constant="34" id="nVX-BC-5XP"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="KuF-xU-pLy" id="CCs-gE-ItG"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="61M-Rr-gUS"/>
-                                    <constraint firstAttribute="trailing" secondItem="SqW-SL-gCw" secondAttribute="trailing" constant="8" id="IEb-pL-h1i"/>
-                                    <constraint firstItem="SqW-SL-gCw" firstAttribute="centerY" secondItem="ofe-Sb-b1X" secondAttribute="centerY" id="nwW-WC-ERl"/>
-                                </constraints>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iKY-QG-LFi">
-                                <rect key="frame" x="0.0" y="44" width="414" height="760"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lAy-W5-n92">
                                     <size key="itemSize" width="128" height="128"/>
@@ -99,19 +76,15 @@
                         <viewLayoutGuide key="safeArea" id="nHb-Iv-br5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="nHb-Iv-br5" firstAttribute="trailing" secondItem="ofe-Sb-b1X" secondAttribute="trailing" id="1Uk-3c-1UV"/>
-                            <constraint firstItem="ofe-Sb-b1X" firstAttribute="top" secondItem="nHb-Iv-br5" secondAttribute="top" id="2XM-IN-YYy"/>
                             <constraint firstItem="iKY-QG-LFi" firstAttribute="leading" secondItem="nHb-Iv-br5" secondAttribute="leading" id="Au2-dn-OFJ"/>
                             <constraint firstItem="nHb-Iv-br5" firstAttribute="trailing" secondItem="iKY-QG-LFi" secondAttribute="trailing" id="LBw-eB-MP3"/>
-                            <constraint firstItem="iKY-QG-LFi" firstAttribute="top" secondItem="ofe-Sb-b1X" secondAttribute="bottom" id="PGU-Gq-c6o"/>
+                            <constraint firstItem="iKY-QG-LFi" firstAttribute="top" secondItem="nHb-Iv-br5" secondAttribute="top" id="Zan-YE-wws"/>
                             <constraint firstAttribute="bottom" secondItem="iKY-QG-LFi" secondAttribute="bottom" id="aHI-So-Bll"/>
-                            <constraint firstItem="ofe-Sb-b1X" firstAttribute="leading" secondItem="nHb-Iv-br5" secondAttribute="leading" id="cNn-XO-2iE"/>
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="collectionView" destination="iKY-QG-LFi" id="Hfa-7U-K69"/>
-                        <outlet property="rightGapTextField" destination="SqW-SL-gCw" id="WSK-Ix-84v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fO8-0T-y3C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

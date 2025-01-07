@@ -14,7 +14,6 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
     static var storyboardName: String = "Main"
 
 
-    @IBOutlet weak var rightGapTextField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
 
 
@@ -40,12 +39,4 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
 
         return adapterData
     }
-}
-
-
-extension CollectionViewTestViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.collectionView.ec.trailing = textField.text?.toCGFloat() ?? 0
-        return true
-      }
 }

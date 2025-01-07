@@ -161,9 +161,9 @@ class TestCollectionViewCell: UICollectionViewCell, CollectionViewAdapterCellPro
                         self.parentCollectionView?.deleteSections(IndexSet(integer: newSectoinIndex))
 
                         let sectionIndex: Int
-                        if newSectoinIndex < self.indexPath.section {
-//                            sectionIndex = self.indexPath.section - 1
-//
+                        if newSectoinIndex <= self.indexPath.section {
+//                            sectionIndex = self.indexPath.section
+
 //                            adapterData.sectionList.remove(at: sectionIndex )
 //                            self.parentCollectionView?.deleteSections(IndexSet(integer: sectionIndex ))
 
