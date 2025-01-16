@@ -109,6 +109,10 @@ class MainViewwController: UITableViewController {
                 title: "ETC",
                 testDatas: [
                     TestGroupData.TestData(
+                        titleName: "Combine",
+                        viewControllerType: CombineViewController.self
+                    ),
+                    TestGroupData.TestData(
                         titleName: "Thread",
                         viewControllerType: ThreadViewController.self
                     ),

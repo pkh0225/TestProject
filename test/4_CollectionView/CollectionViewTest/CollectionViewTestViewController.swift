@@ -20,9 +20,9 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView.adapterData = makeApterData()
-        collectionView.reloadData()
-
+        collectionView
+            .adapterData(makeApterData())
+            .reloadData()
     }
 
     func makeApterData() -> CVAData {
@@ -32,9 +32,9 @@ class CollectionViewTestViewController: UIViewController, RouterProtocol {
             let sectionData = CVASectionInfo()
             for _ in 0..<4 {
                 let cellData = CVACellInfo(TestCollectionViewCell.self)
-                sectionData.cells.append(cellData)
+                sectionData.addCell(cellData)
             }
-            adapterData.sectionList.append(sectionData)
+            adapterData.addSection(sectionData)
         }
 
         return adapterData

@@ -3,106 +3,37 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		200E2D8B2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200E2D8A2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift */; };
-		202354C32CD4AA0B002BBBF2 /* CompositionalTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202354BF2CD4AA0B002BBBF2 /* CompositionalTestCell.swift */; };
-		202354C42CD4AA0B002BBBF2 /* CompositionalLayoutTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202354BE2CD4AA0B002BBBF2 /* CompositionalLayoutTestViewController.swift */; };
-		202354C52CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202354C12CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift */; };
-		202354C82CD4AAB9002BBBF2 /* TestCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 202354C72CD4AAB9002BBBF2 /* TestCollectionReusableView.xib */; };
-		202354C92CD4AAB9002BBBF2 /* TestCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202354C62CD4AAB9002BBBF2 /* TestCollectionReusableView.swift */; };
-		20332E202D152CB700777F6B /* TypeErasureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20332E1F2D152CAC00777F6B /* TypeErasureViewController.swift */; };
-		203AF9602A295AF50018EE87 /* WebLoadImageTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203AF95F2A295AF50018EE87 /* WebLoadImageTestViewController.swift */; };
 		203AF9672A2966B60018EE87 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 203AF9662A2966B60018EE87 /* SDWebImageWebPCoder */; };
-		205CAE8928AB1EDF002999A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CAE8828AB1EDF002999A8 /* AppDelegate.swift */; };
-		205CAE8B28AB1EDF002999A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CAE8A28AB1EDF002999A8 /* SceneDelegate.swift */; };
-		205CAE8D28AB1EDF002999A8 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CAE8C28AB1EDF002999A8 /* ThreadViewController.swift */; };
-		205CAE9028AB1EDF002999A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 205CAE8E28AB1EDF002999A8 /* Main.storyboard */; };
-		205CAE9228AB1EE0002999A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 205CAE9128AB1EE0002999A8 /* Assets.xcassets */; };
-		205CAE9528AB1EE0002999A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 205CAE9328AB1EE0002999A8 /* LaunchScreen.storyboard */; };
-		205CE6AB29E26E650028450C /* DynamicAnimatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6AA29E26E650028450C /* DynamicAnimatorViewController.swift */; };
-		205CE6AE29E273BC0028450C /* DragAbleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6AD29E273BC0028450C /* DragAbleViewController.swift */; };
-		205CE6B129E388810028450C /* DynamicffectsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6B029E388810028450C /* DynamicffectsTabViewController.swift */; };
-		205CE6B329E38A570028450C /* DynamicffectsBallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6B229E38A570028450C /* DynamicffectsBallViewController.swift */; };
-		205CE6B529E38A810028450C /* DynamicffectsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6B429E38A810028450C /* DynamicffectsMenuViewController.swift */; };
-		205CE6B829E3C2670028450C /* Field​BehaviorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CE6B729E3C2670028450C /* Field​BehaviorViewController.swift */; };
 		207DA9A72CD8AECF0001BFF5 /* TableViewAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 207DA9A62CD8AECF0001BFF5 /* TableViewAdapter */; };
-		207DA9C72CD99E480001BFF5 /* TableViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207DA9C62CD99E3D0001BFF5 /* TableViewTestViewController.swift */; };
-		208662002CDC936A00DECAF6 /* CAGradientLayerTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 208661FF2CDC936A00DECAF6 /* CAGradientLayerTestViewController.xib */; };
-		208662012CDC936A00DECAF6 /* CAGradientLayerTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208661FE2CDC936A00DECAF6 /* CAGradientLayerTestViewController.swift */; };
-		2089E84329E265FC00CE6908 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2089E84229E265FC00CE6908 /* MainViewController.swift */; };
 		209BBFBD2CEEC94C00100285 /* PushAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = 209BBFBC2CEEC94C00100285 /* PushAnimation */; };
-		20A027D42CF69E8B002D6650 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A027D32CF69E85002D6650 /* PinterestLayout.swift */; };
-		20A027D72CF6A40D002D6650 /* PCLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A027D62CF6A408002D6650 /* PCLViewController.swift */; };
-		20A33D3C29D2BAE400075174 /* GIfImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A33D3B29D2BAE400075174 /* GIfImageExtension.swift */; };
-		20A33D4029D2BD4200075174 /* cmm_all_ani_pop_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 20A33D3F29D2BD4200075174 /* cmm_all_ani_pop_loading.gif */; };
-		20A33D6229D2C22F00075174 /* GifImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A33D6129D2C22F00075174 /* GifImageViewController.swift */; };
-		20A4E7DC2CF9861E005C3368 /* TestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A4E7DB2CF9861D005C3368 /* TestCollectionViewCell.swift */; };
-		20C1A2002D0FC1B10017EF99 /* ViewLayoutControler.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20C1A1FF2D0FC1B10017EF99 /* ViewLayoutControler.xib */; };
-		20C1A2012D0FC1B10017EF99 /* ViewLayoutControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C1A1FE2D0FC1B10017EF99 /* ViewLayoutControler.swift */; };
 		20C29C7C2CD4B9CB00F23EFD /* CollectionViewAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 20C29C7B2CD4B9CB00F23EFD /* CollectionViewAdapter */; };
 		20C7AA902CC738A0007D01D4 /* PkhGridView in Frameworks */ = {isa = PBXBuildFile; productRef = 20C7AA8F2CC738A0007D01D4 /* PkhGridView */; };
-		20C7AA972CC7397B007D01D4 /* TestCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20C7AA932CC7397B007D01D4 /* TestCellCollectionViewCell.xib */; };
-		20C7AA982CC7397B007D01D4 /* TestCellCollectionViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20C7AA952CC7397B007D01D4 /* TestCellCollectionViewCell2.xib */; };
-		20C7AA992CC7397B007D01D4 /* TestCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C7AA922CC7397B007D01D4 /* TestCellCollectionViewCell.swift */; };
-		20C7AA9A2CC7397B007D01D4 /* GridViewTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C7AA962CC7397B007D01D4 /* GridViewTestController.swift */; };
-		20C7AA9B2CC7397B007D01D4 /* TestCellCollectionViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C7AA942CC7397B007D01D4 /* TestCellCollectionViewCell2.swift */; };
-		20F57A7D29FBAEBA00F9A7F6 /* AddViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F57A7C29FBAEBA00F9A7F6 /* AddViewTestViewController.swift */; };
-		20F77EF32CDC50C400107C75 /* TableTestCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20F77EF22CDC50C400107C75 /* TableTestCell2.xib */; };
-		20F77EF42CDC50C400107C75 /* TableTestCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F77EF12CDC50C400107C75 /* TableTestCell2.swift */; };
 		20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C642C6C605D00837939 /* EasyConstraints */; };
 		20FA8C742C6C7A8C00837939 /* SwiftHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C732C6C7A8C00837939 /* SwiftHelper */; };
-		20FF8E372CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */; };
 		20FF90D92D226C5F00872ED6 /* DeinitChecker in Frameworks */ = {isa = PBXBuildFile; productRef = 20FF90D82D226C5F00872ED6 /* DeinitChecker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		200E2D8A2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTestViewController.swift; sourceTree = "<group>"; };
-		202354BE2CD4AA0B002BBBF2 /* CompositionalLayoutTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutTestViewController.swift; sourceTree = "<group>"; };
-		202354BF2CD4AA0B002BBBF2 /* CompositionalTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalTestCell.swift; sourceTree = "<group>"; };
-		202354C12CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDataSourceViewController.swift; sourceTree = "<group>"; };
-		202354C62CD4AAB9002BBBF2 /* TestCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionReusableView.swift; sourceTree = "<group>"; };
-		202354C72CD4AAB9002BBBF2 /* TestCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionReusableView.xib; sourceTree = "<group>"; };
-		20332E1F2D152CAC00777F6B /* TypeErasureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeErasureViewController.swift; sourceTree = "<group>"; };
-		203AF95F2A295AF50018EE87 /* WebLoadImageTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLoadImageTestViewController.swift; sourceTree = "<group>"; };
 		205CAE8528AB1EDF002999A8 /* TestProduct.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestProduct.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		205CAE8828AB1EDF002999A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		205CAE8A28AB1EDF002999A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		205CAE8C28AB1EDF002999A8 /* ThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
-		205CAE8F28AB1EDF002999A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		205CAE9128AB1EE0002999A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		205CAE9428AB1EE0002999A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		205CAE9628AB1EE0002999A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		205CE6AA29E26E650028450C /* DynamicAnimatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicAnimatorViewController.swift; sourceTree = "<group>"; };
-		205CE6AD29E273BC0028450C /* DragAbleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAbleViewController.swift; sourceTree = "<group>"; };
-		205CE6B029E388810028450C /* DynamicffectsTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicffectsTabViewController.swift; sourceTree = "<group>"; };
-		205CE6B229E38A570028450C /* DynamicffectsBallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicffectsBallViewController.swift; sourceTree = "<group>"; };
-		205CE6B429E38A810028450C /* DynamicffectsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicffectsMenuViewController.swift; sourceTree = "<group>"; };
-		205CE6B729E3C2670028450C /* Field​BehaviorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Field​BehaviorViewController.swift"; sourceTree = "<group>"; };
-		207DA9C62CD99E3D0001BFF5 /* TableViewTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewTestViewController.swift; sourceTree = "<group>"; };
-		208661FE2CDC936A00DECAF6 /* CAGradientLayerTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayerTestViewController.swift; sourceTree = "<group>"; };
-		208661FF2CDC936A00DECAF6 /* CAGradientLayerTestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CAGradientLayerTestViewController.xib; sourceTree = "<group>"; };
-		2089E84229E265FC00CE6908 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		20A027D32CF69E85002D6650 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
-		20A027D62CF6A408002D6650 /* PCLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCLViewController.swift; sourceTree = "<group>"; };
-		20A33D3B29D2BAE400075174 /* GIfImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIfImageExtension.swift; sourceTree = "<group>"; };
-		20A33D3F29D2BD4200075174 /* cmm_all_ani_pop_loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cmm_all_ani_pop_loading.gif; sourceTree = "<group>"; };
-		20A33D6129D2C22F00075174 /* GifImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImageViewController.swift; sourceTree = "<group>"; };
-		20A4E7DB2CF9861D005C3368 /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
-		20C1A1FE2D0FC1B10017EF99 /* ViewLayoutControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLayoutControler.swift; sourceTree = "<group>"; };
-		20C1A1FF2D0FC1B10017EF99 /* ViewLayoutControler.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewLayoutControler.xib; sourceTree = "<group>"; };
-		20C7AA922CC7397B007D01D4 /* TestCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCellCollectionViewCell.swift; sourceTree = "<group>"; };
-		20C7AA932CC7397B007D01D4 /* TestCellCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCellCollectionViewCell.xib; sourceTree = "<group>"; };
-		20C7AA942CC7397B007D01D4 /* TestCellCollectionViewCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCellCollectionViewCell2.swift; sourceTree = "<group>"; };
-		20C7AA952CC7397B007D01D4 /* TestCellCollectionViewCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCellCollectionViewCell2.xib; sourceTree = "<group>"; };
-		20C7AA962CC7397B007D01D4 /* GridViewTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewTestController.swift; sourceTree = "<group>"; };
-		20F57A7C29FBAEBA00F9A7F6 /* AddViewTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewTestViewController.swift; sourceTree = "<group>"; };
-		20F77EF12CDC50C400107C75 /* TableTestCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTestCell2.swift; sourceTree = "<group>"; };
-		20F77EF22CDC50C400107C75 /* TableTestCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableTestCell2.xib; sourceTree = "<group>"; };
-		20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutPageTestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		203AE0D42D38926A00629AE7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 205CAE8428AB1EDF002999A8 /* TestProduct */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		203AE0A82D38926A00629AE7 /* test */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (203AE0D42D38926A00629AE7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = test; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		205CAE8228AB1EDF002999A8 /* Frameworks */ = {
@@ -123,47 +54,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		200E2D892AE0DBFF004C13C5 /* CollectionViewTest */ = {
-			isa = PBXGroup;
-			children = (
-				200E2D8A2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift */,
-				20A4E7DB2CF9861D005C3368 /* TestCollectionViewCell.swift */,
-			);
-			path = CollectionViewTest;
-			sourceTree = "<group>";
-		};
-		202354C02CD4AA0B002BBBF2 /* CompositionalLayoutTest */ = {
-			isa = PBXGroup;
-			children = (
-				202354BE2CD4AA0B002BBBF2 /* CompositionalLayoutTestViewController.swift */,
-				20FF8E362CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift */,
-				202354BF2CD4AA0B002BBBF2 /* CompositionalTestCell.swift */,
-				202354C62CD4AAB9002BBBF2 /* TestCollectionReusableView.swift */,
-				202354C72CD4AAB9002BBBF2 /* TestCollectionReusableView.xib */,
-			);
-			path = CompositionalLayoutTest;
-			sourceTree = "<group>";
-		};
-		202354C22CD4AA0B002BBBF2 /* DiffableDataSourceTest */ = {
-			isa = PBXGroup;
-			children = (
-				202354C12CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift */,
-			);
-			path = DiffableDataSourceTest;
-			sourceTree = "<group>";
-		};
-		203AF95E2A295AC90018EE87 /* WebLoadImageTest */ = {
-			isa = PBXGroup;
-			children = (
-				203AF95F2A295AF50018EE87 /* WebLoadImageTestViewController.swift */,
-			);
-			path = WebLoadImageTest;
-			sourceTree = "<group>";
-		};
 		205CAE7C28AB1EDF002999A8 = {
 			isa = PBXGroup;
 			children = (
-				205CAE8728AB1EDF002999A8 /* test */,
+				203AE0A82D38926A00629AE7 /* test */,
 				20C29C7A2CD4B9CB00F23EFD /* Frameworks */,
 				205CAE8628AB1EDF002999A8 /* Products */,
 			);
@@ -177,183 +71,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		205CAE8728AB1EDF002999A8 /* test */ = {
-			isa = PBXGroup;
-			children = (
-				205CAE8828AB1EDF002999A8 /* AppDelegate.swift */,
-				205CAE8A28AB1EDF002999A8 /* SceneDelegate.swift */,
-				2089E84229E265FC00CE6908 /* MainViewController.swift */,
-				205CAE8E28AB1EDF002999A8 /* Main.storyboard */,
-				207DA9C82CD9A00A0001BFF5 /* View */,
-				20C7AA912CC7395F007D01D4 /* GridView */,
-				207DA9C92CD9C7CE0001BFF5 /* TableView */,
-				207DA9CA2CD9C7DA0001BFF5 /* CollectionView */,
-				207DA9CB2CD9C7F90001BFF5 /* Animation */,
-				2089E84129E265CD00CE6908 /* ETC */,
-				205CAE9128AB1EE0002999A8 /* Assets.xcassets */,
-				205CAE9328AB1EE0002999A8 /* LaunchScreen.storyboard */,
-				205CAE9628AB1EE0002999A8 /* Info.plist */,
-			);
-			path = test;
-			sourceTree = "<group>";
-		};
-		205CE6A929E26E320028450C /* UIDynamicAnimator */ = {
-			isa = PBXGroup;
-			children = (
-				205CE6AA29E26E650028450C /* DynamicAnimatorViewController.swift */,
-			);
-			path = UIDynamicAnimator;
-			sourceTree = "<group>";
-		};
-		205CE6AC29E2739E0028450C /* DragAbleViewManager */ = {
-			isa = PBXGroup;
-			children = (
-				205CE6AD29E273BC0028450C /* DragAbleViewController.swift */,
-			);
-			path = DragAbleViewManager;
-			sourceTree = "<group>";
-		};
-		205CE6AF29E388530028450C /* Dynamic Effects */ = {
-			isa = PBXGroup;
-			children = (
-				205CE6B029E388810028450C /* DynamicffectsTabViewController.swift */,
-				205CE6B229E38A570028450C /* DynamicffectsBallViewController.swift */,
-				205CE6B429E38A810028450C /* DynamicffectsMenuViewController.swift */,
-			);
-			path = "Dynamic Effects";
-			sourceTree = "<group>";
-		};
-		205CE6B629E3C24E0028450C /* UIField​Behavior */ = {
-			isa = PBXGroup;
-			children = (
-				205CE6B729E3C2670028450C /* Field​BehaviorViewController.swift */,
-			);
-			path = "UIField​Behavior";
-			sourceTree = "<group>";
-		};
-		207DA9C52CD99E1A0001BFF5 /* TableViewTest */ = {
-			isa = PBXGroup;
-			children = (
-				207DA9C62CD99E3D0001BFF5 /* TableViewTestViewController.swift */,
-				20F77EF12CDC50C400107C75 /* TableTestCell2.swift */,
-				20F77EF22CDC50C400107C75 /* TableTestCell2.xib */,
-			);
-			path = TableViewTest;
-			sourceTree = "<group>";
-		};
-		207DA9C82CD9A00A0001BFF5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				20C1A1FB2D0FC10B0017EF99 /* ViewLayout */,
-				2089E84029E265B700CE6908 /* Gif */,
-				2089E84429E26B9E00CE6908 /* Gradient */,
-				20F57A7B29FBAE9800F9A7F6 /* addViewTest */,
-				203AF95E2A295AC90018EE87 /* WebLoadImageTest */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		207DA9C92CD9C7CE0001BFF5 /* TableView */ = {
-			isa = PBXGroup;
-			children = (
-				207DA9C52CD99E1A0001BFF5 /* TableViewTest */,
-			);
-			path = TableView;
-			sourceTree = "<group>";
-		};
-		207DA9CA2CD9C7DA0001BFF5 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				200E2D892AE0DBFF004C13C5 /* CollectionViewTest */,
-				202354C02CD4AA0B002BBBF2 /* CompositionalLayoutTest */,
-				202354C22CD4AA0B002BBBF2 /* DiffableDataSourceTest */,
-				20A027D52CF69F9A002D6650 /* PinterstLayout */,
-			);
-			path = CollectionView;
-			sourceTree = "<group>";
-		};
-		207DA9CB2CD9C7F90001BFF5 /* Animation */ = {
-			isa = PBXGroup;
-			children = (
-				205CE6A929E26E320028450C /* UIDynamicAnimator */,
-				205CE6AC29E2739E0028450C /* DragAbleViewManager */,
-				205CE6AF29E388530028450C /* Dynamic Effects */,
-				205CE6B629E3C24E0028450C /* UIField​Behavior */,
-			);
-			path = Animation;
-			sourceTree = "<group>";
-		};
-		2089E84029E265B700CE6908 /* Gif */ = {
-			isa = PBXGroup;
-			children = (
-				20A33D3F29D2BD4200075174 /* cmm_all_ani_pop_loading.gif */,
-				20A33D6129D2C22F00075174 /* GifImageViewController.swift */,
-				20A33D3B29D2BAE400075174 /* GIfImageExtension.swift */,
-			);
-			path = Gif;
-			sourceTree = "<group>";
-		};
-		2089E84129E265CD00CE6908 /* ETC */ = {
-			isa = PBXGroup;
-			children = (
-				205CAE8C28AB1EDF002999A8 /* ThreadViewController.swift */,
-				20332E1F2D152CAC00777F6B /* TypeErasureViewController.swift */,
-			);
-			path = ETC;
-			sourceTree = "<group>";
-		};
-		2089E84429E26B9E00CE6908 /* Gradient */ = {
-			isa = PBXGroup;
-			children = (
-				208661FE2CDC936A00DECAF6 /* CAGradientLayerTestViewController.swift */,
-				208661FF2CDC936A00DECAF6 /* CAGradientLayerTestViewController.xib */,
-			);
-			path = Gradient;
-			sourceTree = "<group>";
-		};
-		20A027D52CF69F9A002D6650 /* PinterstLayout */ = {
-			isa = PBXGroup;
-			children = (
-				20A027D32CF69E85002D6650 /* PinterestLayout.swift */,
-				20A027D62CF6A408002D6650 /* PCLViewController.swift */,
-			);
-			path = PinterstLayout;
-			sourceTree = "<group>";
-		};
-		20C1A1FB2D0FC10B0017EF99 /* ViewLayout */ = {
-			isa = PBXGroup;
-			children = (
-				20C1A1FE2D0FC1B10017EF99 /* ViewLayoutControler.swift */,
-				20C1A1FF2D0FC1B10017EF99 /* ViewLayoutControler.xib */,
-			);
-			path = ViewLayout;
-			sourceTree = "<group>";
-		};
 		20C29C7A2CD4B9CB00F23EFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		20C7AA912CC7395F007D01D4 /* GridView */ = {
-			isa = PBXGroup;
-			children = (
-				20C7AA962CC7397B007D01D4 /* GridViewTestController.swift */,
-				20C7AA922CC7397B007D01D4 /* TestCellCollectionViewCell.swift */,
-				20C7AA932CC7397B007D01D4 /* TestCellCollectionViewCell.xib */,
-				20C7AA942CC7397B007D01D4 /* TestCellCollectionViewCell2.swift */,
-				20C7AA952CC7397B007D01D4 /* TestCellCollectionViewCell2.xib */,
-			);
-			path = GridView;
-			sourceTree = "<group>";
-		};
-		20F57A7B29FBAE9800F9A7F6 /* addViewTest */ = {
-			isa = PBXGroup;
-			children = (
-				20F57A7C29FBAEBA00F9A7F6 /* AddViewTestViewController.swift */,
-			);
-			path = addViewTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,6 +92,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				203AE0A82D38926A00629AE7 /* test */,
 			);
 			name = TestProduct;
 			packageProductDependencies = (
@@ -394,7 +119,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					205CAE8428AB1EDF002999A8 = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -435,16 +160,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20C1A2002D0FC1B10017EF99 /* ViewLayoutControler.xib in Resources */,
-				205CAE9528AB1EE0002999A8 /* LaunchScreen.storyboard in Resources */,
-				202354C82CD4AAB9002BBBF2 /* TestCollectionReusableView.xib in Resources */,
-				20A33D4029D2BD4200075174 /* cmm_all_ani_pop_loading.gif in Resources */,
-				205CAE9228AB1EE0002999A8 /* Assets.xcassets in Resources */,
-				205CAE9028AB1EDF002999A8 /* Main.storyboard in Resources */,
-				208662002CDC936A00DECAF6 /* CAGradientLayerTestViewController.xib in Resources */,
-				20C7AA972CC7397B007D01D4 /* TestCellCollectionViewCell.xib in Resources */,
-				20C7AA982CC7397B007D01D4 /* TestCellCollectionViewCell2.xib in Resources */,
-				20F77EF32CDC50C400107C75 /* TableTestCell2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,60 +170,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20A4E7DC2CF9861E005C3368 /* TestCollectionViewCell.swift in Sources */,
-				205CE6B529E38A810028450C /* DynamicffectsMenuViewController.swift in Sources */,
-				20C7AA992CC7397B007D01D4 /* TestCellCollectionViewCell.swift in Sources */,
-				20C7AA9A2CC7397B007D01D4 /* GridViewTestController.swift in Sources */,
-				20C7AA9B2CC7397B007D01D4 /* TestCellCollectionViewCell2.swift in Sources */,
-				208662012CDC936A00DECAF6 /* CAGradientLayerTestViewController.swift in Sources */,
-				202354C92CD4AAB9002BBBF2 /* TestCollectionReusableView.swift in Sources */,
-				200E2D8B2AE0DC1F004C13C5 /* CollectionViewTestViewController.swift in Sources */,
-				20C1A2012D0FC1B10017EF99 /* ViewLayoutControler.swift in Sources */,
-				20A33D3C29D2BAE400075174 /* GIfImageExtension.swift in Sources */,
-				205CE6AB29E26E650028450C /* DynamicAnimatorViewController.swift in Sources */,
-				205CE6AE29E273BC0028450C /* DragAbleViewController.swift in Sources */,
-				202354C32CD4AA0B002BBBF2 /* CompositionalTestCell.swift in Sources */,
-				207DA9C72CD99E480001BFF5 /* TableViewTestViewController.swift in Sources */,
-				202354C42CD4AA0B002BBBF2 /* CompositionalLayoutTestViewController.swift in Sources */,
-				20332E202D152CB700777F6B /* TypeErasureViewController.swift in Sources */,
-				20F77EF42CDC50C400107C75 /* TableTestCell2.swift in Sources */,
-				202354C52CD4AA0B002BBBF2 /* DiffableDataSourceViewController.swift in Sources */,
-				205CAE8D28AB1EDF002999A8 /* ThreadViewController.swift in Sources */,
-				205CAE8928AB1EDF002999A8 /* AppDelegate.swift in Sources */,
-				205CE6B129E388810028450C /* DynamicffectsTabViewController.swift in Sources */,
-				2089E84329E265FC00CE6908 /* MainViewController.swift in Sources */,
-				20A027D72CF6A40D002D6650 /* PCLViewController.swift in Sources */,
-				20A33D6229D2C22F00075174 /* GifImageViewController.swift in Sources */,
-				205CE6B829E3C2670028450C /* Field​BehaviorViewController.swift in Sources */,
-				20FF8E372CE58E66004285C3 /* CompositionalLayoutPageTestViewController.swift in Sources */,
-				20F57A7D29FBAEBA00F9A7F6 /* AddViewTestViewController.swift in Sources */,
-				20A027D42CF69E8B002D6650 /* PinterestLayout.swift in Sources */,
-				203AF9602A295AF50018EE87 /* WebLoadImageTestViewController.swift in Sources */,
-				205CAE8B28AB1EDF002999A8 /* SceneDelegate.swift in Sources */,
-				205CE6B329E38A570028450C /* DynamicffectsBallViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		205CAE8E28AB1EDF002999A8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				205CAE8F28AB1EDF002999A8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		205CAE9328AB1EE0002999A8 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				205CAE9428AB1EE0002999A8 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		205CAE9728AB1EE0002999A8 /* Debug */ = {
@@ -547,6 +212,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -609,6 +275,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -736,7 +403,7 @@
 			repositoryURL = "https://github.com/pkh0225/TableViewAdapter.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.9;
+				minimumVersion = 1.1.0;
 			};
 		};
 		2058367B2D226BAD0069323D /* XCRemoteSwiftPackageReference "DeinitChecker" */ = {
@@ -768,7 +435,7 @@
 			repositoryURL = "https://github.com/pkh0225/EasyConstraints.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.4;
+				minimumVersion = 1.2.5;
 			};
 		};
 		20FA8C722C6C7A8C00837939 /* XCRemoteSwiftPackageReference "SwiftHelper" */ = {
@@ -784,7 +451,7 @@
 			repositoryURL = "https://github.com/pkh0225/CollectionViewAdapter.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.6.6;
+				minimumVersion = 1.6.7;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

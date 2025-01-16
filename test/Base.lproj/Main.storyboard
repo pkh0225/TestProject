@@ -230,8 +230,8 @@ Group</string>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9qq-M5-ux7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="88" id="5cg-pj-Bqc"/>
-                            <constraint firstItem="9qq-M5-ux7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="250" id="Nmb-4U-dry"/>
                             <constraint firstItem="jGy-jj-U3e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="65" id="e4D-9b-Xs6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9qq-M5-ux7" secondAttribute="trailing" constant="122" id="qAV-Xk-qR8"/>
                             <constraint firstItem="jGy-jj-U3e" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="88" id="ueu-vy-kVw"/>
                         </constraints>
                     </view>

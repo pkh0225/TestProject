@@ -12,7 +12,7 @@ import CollectionViewAdapter
 
 class Section: Hashable, @unchecked Sendable {
     let id = UUID()
-    var subItems = [Item]()
+    var cellItems = [Item]()
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -96,7 +96,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
 
         self.MakeAutoLayout()
 
-        self.testItems = makeAdapterData()
+        self.testItems = makeData()
 //        self.collectionView.dataSource = self
 
         dataSource = DataSource(collectionView: collectionView) { [weak self] (collectionView, indexPath, item) -> UICollectionViewCell? in
@@ -121,7 +121,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
 
         var snapshot = Snapshot()
         snapshot.appendSections(testItems)
-        testItems.forEach { snapshot.appendItems($0.subItems, toSection: $0) }
+        testItems.forEach { snapshot.appendItems($0.cellItems, toSection: $0) }
         dataSource.apply(snapshot, animatingDifferences: true)
 
     }
@@ -150,7 +150,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
 
     private func addNewItem(item: Item, indexPath: IndexPath) {
         let newItem = Item(title: "new item")
-        self.testItems[indexPath.section].subItems.insert(newItem, at: indexPath.item + 1)
+        self.testItems[indexPath.section].cellItems.insert(newItem, at: indexPath.item + 1)
 
         var snapshot = dataSource.snapshot()
         snapshot.insertItems([newItem], afterItem: item)
@@ -158,7 +158,7 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
     }
 
     private func deleteItem(item: Item, indexPath: IndexPath) {
-        self.testItems[indexPath.section].subItems.remove(at: indexPath.item)
+        self.testItems[indexPath.section].cellItems.remove(at: indexPath.item)
 
         var snapshot = dataSource.snapshot()
         snapshot.deleteItems([item])
@@ -269,11 +269,11 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
             var snapshot = Snapshot()
             if text.isEmpty {
                 snapshot.appendSections(testItems)
-                testItems.forEach { snapshot.appendItems($0.subItems, toSection: $0) }
+                testItems.forEach { snapshot.appendItems($0.cellItems, toSection: $0) }
             }
             else {
                 let filtered = testItems.flatMap { section in
-                    section.subItems.filter { item in
+                    section.cellItems.filter { item in
                         item.title.contains(text)
                     }
                 }
@@ -285,13 +285,13 @@ class DiffableDataSourceViewController: UIViewController, RouterProtocol {
         }
     }
 
-    private func makeAdapterData() -> [Section] {
+    private func makeData() -> [Section] {
         var testData = [Section]()
         for i in 0...5 {
             let section = Section()
             for j in 0...30 {
                 let item = Item(title: "cell (\(i) : \(j))")
-                section.subItems.append(item)
+                section.cellItems.append(item)
             }
             testData.append(section)
         }

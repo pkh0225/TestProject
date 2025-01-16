@@ -21,6 +21,8 @@ class ThreadViewController: UIViewController, RouterProtocol {
         super.viewDidLoad()
         self.title = "Thread"
 
+        checkedContinuation()
+        
 //        print("will enter task block")
 //        Task {
 //            print("did enter task block")
@@ -228,6 +230,58 @@ class ThreadViewController: UIViewController, RouterProtocol {
         self.testLabel.text = data
         self.testLabel2.text = "완료"
 //        }
+    }
+
+    func checkedContinuation() {
+        print("\n \(#function) ----------------------")
+
+
+        func getNum(completion: @escaping (Int) -> Void) {
+            DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+                completion(1)
+            }
+        }
+
+        func printResultWithUnsafeContinuation() async -> Int {
+            return await withUnsafeContinuation { continuation in
+                getNum { result in
+                    continuation.resume(returning: result)
+                }
+            }
+        }
+
+        func printResultWithCheckedContinuation() async -> Int {
+            return await withCheckedContinuation { continuation in
+                getNum { result in
+                    continuation.resume(returning: result)
+                }
+            }
+        }
+
+        Task {
+            let startTime = CFAbsoluteTimeGetCurrent()
+
+            let num1 = await printResultWithCheckedContinuation()
+            print("Checked num1 : \(num1)")
+            let num2 = await printResultWithCheckedContinuation()
+            print("Checked num2 : \(num2)")
+
+            let durationTime = CFAbsoluteTimeGetCurrent() - startTime
+            print("Checked 경과 시간: \(durationTime)")
+        }
+
+        Task {
+            let startTime = CFAbsoluteTimeGetCurrent()
+
+            let num1 = await printResultWithUnsafeContinuation()
+            print("Unsafe num1 : \(num1)")
+            let num2 = await printResultWithUnsafeContinuation()
+            print("Unsafe num2 : \(num2)")
+
+            let durationTime = CFAbsoluteTimeGetCurrent() - startTime
+            print("Unsafe 경과 시간: \(durationTime)")
+        }
+
     }
 }
 
