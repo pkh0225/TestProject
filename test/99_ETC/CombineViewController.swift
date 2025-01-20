@@ -26,6 +26,7 @@ class CombineViewController: UIViewController, RouterProtocol {
         compactMap()
         subscriber()
         passthroughSubject()
+        currentValueSubject()
     }
 
     func sink() {
@@ -52,11 +53,10 @@ class CombineViewController: UIViewController, RouterProtocol {
         print("\n😀 \(#function) ----------------------")
         let model = SomeModel()
         let publisher = model.$name
-        publisher
-            .sink(receiveValue: { value in
-                print("name is \(value)")
-            })
-            .store(in: &cancellables)
+        publisher.sink(receiveValue: { value in
+            print("name is \(value)")
+        })
+        .store(in: &cancellables)
 
 
         model.name = "changed"
@@ -133,15 +133,15 @@ class CombineViewController: UIViewController, RouterProtocol {
         let subject = PassthroughSubject<String, Never>()
 
         subject.sink(receiveCompletion: { completion in
-          //에러가 발생한경우도 receiveCompletion 블록이 호출됩니다.
-          switch completion {
-          case .failure:
-            print("Error가 발생하였습니다.")
-          case .finished:
-            print("데이터의 발행이 끝났습니다.")
-          }
+            //에러가 발생한경우도 receiveCompletion 블록이 호출됩니다.
+            switch completion {
+            case .failure:
+                print("Error가 발생하였습니다.")
+            case .finished:
+                print("데이터의 발행이 끝났습니다.")
+            }
         }, receiveValue: { value in
-          print(value)
+            print(value)
         })
         .store(in: &cancellables)
 
@@ -152,6 +152,30 @@ class CombineViewController: UIViewController, RouterProtocol {
         subject.send(completion: .finished)
     }
 
+    func currentValueSubject() {
+        print("\n😀 \(#function) ----------------------")
+        //맨처음 초기값을 지정합니다.
+        let currentStatus = CurrentValueSubject<Bool, Error>(true)
+
+        currentStatus.sink(receiveCompletion: { completion in
+            switch completion {
+            case .failure:
+                print("Error가 발생하였습니다.")
+            case .finished:
+                print("데이터의 발행이 끝났습니다.")
+            }
+        }, receiveValue: { value in
+            print(value)
+        })
+        .store(in: &cancellables)
+
+        //데이터를 외부에서 발행할 수 있습니다.
+        print("초기값은 \(currentStatus.value)입니다.")
+        currentStatus.send(false) //false 값을 주입합니다.
+
+        //value값을 변경해도 값이 발행됩니다.
+        currentStatus.value = true
+    }
 }
 
 class Dumper {
