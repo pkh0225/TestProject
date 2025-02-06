@@ -9,7 +9,7 @@ import UIKit
 import SwiftHelper
 import Combine
 
-class CombineViewController: UIViewController, RouterProtocol {
+final class CombineViewController: UIViewController, RouterProtocol {
 
     private var cancellables = Set<AnyCancellable>()
 

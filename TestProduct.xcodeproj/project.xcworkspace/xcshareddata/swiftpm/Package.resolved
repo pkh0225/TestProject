@@ -1,5 +1,5 @@
 {
-  "originHash" : "71ef604c2b880b0b472eb4022a869e9c1236c7c6da3f62e82b9cc8f443a42572",
+  "originHash" : "3b5730acc0fe35878bc9e9116c616e4775299af85d212b31132bf874948fd17d",
   "pins" : [
     {
       "identity" : "collectionviewadapter",
@@ -80,6 +80,24 @@
       "state" : {
         "revision" : "f534cfe830a7807ecc3d0332127a502426cfa067",
         "version" : "0.14.6"
+      }
+    },
+    {
+      "identity" : "ssgmacro",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pkh0225/SSGMacro.git",
+      "state" : {
+        "revision" : "5aabe2b97ea62a07c7014050dd5855b209e4a151",
+        "version" : "0.1.2"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "0687f71944021d616d34d922343dcef086855920",
+        "version" : "600.0.1"
       }
     },
     {

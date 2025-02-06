@@ -28,4 +28,9 @@ class AddViewTestViewController: UIViewController, RouterProtocol {
     @IBAction func onButton1(_ sender: Any) {
         view1.addSubview(targetView)
     }
+
+//    func closure(_ value: @escaping (Int) -> String) -> Self {
+//        self.closure = value
+//        return self
+//    }
 }

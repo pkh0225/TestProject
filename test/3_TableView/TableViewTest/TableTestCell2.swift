@@ -7,7 +7,9 @@
 
 import UIKit
 import TableViewAdapter
+import SSGMacro
 
+//@fluentSetterMacro()
 class TableTestCell2: UITableViewCell, TVACellProtocol {
     var actionClosure: ((String, Any?) -> Void)?
     

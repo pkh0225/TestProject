@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		203AF9672A2966B60018EE87 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 203AF9662A2966B60018EE87 /* SDWebImageWebPCoder */; };
+		20687C2C2D53395300CE0EC0 /* SSGMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 20687C2B2D53395300CE0EC0 /* SSGMacro */; };
 		207DA9A72CD8AECF0001BFF5 /* TableViewAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 207DA9A62CD8AECF0001BFF5 /* TableViewAdapter */; };
 		209BBFBD2CEEC94C00100285 /* PushAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = 209BBFBC2CEEC94C00100285 /* PushAnimation */; };
 		20C29C7C2CD4B9CB00F23EFD /* CollectionViewAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 20C29C7B2CD4B9CB00F23EFD /* CollectionViewAdapter */; };
@@ -16,6 +17,19 @@
 		20FA8C742C6C7A8C00837939 /* SwiftHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C732C6C7A8C00837939 /* SwiftHelper */; };
 		20FF90D92D226C5F00872ED6 /* DeinitChecker in Frameworks */ = {isa = PBXBuildFile; productRef = 20FF90D82D226C5F00872ED6 /* DeinitChecker */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		201CE7EF2D3E0FD500409A19 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		205CAE8528AB1EDF002999A8 /* TestProduct.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestProduct.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,6 +60,7 @@
 				203AF9672A2966B60018EE87 /* SDWebImageWebPCoder in Frameworks */,
 				20C29C7C2CD4B9CB00F23EFD /* CollectionViewAdapter in Frameworks */,
 				209BBFBD2CEEC94C00100285 /* PushAnimation in Frameworks */,
+				20687C2C2D53395300CE0EC0 /* SSGMacro in Frameworks */,
 				20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */,
 				20FF90D92D226C5F00872ED6 /* DeinitChecker in Frameworks */,
 			);
@@ -88,6 +103,7 @@
 				205CAE8128AB1EDF002999A8 /* Sources */,
 				205CAE8228AB1EDF002999A8 /* Frameworks */,
 				205CAE8328AB1EDF002999A8 /* Resources */,
+				201CE7EF2D3E0FD500409A19 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -106,6 +122,7 @@
 				207DA9A62CD8AECF0001BFF5 /* TableViewAdapter */,
 				209BBFBC2CEEC94C00100285 /* PushAnimation */,
 				20FF90D82D226C5F00872ED6 /* DeinitChecker */,
+				20687C2B2D53395300CE0EC0 /* SSGMacro */,
 			);
 			productName = test;
 			productReference = 205CAE8528AB1EDF002999A8 /* TestProduct.app */;
@@ -145,6 +162,7 @@
 				203FAB7D2CE58E040090A59D /* XCRemoteSwiftPackageReference "PKHJsonParser" */,
 				20E3492C2CEEBDF3001FD516 /* XCRemoteSwiftPackageReference "PushAnimation" */,
 				2058367B2D226BAD0069323D /* XCRemoteSwiftPackageReference "DeinitChecker" */,
+				20687C2A2D53395300CE0EC0 /* XCRemoteSwiftPackageReference "SSGMacro" */,
 			);
 			productRefGroup = 205CAE8628AB1EDF002999A8 /* Products */;
 			projectDirPath = "";
@@ -414,6 +432,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		20687C2A2D53395300CE0EC0 /* XCRemoteSwiftPackageReference "SSGMacro" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkh0225/SSGMacro.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 		20C7AA8E2CC738A0007D01D4 /* XCRemoteSwiftPackageReference "PkhGridView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pkh0225/PkhGridView.git";
@@ -461,6 +487,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 203AF9652A2966B60018EE87 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
 			productName = SDWebImageWebPCoder;
+		};
+		20687C2B2D53395300CE0EC0 /* SSGMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20687C2A2D53395300CE0EC0 /* XCRemoteSwiftPackageReference "SSGMacro" */;
+			productName = SSGMacro;
 		};
 		207DA9A62CD8AECF0001BFF5 /* TableViewAdapter */ = {
 			isa = XCSwiftPackageProductDependency;
