@@ -21,7 +21,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
         super.viewDidLoad()
         self.title = "Thread"
 
-        checkedContinuation()
+//        checkedContinuation()
         
 //        print("will enter task block")
 //        Task {
@@ -39,8 +39,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
         self.testLabel2.text = "0"
     }
 
-    nonisolated(unsafe) func test1() async -> String {
+    nonisolated func test1() async -> String {
         print("test1 start ----------------------------------------")
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         for i in 0..<100000 {
 //            print("test1 \(i)")
             await MainActor.run {
@@ -53,8 +54,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
         return "test1 end"
     }
 
-    nonisolated(unsafe) func test2() async -> String {
+    nonisolated func test2() async -> String {
         print("test2 start ----------------------------------------")
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         for i in 200000..<300000 {
 //            print("test2 \(i)")
             await MainActor.run {
@@ -66,8 +68,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
         return "test2 end"
     }
     
-    nonisolated(unsafe) func test3() -> String {
+    nonisolated func test3() -> String {
         print("test3 start ----------------------------------------")
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         for i in 500000..<600000 {
             DispatchQueue.main.sync {
                 self.testLabel.text = "test3 \(i)"
@@ -78,8 +81,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
         return "test3 end"
     }
     
-    nonisolated(unsafe) func test4() -> String {
+    nonisolated func test4() -> String {
         print("test4 start ----------------------------------------")
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         for i in 800000..<900000 {
             DispatchQueue.main.sync {
                 self.testLabel2.text = "test4 \(i)"
@@ -93,6 +97,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
     @IBAction func onAsyncAwait(_ sender: UIButton) {
         self.reset()
         print("\n ---------------- onAsyncAwait ---------------- ")
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         let startTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
 
         Task {
@@ -111,6 +116,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
     @IBAction func onGlobal(_ sender: UIButton) {
         self.reset()
         print("\n ---------------- onGlobal ---------------- ")
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         isTest = true
 
         nonisolated(unsafe) var result1 = ""
@@ -140,6 +146,7 @@ class ThreadViewController: UIViewController, RouterProtocol {
     @IBAction func onGlobalGroup(_ sender: Any) {
         self.reset()
         print("\n ---------------- onGlobalGroup ---------------- ")
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         isTest = true
 
         // DispatchGroup을 생성합니다.
@@ -176,7 +183,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
     @IBAction func onTaskMainActorTest(_ sender: UIButton) {
         print("\n ---------------- onTaskMainActorTest ---------------- ")
-        Task {
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
+        Task.detached {
+            print("Thread.isMainThread 1 : \(Thread.isMainThread)")
             for i in 0..<99999 {
                 print("label 1 = \(i)")
                 await MainActor.run {
@@ -185,7 +194,9 @@ class ThreadViewController: UIViewController, RouterProtocol {
 
             }
         }
-        Task {
+
+        Task.detached {
+            print("Thread.isMainThread 2 : \(Thread.isMainThread)")
             for i in 0..<99999 {
                 print("label 2 = \(i)")
                 await MainActor.run {
@@ -196,22 +207,28 @@ class ThreadViewController: UIViewController, RouterProtocol {
     }
 
     func processData() {
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         self.testLabel.text = "No data"
         Task { @DatabaseActor in
+            print("Thread.isMainThread 1 : \(Thread.isMainThread)")
             self.actorTest = "No data" // @DatabaseActor 변수 이기에 @DatabaseActor in 채택해줘야 함
             await saveDataToDatabase("Sample Data")
 
             let data = actorTest
             Task { @MainActor in
+                print("Thread.isMainThread 2 : \(Thread.isMainThread)")
                 updateUI(data)
             }
         }
     }
 
-    @DatabaseActor var actorTest = "No data"
+    @DatabaseActor 
+    var actorTest = "No data"
 
-    @DatabaseActor func saveDataToDatabase(_ data: String) async {
+    @DatabaseActor
+    func saveDataToDatabase(_ data: String) async {
         print("Saving data 5초 대기")
+        print("Thread.isMainThread 0 : \(Thread.isMainThread)")
         for i in stride(from:5, through: 0, by: -1) {
             print("대기 ... \(i)")
             await MainActor.run {

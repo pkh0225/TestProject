@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/DeinitChecker.git",
       "state" : {
-        "revision" : "25d2d09b67d48dbc43f632820b9a22ab2b26db28",
-        "version" : "1.0.0"
+        "revision" : "adc48889731d1c0629a9063f6191ab77bf4d64a5",
+        "version" : "1.0.2"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/libwebp-Xcode.git",
       "state" : {
-        "revision" : "b2b1d20a90b14d11f6ef4241da6b81c1d3f171e4",
-        "version" : "1.3.2"
+        "revision" : "0d60654eeefd5d7d2bef3835804892c40225e8b2",
+        "version" : "1.5.0"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/PKHJsonParser.git",
       "state" : {
-        "revision" : "100592c5531f790d9f0e05f643fd8e90395d8b0e",
-        "version" : "1.3.2"
+        "revision" : "48399c6aa5e1b2736f3651a520410d4f1e96bf6d",
+        "version" : "1.3.4"
       }
     },
     {
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "5191b801aca999b704eb93f118f91468b4570571",
-        "version" : "5.19.6"
+        "revision" : "cac9a55a3ae92478a2c95042dcc8d9695d2129ca",
+        "version" : "5.21.0"
       }
     },
     {
@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/SSGMacro.git",
       "state" : {
-        "revision" : "5aabe2b97ea62a07c7014050dd5855b209e4a151",
-        "version" : "0.1.2"
+        "revision" : "18f03f4c60f7b4611fbc0a1708464ad0e32e5d63",
+        "version" : "0.1.3"
       }
     },
     {
@@ -105,8 +105,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pkh0225/SwiftHelper.git",
       "state" : {
-        "revision" : "229dcbd333a6e711383c5178f7064d54031c836a",
-        "version" : "1.5.6"
+        "revision" : "a58aeca284f5f791d8717ff77c695bbf11e83c51",
+        "version" : "1.5.9"
       }
     },
     {
