@@ -298,9 +298,50 @@ class ThreadViewController: UIViewController, RouterProtocol {
             let durationTime = CFAbsoluteTimeGetCurrent() - startTime
             print("Unsafe 경과 시간: \(durationTime)")
         }
-
     }
+
+    @IBAction func onMutilTask(_ sender: Any) {
+        Task {
+            await testSafety()
+        }
+    }
+
+    nonisolated
+    func testSafety() async {
+        let unsafe = UnsafeCounter()
+        let safe = SafeCounter()
+
+        // UnsafeCounter: 경합 발생 가능
+        await withTaskGroup(of: Void.self) { group in
+            for _ in 1...1000 {
+                group.addTask { unsafe.increment() }
+            }
+        }
+        print("Unsafe count: \(unsafe.count)") // 1000 미만일 가능성 있음
+
+        // SafeCounter: 안전하게 증가
+        await withTaskGroup(of: Void.self) { group in
+            for _ in 1...1000 {
+                group.addTask { await safe.increment() }
+            }
+        }
+        let safeCount = await safe.getCount()
+        print("Safe count: \(safeCount)") // 항상 1000
+
+        // Atomic
+        await withTaskGroup(of: Void.self) { group in
+            for _ in 1...1000 {
+                group.addTask {
+                    await unsafe.add()
+//                    unsafe.stringList.append("123123")
+                }
+            }
+        }
+        print("Atomic count: \(unsafe.stringList.count)")
+    }
+
 }
+
 
 @globalActor
 actor DatabaseActor {
@@ -321,3 +362,23 @@ extension Task where Failure == Error {
         }
     }
 }
+
+class UnsafeCounter {
+    var count: Int = 0
+    func increment() { count += 1 }
+
+    @Atomic var stringList = [String]()
+
+    @DatabaseActor
+    func add() {
+        stringList.append("123123")
+    }
+
+}
+
+actor SafeCounter {
+    var count: Int = 0
+    func increment() { count += 1 }
+    func getCount() -> Int { count }
+}
+
