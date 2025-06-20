@@ -79,11 +79,11 @@ class DragAbleViewController: UIViewController, RouterProtocol {
 }
 
 @MainActor
-public final class DragAbleViewManager {
+public class DragAbleViewManager {
     weak var containerView: UIView?
-    var itemViews = [UIView: UIPanGestureRecognizer]()
+    public var itemViews = [UIView: UIPanGestureRecognizer]()
     // 다이나믹스 애니메이터 인스턴스 변수 선언
-    var animator:UIDynamicAnimator?
+    var animator: UIDynamicAnimator?
     // 탄성 설정
     var viewBehavior: UIDynamicItemBehavior?
     // 항목이 붙어있는 것을 구현할 수 있는 클래스
@@ -104,7 +104,6 @@ public final class DragAbleViewManager {
         viewBehavior?.density = 0.02
         animator?.addBehavior(viewBehavior!)
 
-
         collision = UICollisionBehavior(items: itemViews)
         collision?.translatesReferenceBoundsIntoBoundary = true
         collision?.setTranslatesReferenceBoundsIntoBoundary(with: setBoundsIntoBoundary)
@@ -113,8 +112,8 @@ public final class DragAbleViewManager {
         addPanGesture(itemViews: itemViews)
     }
 
-    deinit {
-        print("deinit DragAbleViewManager")
+    public func getView(tag: Int) -> UIView? {
+        self.itemViews.filter { $0.key.tag == tag }.first?.key
     }
 
     public func addView(view: UIView) {
@@ -130,6 +129,12 @@ public final class DragAbleViewManager {
             view.removeGestureRecognizer(g)
         }
         self.itemViews.removeValue(forKey: view)
+        view.removeFromSuperview()
+    }
+
+    public func removeView(tag: Int) {
+        guard let view = self.getView(tag: tag) else { return }
+        removeView(view: view)
     }
 
     private func addPanGesture(itemViews: [UIView]) {
@@ -155,14 +160,14 @@ public final class DragAbleViewManager {
         case .cancelled, .ended:
             let velocity = gesture.velocity(in: containerView)
             viewBehavior?.addLinearVelocity(velocity, for: view)
-            if let attachment = attachment {
+            if let attachment {
                 animator?.removeBehavior(attachment)
             }
             attachment = nil
         case .possible:
             break
         case .failed:
-            if let attachment = attachment {
+            if let attachment {
                 animator?.removeBehavior(attachment)
             }
             attachment = nil
@@ -185,10 +190,6 @@ public class DragAbleView: UIView {
     public var collision: UICollisionBehavior?
     // 앵커 포인트 현재 위치 저장할 변수
     var currentLocation: CGPoint = .zero
-
-    deinit {
-        print("deinit DragAbleView")
-    }
 
     /// View가 먼저 Add 된 후 호출 해야 함
     /// - Parameters:
@@ -237,12 +238,12 @@ public class DragAbleView: UIView {
         case .cancelled, .ended:
             let velocity = gesture.velocity(in: containerView)
             viewBehavior?.addLinearVelocity(velocity, for: self)
-            if let attachment = attachment {
+            if let attachment {
                 animator?.removeBehavior(attachment)
             }
             attachment = nil
         case .failed:
-            if let attachment = attachment {
+            if let attachment {
                 animator?.removeBehavior(attachment)
             }
             attachment = nil

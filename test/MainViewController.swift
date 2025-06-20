@@ -19,6 +19,10 @@ class MainViewwController: UITableViewController {
                 title: "View",
                 testDatas: [
                     TestGroupData.TestData(
+                        titleName: "View Spacing Show",
+                        viewControllerType: ScreenCaptureViewController.self
+                    ),
+                    TestGroupData.TestData(
                         titleName: "ViewLayout Show",
                         viewControllerType: ViewLayoutControler.self
                     ),
@@ -119,7 +123,7 @@ class MainViewwController: UITableViewController {
                     TestGroupData.TestData(
                         titleName: "Type erasure",
                         viewControllerType: TypeErasureViewController.self
-                    )
+                    ),
                 ]
             )
         ]
