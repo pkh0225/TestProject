@@ -104,6 +104,7 @@ class TableTestCell: UITableViewCell, TVACellProtocol {
         guard let data = data as? String else { return }
         self.customLabel.text = data
         self.customImageView.image = #imageLiteral(resourceName: "E_i_tab_food_p_t")
+        self.tag = 99
     }
 
 
