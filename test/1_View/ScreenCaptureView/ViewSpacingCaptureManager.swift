@@ -41,7 +41,7 @@ class ViewSpacingCaptureManager {
             // 모든 뷰들의 정보 수집
             let viewInfos = collectViewInfos(rootView: rootView)
             
-            // 뷰 타입별로 다른 색상으로 경계 그리기
+            // 뷰 타입별로 다른 색상으로 경계 및 크기 그리기
             drawViewBoundsByType(viewInfos: viewInfos, in: cgContext)
             
             // 측정값 그리기 (빨간색)
@@ -114,91 +114,135 @@ class ViewSpacingCaptureManager {
         }
     }
     
-    // MARK: - 뷰 타입별 색상으로 경계 그리기
+    // MARK: - 뷰 타입별 색상으로 경계 및 크기 그리기
     private func drawViewBoundsByType(viewInfos: [ViewInfo], in context: CGContext) {
-        context.setLineWidth(2.0)
-        context.setLineDash(phase: 0, lengths: []) // 실선으로 리셋
-        
         for viewInfo in viewInfos {
-            let color = getColorForViewType(viewInfo.view)
+            let view = viewInfo.view
+            let frame = viewInfo.frame
+            
+            // 내용이 없는 라벨과 버튼은 그리기 대상에서 제외
+            if let label = view as? UILabel, (label.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) {
+                continue
+            }
+            if let button = view as? UIButton {
+                let hasTitle = !(button.currentTitle?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
+                let hasImage = button.currentImage != nil
+                if !hasTitle && !hasImage {
+                    continue
+                }
+            }
+
+            let color = getColorForViewType(view)
+
+            // 1. 모든 뷰의 경계선 그리기
+            context.saveGState()
+            
+            let isThickerLineView: Bool
+            if type(of: view) == UIView.self {
+                isThickerLineView = true
+            } else {
+                isThickerLineView = view is UITableViewCell ||
+                                    view is UICollectionViewCell ||
+                                    view is WKWebView ||
+                                    view is UITextField ||
+                                    view is UIScrollView ||
+                                    view is UIStackView ||
+                                    view is UITextView
+            }
+            let lineWidth = isThickerLineView ? 1.5 : 1.0
+            
+            context.setLineWidth(lineWidth)
+            context.setLineDash(phase: 0, lengths: []) // 실선
             context.setStrokeColor(color.cgColor)
-            context.stroke(viewInfo.frame)
+            context.stroke(frame)
+            context.restoreGState()
+
+            // 2. 특정 타입의 뷰이며 내용이 있는 경우에만 크기 정보 표시
+            let isExcludedFromSizeLabel = type(of: view) == UIView.self || view is UITableViewCell || view is UICollectionViewCell
+            
+            if !isExcludedFromSizeLabel && frame.width > 20 && frame.height > 10 {
+                context.saveGState()
+                
+                // 2.1. 크기 표시를 위한 점선 그리기 (경계선 색상 사용)
+                context.setStrokeColor(color.cgColor)
+                context.setLineWidth(0.5)
+                context.setLineDash(phase: 0, lengths: [2, 2]) // 짧은 점선
+
+                // 수직선
+                context.move(to: CGPoint(x: frame.midX, y: frame.minY))
+                context.addLine(to: CGPoint(x: frame.midX, y: frame.maxY))
+                context.strokePath()
+
+                // 수평선
+                context.move(to: CGPoint(x: frame.minX, y: frame.midY))
+                context.addLine(to: CGPoint(x: frame.maxX, y: frame.midY))
+                context.strokePath()
+
+                context.restoreGState()
+
+                // 2.2. 크기 텍스트 그리기 (경계선 색상 사용)
+                let sizeString = "\(Int(round(frame.width)))x\(Int(round(frame.height)))"
+                let center = CGPoint(x: frame.midX, y: frame.midY)
+                drawSizeLabel(text: sizeString, at: center, color: color, viewFrame: frame, in: context)
+            }
         }
     }
     
     // MARK: - 뷰 타입별 색상 반환
     private func getColorForViewType(_ view: UIView) -> UIColor {
+        let alpha: CGFloat = 0.7
         switch view {
-        // 컨테이너 뷰들
-        case is UIScrollView:
-            return .systemPurple      // 보라색 - ScrollView
-        case is UIStackView:
-            return .systemOrange      // 주황색 - StackView
-            
-        // 레이블 및 텍스트
+        // 요청된 색상 변경
         case is UILabel:
-            return .systemGreen       // 초록색 - Label
+            return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0).withAlphaComponent(alpha) // 어두운 녹색
+        case is UIImageView:
+            return .red.withAlphaComponent(alpha)
+        case is UIButton:
+            return .blue.withAlphaComponent(alpha)
+        case is UITableViewCell, is UICollectionViewCell:
+            return .purple.withAlphaComponent(alpha)
+        case is WKWebView:
+            return .red.withAlphaComponent(alpha)
         case is UITextField:
-            return .systemTeal        // 청록색 - TextField
+            return .darkGray.withAlphaComponent(alpha)
+            
+        // 기타 기존 색상
+        case is UIScrollView:
+            return .systemPurple.withAlphaComponent(alpha)
+        case is UIStackView:
+            return .systemOrange.withAlphaComponent(alpha)
         case is UITextView:
             if #available(iOS 15.0, *) {
-                return .systemCyan // 시안색 - TextView
+                return .systemCyan.withAlphaComponent(alpha)
             } else {
-                return .cyan
+                return .cyan.withAlphaComponent(alpha)
             }
-            
-        // 버튼 및 컨트롤
-        case is UIButton:
-            return .systemRed         // 빨간색 - Button
         case is UISwitch:
-            return .systemPink        // 분홍색 - Switch
+            return .systemPink.withAlphaComponent(alpha)
         case is UISlider:
-            return .systemYellow      // 노란색 - Slider
+            return .systemYellow.withAlphaComponent(alpha)
         case is UISegmentedControl:
-            return .systemIndigo      // 남색 - SegmentedControl
+            return .systemIndigo.withAlphaComponent(alpha)
         case is UIStepper:
-            return .systemBrown       // 갈색 - Stepper
-            
-        // 이미지 및 미디어
-        case is UIImageView:
-            if #available(iOS 15.0, *) {
-                return .systemMint // 민트색 - ImageView
-            } else {
-                return .green
-            }
+            return .systemBrown.withAlphaComponent(alpha)
         case is UIProgressView:
-            return .systemGray        // 회색 - ProgressView
+            return .systemGray.withAlphaComponent(alpha)
         case is UIActivityIndicatorView:
-            return .systemGray2       // 연회색 - ActivityIndicator
-            
-        // 테이블 및 컬렉션
-        case is UITableView:
-            return .label             // 검은색 - TableView
-        case is UICollectionView:
-            return .secondaryLabel    // 짙은 회색 - CollectionView
-        case is UITableViewCell:
-            return .tertiaryLabel     // 중간 회색 - TableViewCell
-        case is UICollectionViewCell:
-            return .quaternaryLabel   // 연한 회색 - CollectionViewCell
-            
-        // 네비게이션 및 탭
+            return .systemGray2.withAlphaComponent(alpha)
         case is UINavigationBar:
-            return .systemRed         // 빨간색 - NavigationBar
+            return .systemRed.withAlphaComponent(alpha)
         case is UITabBar:
-            return .systemOrange      // 주황색 - TabBar
+            return .systemOrange.withAlphaComponent(alpha)
         case is UIToolbar:
-            return .systemYellow      // 노란색 - Toolbar
-            
-        // 기타
-        case is WKWebView:
-            return .systemPurple      // 보라색 - WebView
+            return .systemYellow.withAlphaComponent(alpha)
         case is UIDatePicker:
-            return .systemBlue        // 파란색 - DatePicker
+            return .systemBlue.withAlphaComponent(alpha)
         case is UIPickerView:
-            return .systemGreen       // 초록색 - PickerView
-            
+            return .systemGreen.withAlphaComponent(alpha)
+        
+        // UIView 및 기타 모든 뷰
         default:
-            return .systemBlue        // 파란색 - UIView
+            return UIColor(red: 0.9, green: 0.7, blue: 0.0, alpha: 1.0).withAlphaComponent(alpha)
         }
     }
     
@@ -273,66 +317,22 @@ class ViewSpacingCaptureManager {
         case .top:
             let inset = childFrame.minY - parentFrame.minY
             if inset > 0.5 {
-                let lineX = childFrame.midX
-                let startY = parentFrame.minY
-                let endY = childFrame.minY
-                
-                let isObstructed = siblings.contains { siblingInfo -> Bool in
-                    let siblingFrame = siblingInfo.frame
-                    let measurementLine = CGRect(x: lineX - 0.5, y: startY, width: 1, height: endY - startY)
-                    return measurementLine.intersects(siblingFrame)
-                }
-                guard !isObstructed else { return }
-                
-                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), in: context)
+                drawVerticalMeasurement(from: CGPoint(x: childFrame.midX, y: parentFrame.minY), to: CGPoint(x: childFrame.midX, y: childFrame.minY), value: Int(round(inset)), textPosition: CGPoint(x: childFrame.midX, y: (parentFrame.minY + childFrame.minY) / 2), in: context)
             }
         case .bottom:
             let inset = parentFrame.maxY - childFrame.maxY
             if inset > 0.5 {
-                let lineX = childFrame.midX
-                let startY = childFrame.maxY
-                let endY = parentFrame.maxY
-                
-                let isObstructed = siblings.contains { siblingInfo -> Bool in
-                    let siblingFrame = siblingInfo.frame
-                    let measurementLine = CGRect(x: lineX - 0.5, y: startY, width: 1, height: endY - startY)
-                    return measurementLine.intersects(siblingFrame)
-                }
-                guard !isObstructed else { return }
-
-                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), in: context)
+                drawVerticalMeasurement(from: CGPoint(x: childFrame.midX, y: childFrame.maxY), to: CGPoint(x: childFrame.midX, y: parentFrame.maxY), value: Int(round(inset)), textPosition: CGPoint(x: childFrame.midX, y: (childFrame.maxY + parentFrame.maxY) / 2), in: context)
             }
         case .left:
             let inset = childFrame.minX - parentFrame.minX
             if inset > 0.5 {
-                let lineY = childFrame.midY
-                let startX = parentFrame.minX
-                let endX = childFrame.minX
-                
-                let isObstructed = siblings.contains { siblingInfo -> Bool in
-                    let siblingFrame = siblingInfo.frame
-                    let measurementLine = CGRect(x: startX, y: lineY - 0.5, width: endX - startX, height: 1)
-                    return measurementLine.intersects(siblingFrame)
-                }
-                guard !isObstructed else { return }
-
-                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), in: context)
+                drawHorizontalMeasurement(from: CGPoint(x: parentFrame.minX, y: childFrame.midY), to: CGPoint(x: childFrame.minX, y: childFrame.midY), value: Int(round(inset)), textPosition: CGPoint(x: (parentFrame.minX + childFrame.minX) / 2, y: childFrame.midY), in: context)
             }
         case .right:
             let inset = parentFrame.maxX - childFrame.maxX
             if inset > 0.5 {
-                let lineY = childFrame.midY
-                let startX = childFrame.maxX
-                let endX = parentFrame.maxX
-
-                let isObstructed = siblings.contains { siblingInfo -> Bool in
-                    let siblingFrame = siblingInfo.frame
-                    let measurementLine = CGRect(x: startX, y: lineY - 0.5, width: endX - startX, height: 1)
-                    return measurementLine.intersects(siblingFrame)
-                }
-                guard !isObstructed else { return }
-
-                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), in: context)
+                drawHorizontalMeasurement(from: CGPoint(x: childFrame.maxX, y: childFrame.midY), to: CGPoint(x: parentFrame.maxX, y: childFrame.midY), value: Int(round(inset)), textPosition: CGPoint(x: (childFrame.maxX + parentFrame.maxX) / 2, y: childFrame.midY), in: context)
             }
         }
     }
@@ -380,7 +380,7 @@ class ViewSpacingCaptureManager {
         context.strokePath()
         
         let lineLength = abs(endPoint.y - startPoint.y)
-        drawMeasurementText("\(value)px", at: textPosition, lineLength: lineLength, in: context)
+        drawMeasurementText("\(value)", at: textPosition, lineLength: lineLength, in: context)
     }
     
     // MARK: - 수평 측정선 그리기 (텍스트 위치 별도 지정)
@@ -399,7 +399,7 @@ class ViewSpacingCaptureManager {
         context.strokePath()
         
         let lineLength = abs(endPoint.x - startPoint.x)
-        drawMeasurementText("\(value)px", at: textPosition, lineLength: lineLength, in: context)
+        drawMeasurementText("\(value)", at: textPosition, lineLength: lineLength, in: context)
     }
     
     // MARK: - 측정값 텍스트 그리기 (동적 폰트 크기 조절)
@@ -450,6 +450,66 @@ class ViewSpacingCaptureManager {
         
         attributedString.draw(in: textRect)
     }
+
+    // MARK: - 뷰 크기 레이블 그리기 (동적 폰트 크기 조절)
+    private func drawSizeLabel(text: String, at point: CGPoint, color: UIColor, viewFrame: CGRect, in context: CGContext) {
+        let defaultFontSize: CGFloat = 6.0
+        let reducedFontSize: CGFloat = 4.0
+        let minFontSize: CGFloat = 2.0
+        let reduceThreshold: CGFloat = 50.0
+        let minThreshold: CGFloat = 30.0
+        
+        let smallestSide = min(viewFrame.width, viewFrame.height)
+        var fontSize = defaultFontSize
+        if smallestSide < reduceThreshold {
+            fontSize = reducedFontSize
+        }
+        if smallestSide < minThreshold {
+            fontSize = minFontSize
+        }
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: fontSize, weight: .bold),
+            .foregroundColor: color, // 뷰의 경계선 색상과 동일하게 설정
+            .backgroundColor: UIColor.white.withAlphaComponent(0.8)
+        ]
+        
+        let attributedString = NSAttributedString(string: text, attributes: attributes)
+        let textSize = attributedString.size()
+        
+        // 텍스트를 담을 배경 사각형
+        let backgroundRect = CGRect(
+            x: point.x - textSize.width / 2 - 2,
+            y: point.y - textSize.height / 2 - 1,
+            width: textSize.width + 4,
+            height: textSize.height + 2
+        )
+        
+        // 텍스트를 그리기 전에 현재 그래픽 상태를 저장합니다.
+        context.saveGState()
+        
+        // 배경색 채우기
+        context.setFillColor(UIColor.white.withAlphaComponent(0.8).cgColor)
+        context.fill(backgroundRect)
+        
+        // 테두리 그리기
+        context.setStrokeColor(color.cgColor)
+        context.setLineWidth(0.5)
+        context.stroke(backgroundRect)
+
+        // 텍스트 그리기
+        let textRect = CGRect(
+            x: point.x - textSize.width / 2,
+            y: point.y - textSize.height / 2,
+            width: textSize.width,
+            height: textSize.height
+        )
+        
+        attributedString.draw(in: textRect)
+        
+        // 이전 그래픽 상태로 복원합니다.
+        context.restoreGState()
+    }
     
     // MARK: - 헬퍼 메서드들
     private func findParentViewInfo(for viewInfo: ViewInfo, in viewInfos: [ViewInfo]) -> ViewInfo? {
@@ -483,4 +543,3 @@ struct ViewInfo {
     let frame: CGRect
     let originalFrame: CGRect
 }
-

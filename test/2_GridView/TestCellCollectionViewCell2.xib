@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIz-7C-G7M">
-                        <rect key="frame" x="0.0" y="0.0" width="60" height="100"/>
+                        <rect key="frame" x="15.5" y="42" width="29.5" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -33,14 +33,12 @@
             </view>
             <color key="backgroundColor" systemColor="systemOrangeColor"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="DIz-7C-G7M" secondAttribute="trailing" id="0r5-bY-3Hn"/>
-                <constraint firstItem="iZr-61-nTb" firstAttribute="centerY" secondItem="DIz-7C-G7M" secondAttribute="centerY" id="BNL-cR-WEN"/>
-                <constraint firstItem="iZr-61-nTb" firstAttribute="width" secondItem="DIz-7C-G7M" secondAttribute="width" id="JMl-Vc-QCe"/>
-                <constraint firstItem="iZr-61-nTb" firstAttribute="height" secondItem="DIz-7C-G7M" secondAttribute="height" id="fJU-3o-AYl"/>
-                <constraint firstItem="iZr-61-nTb" firstAttribute="centerX" secondItem="DIz-7C-G7M" secondAttribute="centerX" id="glM-HH-MDl"/>
-                <constraint firstItem="DIz-7C-G7M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="gyv-k8-vNo"/>
-                <constraint firstAttribute="bottom" secondItem="DIz-7C-G7M" secondAttribute="bottom" id="qfR-2S-Fui"/>
-                <constraint firstItem="DIz-7C-G7M" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rIn-OV-NyS"/>
+                <constraint firstItem="iZr-61-nTb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="6Oo-2o-6vw"/>
+                <constraint firstItem="iZr-61-nTb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8Rx-o4-vTT"/>
+                <constraint firstAttribute="trailing" secondItem="iZr-61-nTb" secondAttribute="trailing" id="Mym-xG-nTi"/>
+                <constraint firstItem="DIz-7C-G7M" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="as2-yK-UJU"/>
+                <constraint firstAttribute="bottom" secondItem="iZr-61-nTb" secondAttribute="bottom" id="nzk-wj-doL"/>
+                <constraint firstItem="DIz-7C-G7M" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="qvA-kl-PrS"/>
             </constraints>
             <size key="customSize" width="66" height="101"/>
             <connections>
@@ -51,7 +49,7 @@
     </objects>
     <resources>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
