@@ -9,8 +9,8 @@ import UIKit
 import SwiftHelper
 
 class ScreenCaptureViewController: UIViewController, RouterProtocol {
-    static var storyboardName: String = "Main"
-    
+    static var storyboardName: String = "ScreenCaptureView"
+
     private let screenCaptureManager = ViewSpacingCaptureManager()
     
     @IBOutlet weak var collectionView: UICollectionView!
