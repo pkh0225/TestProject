@@ -1,8 +1,8 @@
 //
 //  ImagePreviewViewController.swift
-//  TestProduct
 //
 //  Created by 박길호(팀원) - 서비스개발담당App개발팀 on 6/20/25.
+//  Copyright © 2025 emart. All rights reserved.
 //
 
 import UIKit
@@ -57,7 +57,6 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
         closeButton.layer.cornerRadius = 22
         closeButton.layer.masksToBounds = true
 
-        // iOS 13+ 이므로 SF Symbol을 바로 사용합니다.
         let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
         let xmarkImage = UIImage(systemName: "xmark", withConfiguration: config)
         closeButton.setImage(xmarkImage, for: .normal)
@@ -132,7 +131,6 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
 
         // MARK: - iOS 14 이상과 이전 버전을 분기 처리
         if #available(iOS 14, *) {
-            // iOS 14 이상에서는 '.limited' 상태가 추가되었고, 권한 요청/확인 API가 변경되었습니다.
             let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
 
             switch status {
@@ -149,7 +147,8 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
                     // 사용자가 '전체 허용' 또는 '일부 허용'을 선택하면 저장 실행
                     if newStatus == .authorized || newStatus == .limited {
                         self.performSave(image: imageToSave)
-                    } else {
+                    }
+                    else {
                         DispatchQueue.main.async {
                             self.showAlert(title: "권한 거부됨", message: "사진을 저장하려면 '설정'에서 사진 접근 권한을 허용해주세요.")
                         }
@@ -163,7 +162,8 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
             @unknown default:
                 showAlert(title: "오류", message: "알 수 없는 오류가 발생했습니다.")
             }
-        } else {
+        }
+        else {
             // iOS 13 로직
             let status = PHPhotoLibrary.authorizationStatus()
 
@@ -176,7 +176,8 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
                     guard let self = self else { return }
                     if newStatus == .authorized {
                         self.performSave(image: imageToSave)
-                    } else {
+                    }
+                    else {
                         DispatchQueue.main.async {
                            self.showAlert(title: "권한 거부됨", message: "사진을 저장하려면 '설정'에서 사진 접근 권한을 허용해주세요.")
                         }
@@ -204,9 +205,11 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
             DispatchQueue.main.async {
                 if success {
                     self.showAlert(title: "저장 완료", message: "사진이 앨범에 성공적으로 저장되었습니다.")
-                } else if let error = error {
+                }
+                else if let error = error {
                     self.showAlert(title: "저장 실패", message: "사진 저장 중 오류가 발생했습니다: \(error.localizedDescription)")
-                } else {
+                }
+                else {
                     self.showAlert(title: "저장 실패", message: "알 수 없는 오류로 사진 저장에 실패했습니다.")
                 }
             }
@@ -218,7 +221,8 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
     @objc private func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
-        } else {
+        }
+        else {
             let zoomRect = zoomRectForScale(scale: 2.5, center: gesture.location(in: imageView))
             scrollView.zoom(to: zoomRect, animated: true)
         }
@@ -256,7 +260,8 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
             let velocity = gesture.velocity(in: view)
             if translation.y > view.bounds.height / 3 || velocity.y > 500 {
                 dismiss(animated: true, completion: nil)
-            } else {
+            }
+            else {
                 UIView.animate(withDuration: 0.3) {
                     self.view.transform = .identity
                     self.view.alpha = 1.0
