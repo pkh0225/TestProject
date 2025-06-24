@@ -825,6 +825,11 @@ Group</string>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemMintColor"/>
                                                     </view>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0rM-FZ-L4e">
+                                                        <rect key="frame" x="8" y="22" width="75" height="71"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                             </view>

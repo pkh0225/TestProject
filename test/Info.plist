@@ -21,5 +21,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>사진을 앨범에 저장하기 위해 접근 권한이 필요합니다.</string>
 </dict>
 </plist>
