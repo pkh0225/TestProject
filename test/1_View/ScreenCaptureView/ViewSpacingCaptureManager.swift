@@ -94,17 +94,23 @@ class ViewSpacingCaptureManager {
             }
         }
         if let button = view as? UIButton, let superView = button.superview?.superview {
-            if let view = superView as? UITableViewCell, view.contentView.bounds == button.frame {
-                return
-            }
-            if let view = superView as? UITableViewHeaderFooterView, view.bounds == button.frame {
-                return
-            }
-            if let view = superView as? UICollectionReusableView, view.bounds == button.frame {
-                return
-            }
-            if let view = superView as? UICollectionViewCell, view.contentView.bounds == button.frame {
-                return
+            if button.title(for: .normal)?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true &&
+                button.attributedTitle(for: .normal) == nil &&
+                button.image(for: .normal) == nil &&
+                button.backgroundImage(for: .normal) == nil {
+
+                if let view = superView as? UITableViewCell, view.contentView.bounds == button.frame {
+                    return
+                }
+                if let view = superView as? UITableViewHeaderFooterView, view.bounds == button.frame {
+                    return
+                }
+                if let view = superView as? UICollectionReusableView, view.bounds == button.frame {
+                    return
+                }
+                if let view = superView as? UICollectionViewCell, view.contentView.bounds == button.frame {
+                    return
+                }
             }
         }
 
@@ -160,7 +166,7 @@ class ViewSpacingCaptureManager {
             // 순수 UIView 타입이면서 자식 뷰가 없는 경우를 확인하는 조건 추가
             let isLeafUIView = (type(of: view) == UIView.self && view.subviews.isEmpty)
 
-            if (isIncludedFromSizeLabel || isLeafUIView) && frame.width > 20 && frame.height > 10 {
+            if (isIncludedFromSizeLabel || isLeafUIView) && frame.width > 1 && frame.height > 1 {
                 context.saveGState()
 
                 // 2.1. 크기 표시를 위한 X자 점선 그리기 (경계선 색상 사용)

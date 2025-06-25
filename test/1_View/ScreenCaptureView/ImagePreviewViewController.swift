@@ -17,7 +17,7 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
+        view.backgroundColor = .lightGray
 
         // 스크롤뷰 설정
         scrollView.frame = view.bounds
@@ -82,7 +82,6 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
         saveButton.layer.cornerRadius = 22
         saveButton.layer.masksToBounds = true
 
-        // iOS 13+ 이므로 SF Symbol을 바로 사용합니다.
         let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
         let saveImage = UIImage(systemName: "square.and.arrow.down", withConfiguration: config)
         saveButton.setImage(saveImage, for: .normal)
