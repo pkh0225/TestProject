@@ -51,11 +51,6 @@ class ViewSpacingCaptureManager {
             // 뷰 타입별로 다른 색상으로 경계 및 크기 그리기
             drawViewBoundsByType(viewInfos: viewInfos, in: cgContext)
 
-            // 측정값 그리기 (빨간색)
-            cgContext.setStrokeColor(UIColor.red.cgColor)
-            cgContext.setLineWidth(1.0)
-            cgContext.setLineDash(phase: 0, lengths: [5, 3]) // 점선
-
             // 인셋과 간격 측정 및 표시
             drawMeasurements(viewInfos: viewInfos, rootView: rootView, in: cgContext)
         }
@@ -98,7 +93,6 @@ class ViewSpacingCaptureManager {
                 button.attributedTitle(for: .normal) == nil &&
                 button.image(for: .normal) == nil &&
                 button.backgroundImage(for: .normal) == nil {
-
                 if let view = superView as? UITableViewCell, view.contentView.bounds == button.frame {
                     return
                 }
@@ -166,7 +160,7 @@ class ViewSpacingCaptureManager {
             // 순수 UIView 타입이면서 자식 뷰가 없는 경우를 확인하는 조건 추가
             let isLeafUIView = (type(of: view) == UIView.self && view.subviews.isEmpty)
 
-            if (isIncludedFromSizeLabel || isLeafUIView) && frame.width > 1 && frame.height > 1 {
+            if isIncludedFromSizeLabel || isLeafUIView {
                 context.saveGState()
 
                 // 2.1. 크기 표시를 위한 X자 점선 그리기 (경계선 색상 사용)
@@ -245,6 +239,10 @@ class ViewSpacingCaptureManager {
 
     // MARK: - 계층적 측정값 그리기 (중복 및 겹침 방지 포함)
     private func drawMeasurements(viewInfos: [ViewInfo], rootView: UIView, in context: CGContext) {
+//        context.setStrokeColor(UIColor.red.cgColor)
+        context.setLineWidth(1.0)
+        context.setLineDash(phase: 0, lengths: [5, 3]) // 점선
+
         var drawnVerticalSiblingPairs: Set<Set<ObjectIdentifier>> = []
         var drawnHorizontalSiblingPairs: Set<Set<ObjectIdentifier>> = []
 
@@ -313,6 +311,7 @@ class ViewSpacingCaptureManager {
     private enum MeasurementEdge { case top, bottom, left, right }
 
     private func drawParentInset(from parentFrame: CGRect, to childFrame: CGRect, edge: MeasurementEdge, siblings: [ViewInfo], in context: CGContext) {
+        let color = UIColor.red
         switch edge {
         case .top:
             let inset = childFrame.minY - parentFrame.minY
@@ -328,7 +327,7 @@ class ViewSpacingCaptureManager {
                 }
                 guard !isObstructed else { return }
 
-                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), color: .red, in: context)
+                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), color: color, in: context)
             }
         case .bottom:
             let inset = parentFrame.maxY - childFrame.maxY
@@ -344,7 +343,7 @@ class ViewSpacingCaptureManager {
                 }
                 guard !isObstructed else { return }
 
-                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), color: .red, in: context)
+                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), color: color, in: context)
             }
         case .left:
             let inset = childFrame.minX - parentFrame.minX
@@ -360,7 +359,7 @@ class ViewSpacingCaptureManager {
                 }
                 guard !isObstructed else { return }
 
-                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), color: .red, in: context)
+                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), color: color, in: context)
             }
         case .right:
             let inset = parentFrame.maxX - childFrame.maxX
@@ -376,7 +375,7 @@ class ViewSpacingCaptureManager {
                 }
                 guard !isObstructed else { return }
 
-                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), color: .red, in: context)
+                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), color: color, in: context)
             }
         }
     }
