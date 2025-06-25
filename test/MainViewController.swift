@@ -19,6 +19,10 @@ class MainViewwController: UITableViewController {
                 title: "View",
                 testDatas: [
                     TestGroupData.TestData(
+                        titleName: "View OcclusionCheck",
+                        viewControllerType: OcclusionCheckViewController.self
+                    ),
+                    TestGroupData.TestData(
                         titleName: "View Spacing Show",
                         viewControllerType: ScreenCaptureViewController.self
                     ),
