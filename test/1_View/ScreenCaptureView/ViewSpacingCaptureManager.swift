@@ -132,23 +132,7 @@ class ViewSpacingCaptureManager {
 
             // 1. 모든 뷰의 경계선 그리기
             context.saveGState()
-
-            let isThickerLineView: Bool
-            if type(of: view) == UIView.self {
-                isThickerLineView = true
-            }
-            else {
-                isThickerLineView = view is UITableViewCell ||
-                                    view is UICollectionViewCell ||
-                                    view is WKWebView ||
-                                    view is UITextField ||
-                                    view is UIScrollView ||
-                                    view is UIStackView ||
-                                    view is UITextView
-            }
-            let lineWidth = isThickerLineView ? 1.5 : 1.0
-
-            context.setLineWidth(lineWidth)
+            context.setLineWidth(0.5)
             context.setLineDash(phase: 0, lengths: [])
             context.setStrokeColor(color.cgColor)
             context.stroke(frame)
@@ -193,7 +177,8 @@ class ViewSpacingCaptureManager {
         let alpha: CGFloat = 0.7
         switch view {
         case is UILabel:
-            return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0).withAlphaComponent(alpha) // 어두운 녹색
+//            return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0).withAlphaComponent(alpha) // 어두운 녹색
+            return .green.withAlphaComponent(0.8)
         case is UIImageView:
             return .red.withAlphaComponent(alpha)
         case is UIButton:
@@ -233,15 +218,15 @@ class ViewSpacingCaptureManager {
         case is UIPickerView:
             return .systemGreen.withAlphaComponent(alpha)
         default:
-            return UIColor(red: 0.9, green: 0.7, blue: 0.0, alpha: 1.0).withAlphaComponent(alpha)
+            return UIColor(red: 299 / 255, green: 229 / 255, blue: 0.0, alpha: 1.0)
         }
     }
 
     // MARK: - 계층적 측정값 그리기 (중복 및 겹침 방지 포함)
     private func drawMeasurements(viewInfos: [ViewInfo], rootView: UIView, in context: CGContext) {
 //        context.setStrokeColor(UIColor.red.cgColor)
-        context.setLineWidth(1.0)
-        context.setLineDash(phase: 0, lengths: [5, 3]) // 점선
+        context.setLineWidth(0.5)
+        context.setLineDash(phase: 0, lengths: [4, 2]) // 점선
 
         var drawnVerticalSiblingPairs: Set<Set<ObjectIdentifier>> = []
         var drawnHorizontalSiblingPairs: Set<Set<ObjectIdentifier>> = []
@@ -459,39 +444,43 @@ class ViewSpacingCaptureManager {
     private func drawMeasurementText(_ text: String, at point: CGPoint, lineLength: CGFloat, color: UIColor, in context: CGContext) {
         let defaultFontSize: CGFloat = 5.0
         let reducedFontSize: CGFloat = 3.0
-        let minFontSize: CGFloat = 2.0
+        let minFontSize: CGFloat = 3.0
         let reduceThreshold: CGFloat = 12.0
         let minThreshold: CGFloat = 8.0
 
+        var fontWeight: UIFont.Weight = .medium
         var fontSize = defaultFontSize
         if lineLength < reduceThreshold {
             fontSize = reducedFontSize
+            fontWeight = .regular
         }
         if lineLength < minThreshold {
             fontSize = minFontSize
+            fontWeight = .light
         }
 
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: fontSize, weight: .medium),
-            .foregroundColor: color,
+            .font: UIFont.systemFont(ofSize: fontSize, weight: fontWeight),
+            .foregroundColor: color.withAlphaComponent(1.0),
             .backgroundColor: UIColor.white.withAlphaComponent(0.8)
         ]
 
         let attributedString = NSAttributedString(string: text, attributes: attributes)
         let textSize = attributedString.size()
 
-        let backgroundRect = CGRect(
-            x: point.x - textSize.width / 2 - 2,
-            y: point.y - textSize.height / 2 - 1,
-            width: textSize.width + 4,
-            height: textSize.height + 2
-        )
+        // 수치 표시될 영역 박스 표시
+//        let backgroundRect = CGRect(
+//            x: point.x - textSize.width / 2 - 2,
+//            y: point.y - textSize.height / 2 - 1,
+//            width: textSize.width + 4,
+//            height: textSize.height + 2
+//        )
 
-        context.setFillColor(UIColor.white.withAlphaComponent(0.9).cgColor)
-        context.fill(backgroundRect)
-        context.setStrokeColor(color.cgColor)
-        context.setLineWidth(0.5)
-        context.stroke(backgroundRect)
+//        context.setFillColor(UIColor.white.withAlphaComponent(0.9).cgColor)
+//        context.fill(backgroundRect)
+//        context.setStrokeColor(color.cgColor)
+//        context.setLineWidth(0.5)
+//        context.stroke(backgroundRect)
 
         let textRect = CGRect(
             x: point.x - textSize.width / 2,
@@ -507,22 +496,25 @@ class ViewSpacingCaptureManager {
     private func drawSizeLabel(text: String, at point: CGPoint, color: UIColor, viewFrame: CGRect, in context: CGContext) {
         let defaultFontSize: CGFloat = 6.0
         let reducedFontSize: CGFloat = 4.0
-        let minFontSize: CGFloat = 2.0
+        let minFontSize: CGFloat = 3.0
         let reduceThreshold: CGFloat = 50.0
         let minThreshold: CGFloat = 30.0
 
+        var fontWeight: UIFont.Weight = .bold
         let smallestSide = min(viewFrame.width, viewFrame.height)
         var fontSize = defaultFontSize
         if smallestSide < reduceThreshold {
             fontSize = reducedFontSize
+            fontWeight = .regular
         }
         if smallestSide < minThreshold {
             fontSize = minFontSize
+            fontWeight = .light
         }
 
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: fontSize, weight: .bold),
-            .foregroundColor: color,
+            .font: UIFont.systemFont(ofSize: fontSize, weight: fontWeight),
+            .foregroundColor: color.withAlphaComponent(1.0),
             .backgroundColor: UIColor.white.withAlphaComponent(0.8)
         ]
 
