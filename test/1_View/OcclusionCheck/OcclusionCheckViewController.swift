@@ -246,4 +246,68 @@ class OcclusionCheckViewController: UIViewController, RouterProtocol {
         // 모든 격자점이 가려졌다면, 뷰가 완전히 가려진 것으로 간주합니다.
         return true
     }
+
+
+
+    /// 뷰의 네 꼭짓점이 모두 형제 뷰들의 'frame'에 의해 완전히 가려졌는지 확인합니다.
+    /// (isUserInteractionEnabled와 상관없이 기하학적으로만 판단합니다.)
+    /// - Returns: 모든 꼭짓점이 가려졌으면 true, 하나라도 보이면 false를 반환합니다.
+    func isCompletelyObscuredBySiblings(view: UIView) -> Bool {
+        // 1. 부모 뷰와 자신의 인덱스 확인
+        guard let superview = view.superview,
+              let myIndex = superview.subviews.firstIndex(of: view)
+        else {
+            // 부모 뷰가 없거나, 어떤 이유로든 subviews에 포함되어 있지 않으면 false
+            return false
+        }
+
+        // 뷰 자체가 숨겨져 있거나 투명하면 검사 의미 없음
+        if view.isHidden || view.alpha == 0 {
+            return false
+        }
+
+        // 2. 나보다 위에 있는 (나를 가릴 수 있는) 형제 뷰들만 필터링
+        // subviews 배열에서 내 인덱스보다 뒤에 있는 뷰들이 화면상에서는 더 위에 있습니다.
+        let siblingsOnTop = superview.subviews.suffix(from: myIndex + 1)
+
+        // 가릴 수 있는 뷰가 하나도 없으면 당연히 가려지지 않음
+        if siblingsOnTop.isEmpty {
+            return false
+        }
+
+        // 3. 네 꼭짓점 정의
+        let corners = [
+            CGPoint(x: view.bounds.minX, y: view.bounds.minY), // Top-Left
+            CGPoint(x: view.bounds.maxX, y: view.bounds.minY), // Top-Right
+            CGPoint(x: view.bounds.minX, y: view.bounds.maxY), // Bottom-Left
+            CGPoint(x: view.bounds.maxX, y: view.bounds.maxY)  // Bottom-Right
+        ]
+
+        var obscuredCornersCount = 0
+
+        // 4. 각 꼭짓점 순회하며 검사
+        for corner in corners {
+            // 꼭짓점 좌표를 부모 뷰의 좌표계로 변환
+            let pointInSuperview = view.convert(corner, to: superview)
+
+            var isCornerObscured = false
+
+            // 5. 위에 있는 형제 뷰들을 순회하며 꼭짓점을 포함하는지 확인
+            for sibling in siblingsOnTop {
+                // 형제 뷰가 보이고(hidden이 아니고, 투명하지 않음),
+                // 그 형제 뷰의 frame이 내 꼭짓점을 포함한다면, 이 꼭짓점은 가려진 것임.
+                if !sibling.isHidden && sibling.alpha > 0 && sibling.frame.contains(pointInSuperview) {
+                    isCornerObscured = true
+                    break // 이 꼭짓점은 가려진게 확실하므로, 다른 형제뷰는 더 볼 필요 없음
+                }
+            }
+
+            if isCornerObscured {
+                obscuredCornersCount += 1
+            }
+        }
+
+        // 6. 네 꼭짓점 모두 가려졌는지 최종 확인
+        return obscuredCornersCount == 4
+    }
 }

@@ -142,7 +142,21 @@ class ViewSpacingCaptureManager {
             let isIncludedFromSizeLabel = view is UILabel || view is UIImageView || view is UIButton || view is WKWebView || view is UITextField || view is UITextView || view is UISwitch || view is UISlider || view is UISegmentedControl || view is UIStepper || view is UIProgressView || view is UIActivityIndicatorView || view is UINavigationBar || view is UITabBar || view is UIToolbar || view is UIDatePicker || view is UIPickerView
 
             // 순수 UIView 타입이면서 자식 뷰가 없는 경우를 확인하는 조건 추가
-            let isLeafUIView = (type(of: view) == UIView.self && view.subviews.isEmpty)
+            var isLeafUIView = (type(of: view) == UIView.self && view.subviews.isEmpty)
+
+            if let superView = view.superview, isLeafUIView {
+                if superView.bounds == view.frame {
+                    isLeafUIView = false
+                }
+                else {
+                    for sv in superView.subviews {
+                        if sv !== view && sv.frame == view.frame {
+                            isLeafUIView = false
+                            break
+                        }
+                    }
+                }
+            }
 
             if isIncludedFromSizeLabel || isLeafUIView {
                 context.saveGState()
@@ -225,8 +239,8 @@ class ViewSpacingCaptureManager {
     // MARK: - 계층적 측정값 그리기 (중복 및 겹침 방지 포함)
     private func drawMeasurements(viewInfos: [ViewInfo], rootView: UIView, in context: CGContext) {
 //        context.setStrokeColor(UIColor.red.cgColor)
-        context.setLineWidth(0.5)
-        context.setLineDash(phase: 0, lengths: [4, 2]) // 점선
+//        context.setLineWidth(0.5)
+//        context.setLineDash(phase: 0, lengths: [4, 2]) // 점선
 
         var drawnVerticalSiblingPairs: Set<Set<ObjectIdentifier>> = []
         var drawnHorizontalSiblingPairs: Set<Set<ObjectIdentifier>> = []
@@ -396,12 +410,15 @@ class ViewSpacingCaptureManager {
     private func drawVerticalMeasurement(from startPoint: CGPoint, to endPoint: CGPoint, value: Int, textPosition: CGPoint, color: UIColor, in context: CGContext) {
         context.saveGState()
         context.setStrokeColor(color.cgColor)
+        context.setLineWidth(0.5)
+        context.setLineDash(phase: 0, lengths: [4, 2]) // 점선
 
         context.move(to: startPoint)
         context.addLine(to: endPoint)
         context.strokePath()
 
-        let tickLength: CGFloat = 5
+        let tickLength: CGFloat = 2
+        context.setLineDash(phase: 0, lengths: []) // 실선
         context.move(to: CGPoint(x: startPoint.x - tickLength, y: startPoint.y))
         context.addLine(to: CGPoint(x: startPoint.x + tickLength, y: startPoint.y))
         context.strokePath()
@@ -420,12 +437,15 @@ class ViewSpacingCaptureManager {
     private func drawHorizontalMeasurement(from startPoint: CGPoint, to endPoint: CGPoint, value: Int, textPosition: CGPoint, color: UIColor, in context: CGContext) {
         context.saveGState()
         context.setStrokeColor(color.cgColor)
+        context.setLineWidth(0.5)
+        context.setLineDash(phase: 0, lengths: [4, 2]) // 점선
 
         context.move(to: startPoint)
         context.addLine(to: endPoint)
         context.strokePath()
 
-        let tickLength: CGFloat = 5
+        let tickLength: CGFloat = 2
+        context.setLineDash(phase: 0, lengths: []) // 실선
         context.move(to: CGPoint(x: startPoint.x, y: startPoint.y - tickLength))
         context.addLine(to: CGPoint(x: startPoint.x, y: startPoint.y + tickLength))
         context.strokePath()
