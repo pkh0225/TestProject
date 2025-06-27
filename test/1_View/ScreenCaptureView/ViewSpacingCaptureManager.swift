@@ -192,7 +192,7 @@ class ViewSpacingCaptureManager {
         switch view {
         case is UILabel:
 //            return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0).withAlphaComponent(alpha) // 어두운 녹색
-            return .green.withAlphaComponent(0.8)
+            return UIColor(red: 0.0, green: 200.0 / 255.0, blue: 0.0, alpha: alpha)
         case is UIImageView:
             return .red.withAlphaComponent(alpha)
         case is UIButton:
@@ -232,7 +232,7 @@ class ViewSpacingCaptureManager {
         case is UIPickerView:
             return .systemGreen.withAlphaComponent(alpha)
         default:
-            return UIColor(red: 299 / 255, green: 229 / 255, blue: 0.0, alpha: 1.0)
+            return UIColor(red: 1.0, green: 229.0 / 255.0, blue: 0.0, alpha: alpha)
         }
     }
 
@@ -535,7 +535,7 @@ class ViewSpacingCaptureManager {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: fontSize, weight: fontWeight),
             .foregroundColor: color.withAlphaComponent(1.0),
-            .backgroundColor: UIColor.white.withAlphaComponent(0.8)
+            .backgroundColor: UIColor.clear
         ]
 
         let attributedString = NSAttributedString(string: text, attributes: attributes)
