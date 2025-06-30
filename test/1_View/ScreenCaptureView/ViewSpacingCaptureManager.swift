@@ -9,7 +9,9 @@ import UIKit
 import WebKit
 
 // MARK: - 뷰 간격 캡처 관리자
-class ViewSpacingCaptureManager {
+final class ViewSpacingCaptureManager {
+    static let exception: Int = 2835769823
+
     func captureViewControllerWithBounds(_ viewController: UIViewController, completion: @escaping (Bool) -> Void) {
         let targetView = viewController.view!
 
@@ -79,6 +81,10 @@ class ViewSpacingCaptureManager {
         if !UIScreen.main.bounds.intersects(view.convert(view.bounds, to: nil)) {
             return
         }
+        // 다른 형제뷰에 가려졌는지
+        if isViewCompletelyObscured(view) {
+            return
+        }
         // 내용이 없는 라벨과 버튼은 수집하지 않습니다.
         if let label = view as? UILabel {
             if label.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
@@ -108,15 +114,13 @@ class ViewSpacingCaptureManager {
             }
         }
 
-        let frameInRootView = view.convert(view.bounds, to: rootView)
-        let viewInfo = ViewInfo(
-            view: view,
-            frame: frameInRootView,
-            originalFrame: view.frame
-        )
-        viewInfos.append(viewInfo)
+        if view.tag != Self.exception {
+            let frameInRootView = view.convert(view.bounds, to: rootView)
+            let viewInfo = ViewInfo(view: view,frame: frameInRootView)
+            viewInfos.append(viewInfo)
+        }
 
-        if !(view is UIButton) {
+        if !(view is UIButton) && !(view is UITextField) {
             for subview in view.subviews {
                 collectAllViewInfosRecursively(view: subview, rootView: rootView, viewInfos: &viewInfos)
             }
@@ -162,7 +166,7 @@ class ViewSpacingCaptureManager {
                 context.saveGState()
 
                 // 2.1. 크기 표시를 위한 X자 점선 그리기 (경계선 색상 사용)
-                context.setStrokeColor(color.cgColor)
+                context.setStrokeColor(color.withAlphaComponent(0.3).cgColor)
                 context.setLineWidth(0.5)
                 context.setLineDash(phase: 0, lengths: [1, 2]) // 점선으로 변경
 
@@ -186,56 +190,6 @@ class ViewSpacingCaptureManager {
         }
     }
 
-    // MARK: - 뷰 타입별 색상 반환
-    private func getColorForViewType(_ view: UIView) -> UIColor {
-        let alpha: CGFloat = 0.7
-        switch view {
-        case is UILabel:
-//            return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0).withAlphaComponent(alpha) // 어두운 녹색
-            return UIColor(red: 0.0, green: 200.0 / 255.0, blue: 0.0, alpha: alpha)
-        case is UIImageView:
-            return .red.withAlphaComponent(alpha)
-        case is UIButton:
-            return .blue.withAlphaComponent(alpha)
-        case is UITableViewCell, is UICollectionViewCell:
-            return .purple.withAlphaComponent(alpha)
-        case is WKWebView:
-            return .red.withAlphaComponent(alpha)
-        case is UITextField:
-            return .darkGray.withAlphaComponent(alpha)
-        case is UIScrollView:
-            return .systemPurple.withAlphaComponent(alpha)
-        case is UIStackView:
-            return .systemOrange.withAlphaComponent(alpha)
-        case is UITextView:
-            return .cyan.withAlphaComponent(alpha)
-        case is UISwitch:
-            return .systemPink.withAlphaComponent(alpha)
-        case is UISlider:
-            return .systemYellow.withAlphaComponent(alpha)
-        case is UISegmentedControl:
-            return .systemIndigo.withAlphaComponent(alpha)
-        case is UIStepper:
-            return .systemBrown.withAlphaComponent(alpha)
-        case is UIProgressView:
-            return .systemGray.withAlphaComponent(alpha)
-        case is UIActivityIndicatorView:
-            return .systemGray2.withAlphaComponent(alpha)
-        case is UINavigationBar:
-            return .systemRed.withAlphaComponent(alpha)
-        case is UITabBar:
-            return .systemOrange.withAlphaComponent(alpha)
-        case is UIToolbar:
-            return .systemYellow.withAlphaComponent(alpha)
-        case is UIDatePicker:
-            return .systemBlue.withAlphaComponent(alpha)
-        case is UIPickerView:
-            return .systemGreen.withAlphaComponent(alpha)
-        default:
-            return UIColor(red: 1.0, green: 229.0 / 255.0, blue: 0.0, alpha: alpha)
-        }
-    }
-
     // MARK: - 계층적 측정값 그리기 (중복 및 겹침 방지 포함)
     private func drawMeasurements(viewInfos: [ViewInfo], rootView: UIView, in context: CGContext) {
 //        context.setStrokeColor(UIColor.red.cgColor)
@@ -250,7 +204,7 @@ class ViewSpacingCaptureManager {
 
             let childFrame = currentViewInfo.frame
             let parentFrame = parentInfo.frame
-            let siblings = viewInfos.filter { $0.view.superview === parentInfo.view && $0.view !== currentViewInfo.view }
+            let siblings = viewInfos.filter { $0.view.superview === parentInfo.view && $0.view !== currentViewInfo.view && $0.view.frame != parentInfo.view.bounds }
 
             // 상단
             let potentialAbove = siblings.filter { $0.frame.maxY <= childFrame.minY && framesOverlapHorizontally(childFrame, $0.frame) }
@@ -569,6 +523,56 @@ class ViewSpacingCaptureManager {
         context.restoreGState()
     }
 
+    // MARK: - 뷰 타입별 색상 반환
+    private func getColorForViewType(_ view: UIView) -> UIColor {
+        let alpha: CGFloat = 0.7
+        switch view {
+        case is UILabel:
+//            return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0).withAlphaComponent(alpha) // 어두운 녹색
+            return UIColor(red: 0.0, green: 200.0 / 255.0, blue: 0.0, alpha: alpha)
+        case is UIImageView:
+            return .red.withAlphaComponent(alpha)
+        case is UIButton:
+            return .blue.withAlphaComponent(alpha)
+        case is UITableViewCell, is UICollectionViewCell:
+            return .purple.withAlphaComponent(alpha)
+        case is WKWebView:
+            return .red.withAlphaComponent(alpha)
+        case is UITextField:
+            return .darkGray.withAlphaComponent(alpha)
+        case is UIScrollView:
+            return .systemPurple.withAlphaComponent(alpha)
+        case is UIStackView:
+            return .systemOrange.withAlphaComponent(alpha)
+        case is UITextView:
+            return .cyan.withAlphaComponent(alpha)
+        case is UISwitch:
+            return .systemPink.withAlphaComponent(alpha)
+        case is UISlider:
+            return .systemYellow.withAlphaComponent(alpha)
+        case is UISegmentedControl:
+            return .systemIndigo.withAlphaComponent(alpha)
+        case is UIStepper:
+            return .systemBrown.withAlphaComponent(alpha)
+        case is UIProgressView:
+            return .systemGray.withAlphaComponent(alpha)
+        case is UIActivityIndicatorView:
+            return .systemGray2.withAlphaComponent(alpha)
+        case is UINavigationBar:
+            return .systemRed.withAlphaComponent(alpha)
+        case is UITabBar:
+            return .systemOrange.withAlphaComponent(alpha)
+        case is UIToolbar:
+            return .systemYellow.withAlphaComponent(alpha)
+        case is UIDatePicker:
+            return .systemBlue.withAlphaComponent(alpha)
+        case is UIPickerView:
+            return .systemGreen.withAlphaComponent(alpha)
+        default:
+            return UIColor(red: 1.0, green: 229.0 / 255.0, blue: 0.0, alpha: alpha)
+        }
+    }
+
     // MARK: - 헬퍼 메서드들
     private func findParentViewInfo(for viewInfo: ViewInfo, in viewInfos: [ViewInfo]) -> ViewInfo? {
         guard let superview = viewInfo.view.superview else {
@@ -588,6 +592,99 @@ class ViewSpacingCaptureManager {
         return false
     }
 
+    /// 특정 뷰가 자신보다 상위 계층의 형제 뷰들에 의해 완전히 가려졌는지 확인합니다. (5px 간격 동적 샘플링)
+    /// - Parameter viewToTest: 검사할 대상 뷰
+    /// - Returns: 뷰가 완전히 가려졌으면 true, 그렇지 않으면 false를 반환합니다.
+    private func isViewCompletelyObscured(_ viewToTest: UIView) -> Bool {
+        // 1. 슈퍼뷰와 대상 뷰의 인덱스 확인
+        // 슈퍼뷰가 존재해야 형제 뷰를 확인할 수 있습니다.
+        guard let container = viewToTest.superview
+        else {
+            // 슈퍼뷰가 없으면 가려질 수 없습니다.
+            return false
+        }
+
+        // subviews 배열에서 viewToTest의 인덱스를 찾습니다. 이 인덱스는 뷰 계층 순서를 나타냅니다.
+        guard let viewToTestIndex = container.subviews.firstIndex(of: viewToTest)
+        else {
+            // 컨테이너의 subviews 배열에 없는 비정상적인 경우입니다.
+            return false
+        }
+
+        // 2. 가릴 가능성이 있는 뷰들을 자동으로 필터링합니다.
+        // 형제 뷰들 중에서 아래 조건을 만족하는 뷰들만 '가리는 뷰'로 간주합니다.
+        // - 조건 1: viewToTest보다 상위 계층에 있어야 합니다. (subviews 배열에서 인덱스가 더 커야 함)
+        // - 조건 2: 숨김(hidden) 상태가 아니어야 합니다.
+        // - 조건 3: 거의 투명(alpha <= 0.01)하지 않아야 합니다.
+        let effectiveObscuringViews = container.subviews.filter { siblingView in
+            // siblingView가 subviews 배열에 있는지 확인하고 인덱스를 가져옵니다.
+            guard let siblingIndex = container.subviews.firstIndex(of: siblingView)
+            else {
+                return false
+            }
+            // viewToTest보다 인덱스가 크고, 숨겨져 있지 않으며, 투명하지 않은 뷰만 필터링합니다.
+            return siblingIndex > viewToTestIndex && !siblingView.isHidden && siblingView.alpha > 0.01
+        }
+
+        // 3. 가리는 뷰가 없는 경우
+        // 가릴 만한 뷰가 하나도 없다면, 당연히 가려지지 않았습니다.
+        if effectiveObscuringViews.isEmpty {
+            return false
+        }
+
+        // 4. 5픽셀 격자 샘플링을 통해 뷰가 완전히 가려졌는지 검사합니다.
+        // 이 부분은 원본 함수의 핵심 로직과 동일합니다.
+        let frameToTest = viewToTest.frame
+        let step: CGFloat = 5.0
+
+        // y 좌표를 0부터 시작하여 뷰의 높이를 넘지 않을 때까지 5씩 증가시키며 반복합니다.
+        var y: CGFloat = 0
+        while true {
+            // x 좌표를 0부터 시작하여 뷰의 너비를 넘지 않을 때까지 5씩 증가시키며 반복합니다.
+            var x: CGFloat = 0
+            while true {
+                let testPoint = CGPoint(x: frameToTest.minX + x, y: frameToTest.minY + y)
+
+                var isPointCovered = false
+                for obscuringView in effectiveObscuringViews {
+                    // 뷰위에 이미지도는 버튼을 많이 배치하기에 상위에 있는 이미지뷰와 버튼은 체크 하지 않는다.
+                    if obscuringView is UIImageView || obscuringView is UIButton {
+                        return false
+                    }
+                    // 현재 검사 지점(testPoint)이 가리는 뷰 중 하나의 프레임에 포함되는지 확인합니다.
+                    if obscuringView.frame.contains(testPoint) {
+                        isPointCovered = true
+                        // 이 점은 가려진 것이 확인되었으므로, 더 이상 다른 뷰와 비교할 필요가 없습니다.
+                        break
+                    }
+                }
+
+                // 만약 격자 위의 한 점이라도 가려지지 않았다면,
+                // 전체 뷰는 '완전히' 가려진 것이 아니므로 즉시 false를 반환합니다.
+                if !isPointCovered {
+                    return false
+                }
+
+                // 다음 x 좌표를 계산합니다. 뷰의 너비를 넘지 않도록 min 함수를 사용합니다.
+                // 마지막 x 좌표(frameToTest.width)에서 검사를 수행한 후 루프를 탈출합니다.
+                if x == frameToTest.width {
+                    break
+                }
+                x = min(x + step, frameToTest.width)
+            }
+
+            // 다음 y 좌표를 계산합니다. 뷰의 높이를 넘지 않도록 min 함수를 사용합니다.
+            // 마지막 y 좌표(frameToTest.height)에서 검사를 수행한 후 루프를 탈출합니다.
+            if y == frameToTest.height {
+                break
+            }
+            y = min(y + step, frameToTest.height)
+        }
+
+        // 모든 격자점이 가려졌다면, 뷰가 완전히 가려진 것으로 간주하고 true를 반환합니다.
+        return true
+    }
+
     // MARK: - 결과 표시
     private func showImagePreview(_ image: UIImage, from viewController: UIViewController) {
          let previewVC = ImagePreviewViewController()
@@ -601,5 +698,4 @@ class ViewSpacingCaptureManager {
 struct ViewInfo {
     let view: UIView
     let frame: CGRect
-    let originalFrame: CGRect
 }

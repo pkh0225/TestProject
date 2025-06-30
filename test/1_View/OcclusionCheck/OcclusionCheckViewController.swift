@@ -149,7 +149,7 @@ class OcclusionCheckViewController: UIViewController, RouterProtocol {
 
     @objc private func checkButtonTapped() {
         // 1. 가려짐 여부 확인
-        let isObscured = isViewCompletelyObscured(viewA, by: [viewB, viewC])
+        let isObscured = isViewCompletelyObscured(viewA)
 
         // 2. 경계 이탈 여부 확인
         let isOut = isViewOutOfBounds(viewA, in: containerView)
@@ -181,28 +181,49 @@ class OcclusionCheckViewController: UIViewController, RouterProtocol {
         return !boundsView.bounds.contains(viewToCheck.frame)
     }
 
-    /// 특정 뷰가 다른 뷰들에 의해 완전히 가려졌는지 확인하는 함수 (5px 간격 동적 샘플링)
-    func isViewCompletelyObscured(_ viewToTest: UIView, by obscuringViews: [UIView]) -> Bool {
-        guard let container = viewToTest.superview else {
-            return false
-        }
-        guard let viewToTestIndex = container.subviews.firstIndex(of: viewToTest) else {
+    // 특정 뷰가 자신보다 상위 계층의 형제 뷰들에 의해 완전히 가려졌는지 확인합니다. (5px 간격 동적 샘플링)
+    /// - Parameter viewToTest: 검사할 대상 뷰
+    /// - Returns: 뷰가 완전히 가려졌으면 true, 그렇지 않으면 false를 반환합니다.
+    func isViewCompletelyObscured(_ viewToTest: UIView) -> Bool {
+        // 1. 슈퍼뷰와 대상 뷰의 인덱스 확인
+        // 슈퍼뷰가 존재해야 형제 뷰를 확인할 수 있습니다.
+        guard let container = viewToTest.superview
+        else {
+            // 슈퍼뷰가 없으면 가려질 수 없습니다.
             return false
         }
 
-        let effectiveObscuringViews = obscuringViews.filter {
-            guard let obscuringViewIndex = container.subviews.firstIndex(of: $0) else {
+        // subviews 배열에서 viewToTest의 인덱스를 찾습니다. 이 인덱스는 뷰 계층 순서를 나타냅니다.
+        guard let viewToTestIndex = container.subviews.firstIndex(of: viewToTest)
+        else {
+            // 컨테이너의 subviews 배열에 없는 비정상적인 경우입니다.
+            return false
+        }
+
+        // 2. 가릴 가능성이 있는 뷰들을 자동으로 필터링합니다.
+        // 형제 뷰들 중에서 아래 조건을 만족하는 뷰들만 '가리는 뷰'로 간주합니다.
+        // - 조건 1: viewToTest보다 상위 계층에 있어야 합니다. (subviews 배열에서 인덱스가 더 커야 함)
+        // - 조건 2: 숨김(hidden) 상태가 아니어야 합니다.
+        // - 조건 3: 거의 투명(alpha <= 0.01)하지 않아야 합니다.
+        let effectiveObscuringViews = container.subviews.filter { siblingView in
+            // siblingView가 subviews 배열에 있는지 확인하고 인덱스를 가져옵니다.
+            guard let siblingIndex = container.subviews.firstIndex(of: siblingView)
+            else {
                 return false
             }
-            return obscuringViewIndex > viewToTestIndex && !$0.isHidden && $0.alpha > 0.01
+            // viewToTest보다 인덱스가 크고, 숨겨져 있지 않으며, 투명하지 않은 뷰만 필터링합니다.
+            return siblingIndex > viewToTestIndex && !siblingView.isHidden && siblingView.alpha > 0.01
         }
 
+        // 3. 가리는 뷰가 없는 경우
+        // 가릴 만한 뷰가 하나도 없다면, 당연히 가려지지 않았습니다.
         if effectiveObscuringViews.isEmpty {
             return false
         }
 
+        // 4. 5픽셀 격자 샘플링을 통해 뷰가 완전히 가려졌는지 검사합니다.
+        // 이 부분은 원본 함수의 핵심 로직과 동일합니다.
         let frameToTest = viewToTest.frame
-        // 5픽셀 간격으로 검사할 점을 생성합니다.
         let step: CGFloat = 5.0
 
         // y 좌표를 0부터 시작하여 뷰의 높이를 넘지 않을 때까지 5씩 증가시키며 반복합니다.
@@ -215,35 +236,37 @@ class OcclusionCheckViewController: UIViewController, RouterProtocol {
 
                 var isPointCovered = false
                 for obscuringView in effectiveObscuringViews {
-                    // 점이 가리는 뷰 중 하나에라도 포함되면, 이 점은 가려진 것으로 판단합니다.
+                    // 현재 검사 지점(testPoint)이 가리는 뷰 중 하나의 프레임에 포함되는지 확인합니다.
                     if obscuringView.frame.contains(testPoint) {
                         isPointCovered = true
+                        // 이 점은 가려진 것이 확인되었으므로, 더 이상 다른 뷰와 비교할 필요가 없습니다.
                         break
                     }
                 }
 
-                // 만약 격자 위의 한 점이라도 가려지지 않았다면, 전체 뷰는 완전히 가려진 것이 아닙니다.
+                // 만약 격자 위의 한 점이라도 가려지지 않았다면,
+                // 전체 뷰는 '완전히' 가려진 것이 아니므로 즉시 false를 반환합니다.
                 if !isPointCovered {
                     return false
                 }
 
-                // 마지막 x 좌표를 확인했으면 내부 루프를 탈출합니다.
+                // 다음 x 좌표를 계산합니다. 뷰의 너비를 넘지 않도록 min 함수를 사용합니다.
+                // 마지막 x 좌표(frameToTest.width)에서 검사를 수행한 후 루프를 탈출합니다.
                 if x == frameToTest.width {
                     break
                 }
-                // 다음 x 좌표를 계산하되, 뷰의 너비를 넘지 않도록 합니다.
                 x = min(x + step, frameToTest.width)
             }
 
-            // 마지막 y 좌표를 확인했으면 외부 루프를 탈출합니다.
+            // 다음 y 좌표를 계산합니다. 뷰의 높이를 넘지 않도록 min 함수를 사용합니다.
+            // 마지막 y 좌표(frameToTest.height)에서 검사를 수행한 후 루프를 탈출합니다.
             if y == frameToTest.height {
                 break
             }
-            // 다음 y 좌표를 계산하되, 뷰의 높이를 넘지 않도록 합니다.
             y = min(y + step, frameToTest.height)
         }
 
-        // 모든 격자점이 가려졌다면, 뷰가 완전히 가려진 것으로 간주합니다.
+        // 모든 격자점이 가려졌다면, 뷰가 완전히 가려진 것으로 간주하고 true를 반환합니다.
         return true
     }
 
