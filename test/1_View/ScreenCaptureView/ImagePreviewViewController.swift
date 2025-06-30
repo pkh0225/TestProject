@@ -222,7 +222,7 @@ class ImagePreviewViewController: UIViewController, UIScrollViewDelegate {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         }
         else {
-            let zoomRect = zoomRectForScale(scale: 2.5, center: gesture.location(in: imageView))
+            let zoomRect = zoomRectForScale(scale: 4, center: gesture.location(in: imageView))
             scrollView.zoom(to: zoomRect, animated: true)
         }
     }
