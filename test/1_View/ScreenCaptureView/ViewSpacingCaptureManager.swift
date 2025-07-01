@@ -67,6 +67,12 @@ final class ViewSpacingCaptureManager {
         // 2. 가려진 뷰를 필터링합니다.
         // enumerated()를 사용해 각 ViewInfo의 인덱스를 가져옵니다.
         let visibleViewInfos = allViewInfos.enumerated().compactMap { (index, viewInfo) -> ViewInfo? in
+            // 자식뷰중에 하나라도 그대로 덮고 있는 뷰가 있으면 빼지 않는다.
+            for subView in viewInfo.view.subviews {
+                if sameFrame(viewInfo.view.bounds, subView.frame) {
+                    return viewInfo
+                }
+            }
             // 현재 뷰가 다른 뷰들에 의해 완전히 가려졌는지 확인합니다.
             let isObscured = isViewCompletelyObscured(viewInfoToTest: viewInfo, in: allViewInfos, at: index)
             // 가려지지 않았을 때만 최종 리스트에 포함시킵니다.
@@ -103,16 +109,16 @@ final class ViewSpacingCaptureManager {
                 button.attributedTitle(for: .normal) == nil &&
                 button.image(for: .normal) == nil &&
                 button.backgroundImage(for: .normal) == nil {
-                if let view = superView as? UITableViewCell, view.contentView.bounds == button.frame {
+                if let view = superView as? UITableViewCell, sameFrame(view.contentView.bounds, button.frame) {
                     return
                 }
-                if let view = superView as? UITableViewHeaderFooterView, view.bounds == button.frame {
+                if let view = superView as? UITableViewHeaderFooterView, sameFrame(view.bounds, button.frame) {
                     return
                 }
-                if let view = superView as? UICollectionReusableView, view.bounds == button.frame {
+                if let view = superView as? UICollectionReusableView, sameFrame(view.bounds, button.frame) {
                     return
                 }
-                if let view = superView as? UICollectionViewCell, view.contentView.bounds == button.frame {
+                if let view = superView as? UICollectionViewCell, sameFrame(view.contentView.bounds, button.frame) {
                     return
                 }
             }
@@ -153,12 +159,12 @@ final class ViewSpacingCaptureManager {
             var isLeafUIView = (type(of: view) == UIView.self && view.subviews.isEmpty)
 
             if let superView = view.superview, isLeafUIView {
-                if superView.bounds == view.frame {
+                if sameFrame(superView.bounds, view.frame) {
                     isLeafUIView = false
                 }
                 else {
                     for sv in superView.subviews {
-                        if sv !== view && sv.frame == view.frame {
+                        if sv !== view && sameFrame(sv.frame, view.frame) {
                             isLeafUIView = false
                             break
                         }
@@ -284,7 +290,7 @@ final class ViewSpacingCaptureManager {
                 }
                 guard !isObstructed else { return }
 
-                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), color: color, in: context)
+                drawVerticalMeasurement(from: CGPoint(x: lineX, y: endY), to: CGPoint(x: lineX, y: startY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), color: color, in: context, arrow: true)
             }
         case .bottom:
             let inset = parentFrame.maxY - childFrame.maxY
@@ -300,7 +306,7 @@ final class ViewSpacingCaptureManager {
                 }
                 guard !isObstructed else { return }
 
-                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), color: color, in: context)
+                drawVerticalMeasurement(from: CGPoint(x: lineX, y: startY), to: CGPoint(x: lineX, y: endY), value: Int(round(inset)), textPosition: CGPoint(x: lineX, y: (startY + endY) / 2), color: color, in: context, arrow: true)
             }
         case .left:
             let inset = childFrame.minX - parentFrame.minX
@@ -316,7 +322,7 @@ final class ViewSpacingCaptureManager {
                 }
                 guard !isObstructed else { return }
 
-                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), color: color, in: context)
+                drawHorizontalMeasurement(from: CGPoint(x: endX, y: lineY), to: CGPoint(x: startX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), color: color, in: context, arrow: true)
             }
         case .right:
             let inset = parentFrame.maxX - childFrame.maxX
@@ -332,7 +338,7 @@ final class ViewSpacingCaptureManager {
                 }
                 guard !isObstructed else { return }
 
-                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), color: color, in: context)
+                drawHorizontalMeasurement(from: CGPoint(x: startX, y: lineY), to: CGPoint(x: endX, y: lineY), value: Int(round(inset)), textPosition: CGPoint(x: (startX + endX) / 2, y: lineY), color: color, in: context, arrow: true)
             }
         }
     }
@@ -344,13 +350,13 @@ final class ViewSpacingCaptureManager {
             let spacing = to.minY - from.maxY
             if spacing > 0.5 {
                 let lineX = (max(from.minX, to.minX) + min(from.maxX, to.maxX)) / 2
-                drawVerticalMeasurement(from: CGPoint(x: lineX, y: from.maxY), to: CGPoint(x: lineX, y: to.minY), value: Int(round(spacing)), textPosition: CGPoint(x: lineX, y: (from.maxY + to.minY) / 2), color: color, in: context)
+                drawVerticalMeasurement(from: CGPoint(x: lineX, y: from.maxY), to: CGPoint(x: lineX, y: to.minY), value: Int(round(spacing)), textPosition: CGPoint(x: lineX, y: (from.maxY + to.minY) / 2), color: color, in: context, arrow: false)
             }
         case .left, .right:
             let spacing = to.minX - from.maxX
             if spacing > 0.5 {
                 let lineY = (max(from.minY, to.minY) + min(from.maxY, to.maxY)) / 2
-                drawHorizontalMeasurement(from: CGPoint(x: from.maxX, y: lineY), to: CGPoint(x: to.minX, y: lineY), value: Int(round(spacing)), textPosition: CGPoint(x: (from.maxX + to.minX) / 2, y: lineY), color: color, in: context)
+                drawHorizontalMeasurement(from: CGPoint(x: from.maxX, y: lineY), to: CGPoint(x: to.minX, y: lineY), value: Int(round(spacing)), textPosition: CGPoint(x: (from.maxX + to.minX) / 2, y: lineY), color: color, in: context, arrow: false)
             }
         }
     }
@@ -365,26 +371,56 @@ final class ViewSpacingCaptureManager {
     }
 
     // MARK: - 수직 측정선 그리기 (텍스트 위치 별도 지정)
-    private func drawVerticalMeasurement(from startPoint: CGPoint, to endPoint: CGPoint, value: Int, textPosition: CGPoint, color: UIColor, in context: CGContext) {
+    private func drawVerticalMeasurement(from startPoint: CGPoint, to endPoint: CGPoint, value: Int, textPosition: CGPoint, color: UIColor, in context: CGContext, arrow: Bool) {
         context.saveGState()
         context.setStrokeColor(color.cgColor)
         context.setLineWidth(0.5)
-        context.setLineDash(phase: 0, lengths: [4, 2]) // 점선
 
+        // 1. 점선 그리기
+        context.setLineDash(phase: 0, lengths: [4, 2])
         context.move(to: startPoint)
         context.addLine(to: endPoint)
         context.strokePath()
 
-        let tickLength: CGFloat = 2
-        context.setLineDash(phase: 0, lengths: []) // 실선
+        // 2. 실선으로 변경 및 눈금 그리기
+        let tickLength: CGFloat = 1.5
+        context.setLineDash(phase: 0, lengths: []) // 실선으로 변경
+
+        // 3. 시작점 눈금
         context.move(to: CGPoint(x: startPoint.x - tickLength, y: startPoint.y))
         context.addLine(to: CGPoint(x: startPoint.x + tickLength, y: startPoint.y))
         context.strokePath()
 
-        context.move(to: CGPoint(x: endPoint.x - tickLength, y: endPoint.y))
-        context.addLine(to: CGPoint(x: endPoint.x + tickLength, y: endPoint.y))
-        context.strokePath()
+        // 4. 끝점 눈금
+        if arrow {
+            // 화살표 그리기
+            let arrowSize: CGFloat = 3 // 화살표 한 변의 길이
+            let arrowAngle = CGFloat.pi / 6 // 화살표의 각도 (30도)
 
+            // y좌표를 비교하여 화살표 방향 결정 (아래로 향하는지, 위로 향하는지)
+            let isPointingDown = endPoint.y > startPoint.y
+            let angleModifier: CGFloat = isPointingDown ? -1.0 : 1.0
+
+            // 화살표를 구성하는 양쪽 끝 점 계산
+            let dx = arrowSize * sin(arrowAngle)
+            let dy = arrowSize * cos(arrowAngle)
+
+            let arrowPoint1 = CGPoint(x: endPoint.x - dx, y: endPoint.y + (dy * angleModifier))
+            let arrowPoint2 = CGPoint(x: endPoint.x + dx, y: endPoint.y + (dy * angleModifier))
+
+            // 화살표 경로 그리기
+            context.move(to: arrowPoint1)
+            context.addLine(to: endPoint)
+            context.addLine(to: arrowPoint2)
+            context.strokePath()
+        }
+        else {
+            context.move(to: CGPoint(x: endPoint.x - tickLength, y: endPoint.y))
+            context.addLine(to: CGPoint(x: endPoint.x + tickLength, y: endPoint.y))
+            context.strokePath()
+        }
+
+        // 상태 복원
         context.restoreGState()
 
         let lineLength = abs(endPoint.y - startPoint.y)
@@ -392,26 +428,56 @@ final class ViewSpacingCaptureManager {
     }
 
     // MARK: - 수평 측정선 그리기 (텍스트 위치 별도 지정)
-    private func drawHorizontalMeasurement(from startPoint: CGPoint, to endPoint: CGPoint, value: Int, textPosition: CGPoint, color: UIColor, in context: CGContext) {
+    private func drawHorizontalMeasurement(from startPoint: CGPoint, to endPoint: CGPoint, value: Int, textPosition: CGPoint, color: UIColor, in context: CGContext, arrow: Bool) {
         context.saveGState()
         context.setStrokeColor(color.cgColor)
         context.setLineWidth(0.5)
-        context.setLineDash(phase: 0, lengths: [4, 2]) // 점선
 
+        // 1. 점선 그리기
+        context.setLineDash(phase: 0, lengths: [4, 2])
         context.move(to: startPoint)
         context.addLine(to: endPoint)
         context.strokePath()
 
-        let tickLength: CGFloat = 2
-        context.setLineDash(phase: 0, lengths: []) // 실선
+        // 2. 실선으로 변경 및 눈금 그리기
+        let tickLength: CGFloat = 1.5
+        context.setLineDash(phase: 0, lengths: []) // 실선으로 변경
+
+        // 3. 시작점 눈금
         context.move(to: CGPoint(x: startPoint.x, y: startPoint.y - tickLength))
         context.addLine(to: CGPoint(x: startPoint.x, y: startPoint.y + tickLength))
         context.strokePath()
 
-        context.move(to: CGPoint(x: endPoint.x, y: endPoint.y - tickLength))
-        context.addLine(to: CGPoint(x: endPoint.x, y: endPoint.y + tickLength))
-        context.strokePath()
+        // 3. 끝점 눈금
+        if arrow {
+            // 화살표 그리기
+            let arrowSize: CGFloat = 3
+            let arrowAngle = CGFloat.pi / 6 // 30도
 
+            // x좌표를 비교하여 화살표 방향 결정 (오른쪽으로 향하는지, 왼쪽으로 향하는지)
+            let isPointingRight = endPoint.x > startPoint.x
+            let angleModifier: CGFloat = isPointingRight ? -1.0 : 1.0
+
+            // 화살표를 구성하는 양쪽 끝 점 계산
+            let dx = arrowSize * cos(arrowAngle)
+            let dy = arrowSize * sin(arrowAngle)
+
+            let arrowPoint1 = CGPoint(x: endPoint.x + (dx * angleModifier), y: endPoint.y - dy)
+            let arrowPoint2 = CGPoint(x: endPoint.x + (dx * angleModifier), y: endPoint.y + dy)
+
+            // 화살표 경로 그리기
+            context.move(to: arrowPoint1)
+            context.addLine(to: endPoint)
+            context.addLine(to: arrowPoint2)
+            context.strokePath()
+        }
+        else {
+            context.move(to: CGPoint(x: endPoint.x, y: endPoint.y - tickLength))
+            context.addLine(to: CGPoint(x: endPoint.x, y: endPoint.y + tickLength))
+            context.strokePath()
+        }
+
+        // 상태 복원
         context.restoreGState()
 
         let lineLength = abs(endPoint.x - startPoint.x)
@@ -578,6 +644,16 @@ final class ViewSpacingCaptureManager {
     }
 
     // MARK: - 헬퍼 메서드들
+
+    /// 뷰 크기가 소수점자리로 살짝실 다르게 나올때가 있어서 따로 체크
+    private func sameFrame(_ lhs: CGRect, _ rhs: CGRect) -> Bool {
+        if abs(lhs.minX - rhs.minX) > 1 { return false }
+        if abs(lhs.minY - rhs.minY) > 1 { return false }
+        if abs(lhs.width - rhs.width) > 1 { return false }
+        if abs(lhs.height - rhs.height) > 1 { return false }
+        return true
+    }
+
     private func findParentViewInfo(for viewInfo: ViewInfo, in viewInfos: [ViewInfo]) -> ViewInfo? {
         guard let superview = viewInfo.view.superview else {
             return nil
@@ -603,14 +679,6 @@ final class ViewSpacingCaptureManager {
     ///   - testIndex: `allViewInfos`에서 `viewInfoToTest`의 인덱스
     /// - Returns: 뷰가 완전히 가려졌으면 true, 아니면 false
     private func isViewCompletelyObscured(viewInfoToTest: ViewInfo, in allViewInfos: [ViewInfo], at testIndex: Int) -> Bool {
-        // cell과 contentView는 제외 한다.
-        if viewInfoToTest.view is UITableViewCell || viewInfoToTest.view.superview is UITableViewCell ||
-            viewInfoToTest.view is UITableViewHeaderFooterView || viewInfoToTest.view.superview is UITableViewHeaderFooterView ||
-            viewInfoToTest.view is UICollectionReusableView ||
-            viewInfoToTest.view is UICollectionViewCell || viewInfoToTest.view.superview is UICollectionViewCell {
-            return false
-        }
-
         let frameToTest = viewInfoToTest.frame
 
         // 1. 가릴 가능성이 있는 뷰들을 찾습니다.
@@ -630,7 +698,7 @@ final class ViewSpacingCaptureManager {
         }
 
         // 2. 5픽셀 격자 샘플링으로 완전히 가려졌는지 검사합니다.
-        let step: CGFloat = 5.0
+        let step: CGFloat = 2.0
         var y: CGFloat = 0
         while true {
             var x: CGFloat = 0
