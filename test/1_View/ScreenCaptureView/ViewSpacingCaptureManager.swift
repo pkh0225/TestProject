@@ -61,12 +61,20 @@ final class ViewSpacingCaptureManager {
     // MARK: - 뷰 정보 수집 (보이는 뷰만)
     private func collectViewInfos(rootView: UIView) -> [ViewInfo] {
         var allViewInfos: [ViewInfo] = []
-        // 모든 뷰의 정보를 재귀적으로 수집합니다
+        // 1. 모든 뷰의 정보를 재귀적으로 수집합니다. (순서가 중요)
         collectAllViewInfosRecursively(view: rootView, rootView: rootView, viewInfos: &allViewInfos)
 
-        return allViewInfos
+        // 2. 가려진 뷰를 필터링합니다.
+        // enumerated()를 사용해 각 ViewInfo의 인덱스를 가져옵니다.
+        let visibleViewInfos = allViewInfos.enumerated().compactMap { (index, viewInfo) -> ViewInfo? in
+            // 현재 뷰가 다른 뷰들에 의해 완전히 가려졌는지 확인합니다.
+            let isObscured = isViewCompletelyObscured(viewInfoToTest: viewInfo, in: allViewInfos, at: index)
+            // 가려지지 않았을 때만 최종 리스트에 포함시킵니다.
+            return isObscured ? nil : viewInfo
+        }
+        return visibleViewInfos
+//        return allViewInfos
     }
-
 
     private func collectAllViewInfosRecursively(view: UIView, rootView: UIView, viewInfos: inout [ViewInfo]) {
         // 히든 상태이거나 투명한 뷰는 수집하지 않습니다.
@@ -79,10 +87,6 @@ final class ViewSpacingCaptureManager {
         }
         // 화면에서 벗어났는지 검사
         if !UIScreen.main.bounds.intersects(view.convert(view.bounds, to: nil)) {
-            return
-        }
-        // 다른 형제뷰에 가려졌는지
-        if isViewCompletelyObscured(view) {
             return
         }
         // 내용이 없는 라벨과 버튼은 수집하지 않습니다.
@@ -116,7 +120,7 @@ final class ViewSpacingCaptureManager {
 
         if view.tag != Self.exception {
             let frameInRootView = view.convert(view.bounds, to: rootView)
-            let viewInfo = ViewInfo(view: view,frame: frameInRootView)
+            let viewInfo = ViewInfo(view: view, frame: frameInRootView)
             viewInfos.append(viewInfo)
         }
 
@@ -592,96 +596,75 @@ final class ViewSpacingCaptureManager {
         return false
     }
 
-    /// 특정 뷰가 자신보다 상위 계층의 형제 뷰들에 의해 완전히 가려졌는지 확인합니다. (5px 간격 동적 샘플링)
-    /// - Parameter viewToTest: 검사할 대상 뷰
-    /// - Returns: 뷰가 완전히 가려졌으면 true, 그렇지 않으면 false를 반환합니다.
-    private func isViewCompletelyObscured(_ viewToTest: UIView) -> Bool {
-        // 1. 슈퍼뷰와 대상 뷰의 인덱스 확인
-        // 슈퍼뷰가 존재해야 형제 뷰를 확인할 수 있습니다.
-        guard let container = viewToTest.superview
-        else {
-            // 슈퍼뷰가 없으면 가려질 수 없습니다.
+    /// 특정 뷰가 전체 뷰 목록 내에서 완전히 가려졌는지 확인합니다.
+    /// - Parameters:
+    ///   - viewInfoToTest: 검사할 뷰의 정보
+    ///   - allViewInfos: 전체 뷰 정보 목록 (그려지는 순서대로 정렬됨)
+    ///   - testIndex: `allViewInfos`에서 `viewInfoToTest`의 인덱스
+    /// - Returns: 뷰가 완전히 가려졌으면 true, 아니면 false
+    private func isViewCompletelyObscured(viewInfoToTest: ViewInfo, in allViewInfos: [ViewInfo], at testIndex: Int) -> Bool {
+        // cell과 contentView는 제외 한다.
+        if viewInfoToTest.view is UITableViewCell || viewInfoToTest.view.superview is UITableViewCell ||
+            viewInfoToTest.view is UITableViewHeaderFooterView || viewInfoToTest.view.superview is UITableViewHeaderFooterView ||
+            viewInfoToTest.view is UICollectionReusableView ||
+            viewInfoToTest.view is UICollectionViewCell || viewInfoToTest.view.superview is UICollectionViewCell {
             return false
         }
 
-        // subviews 배열에서 viewToTest의 인덱스를 찾습니다. 이 인덱스는 뷰 계층 순서를 나타냅니다.
-        guard let viewToTestIndex = container.subviews.firstIndex(of: viewToTest)
-        else {
-            // 컨테이너의 subviews 배열에 없는 비정상적인 경우입니다.
-            return false
-        }
+        let frameToTest = viewInfoToTest.frame
 
-        // 2. 가릴 가능성이 있는 뷰들을 자동으로 필터링합니다.
-        // 형제 뷰들 중에서 아래 조건을 만족하는 뷰들만 '가리는 뷰'로 간주합니다.
-        // - 조건 1: viewToTest보다 상위 계층에 있어야 합니다. (subviews 배열에서 인덱스가 더 커야 함)
-        // - 조건 2: 숨김(hidden) 상태가 아니어야 합니다.
-        // - 조건 3: 거의 투명(alpha <= 0.01)하지 않아야 합니다.
-        let effectiveObscuringViews = container.subviews.filter { siblingView in
-            // siblingView가 subviews 배열에 있는지 확인하고 인덱스를 가져옵니다.
-            guard let siblingIndex = container.subviews.firstIndex(of: siblingView)
-            else {
+        // 1. 가릴 가능성이 있는 뷰들을 찾습니다.
+        // 나 자신보다 뒤에(즉, 위에) 그려지는 뷰들만 후보가 됩니다.
+        // 또한, 검사할 뷰의 프레임과 겹치는 뷰들만 실질적인 후보입니다.
+        let potentialObscuringViews = allViewInfos[(testIndex + 1)...].filter { otherViewInfo in
+            // 뷰위에 버튼을 추가 해서 사용하는 경우가 많아서 제외
+            if otherViewInfo.view is UIButton {
                 return false
             }
-            // viewToTest보다 인덱스가 크고, 숨겨져 있지 않으며, 투명하지 않은 뷰만 필터링합니다.
-            return siblingIndex > viewToTestIndex && !siblingView.isHidden && siblingView.alpha > 0.01
+            return frameToTest.intersects(otherViewInfo.frame)
         }
 
-        // 3. 가리는 뷰가 없는 경우
-        // 가릴 만한 뷰가 하나도 없다면, 당연히 가려지지 않았습니다.
-        if effectiveObscuringViews.isEmpty {
+        // 가릴만한 뷰가 없으면 false를 반환합니다.
+        if potentialObscuringViews.isEmpty {
             return false
         }
 
-        // 4. 5픽셀 격자 샘플링을 통해 뷰가 완전히 가려졌는지 검사합니다.
-        // 이 부분은 원본 함수의 핵심 로직과 동일합니다.
-        let frameToTest = viewToTest.frame
+        // 2. 5픽셀 격자 샘플링으로 완전히 가려졌는지 검사합니다.
         let step: CGFloat = 5.0
-
-        // y 좌표를 0부터 시작하여 뷰의 높이를 넘지 않을 때까지 5씩 증가시키며 반복합니다.
         var y: CGFloat = 0
         while true {
-            // x 좌표를 0부터 시작하여 뷰의 너비를 넘지 않을 때까지 5씩 증가시키며 반복합니다.
             var x: CGFloat = 0
             while true {
+                // 검사할 좌표는 viewInfoToTest의 프레임 기준입니다.
                 let testPoint = CGPoint(x: frameToTest.minX + x, y: frameToTest.minY + y)
 
                 var isPointCovered = false
-                for obscuringView in effectiveObscuringViews {
-                    // 뷰위에 이미지도는 버튼을 많이 배치하기에 상위에 있는 이미지뷰와 버튼은 체크 하지 않는다.
-                    if obscuringView is UIImageView || obscuringView is UIButton {
-                        return false
-                    }
-                    // 현재 검사 지점(testPoint)이 가리는 뷰 중 하나의 프레임에 포함되는지 확인합니다.
-                    if obscuringView.frame.contains(testPoint) {
+                for obscuringViewInfo in potentialObscuringViews {
+                    // 이 좌표가 가리는 뷰의 프레임에 포함되는지 확인합니다.
+                    if obscuringViewInfo.frame.contains(testPoint) {
                         isPointCovered = true
-                        // 이 점은 가려진 것이 확인되었으므로, 더 이상 다른 뷰와 비교할 필요가 없습니다.
                         break
                     }
                 }
 
-                // 만약 격자 위의 한 점이라도 가려지지 않았다면,
-                // 전체 뷰는 '완전히' 가려진 것이 아니므로 즉시 false를 반환합니다.
+                // 한 점이라도 가려지지 않았다면, '완전히' 가려진 것이 아니므로 즉시 false를 반환합니다.
                 if !isPointCovered {
                     return false
                 }
 
-                // 다음 x 좌표를 계산합니다. 뷰의 너비를 넘지 않도록 min 함수를 사용합니다.
-                // 마지막 x 좌표(frameToTest.width)에서 검사를 수행한 후 루프를 탈출합니다.
                 if x == frameToTest.width {
                     break
                 }
                 x = min(x + step, frameToTest.width)
             }
 
-            // 다음 y 좌표를 계산합니다. 뷰의 높이를 넘지 않도록 min 함수를 사용합니다.
-            // 마지막 y 좌표(frameToTest.height)에서 검사를 수행한 후 루프를 탈출합니다.
             if y == frameToTest.height {
                 break
             }
             y = min(y + step, frameToTest.height)
         }
 
-        // 모든 격자점이 가려졌다면, 뷰가 완전히 가려진 것으로 간주하고 true를 반환합니다.
+        // 모든 샘플링 지점이 가려졌다면, 뷰는 완전히 가려진 것입니다.
         return true
     }
 
