@@ -64,22 +64,21 @@ final class ViewSpacingCaptureManager {
         // 1. 모든 뷰의 정보를 재귀적으로 수집합니다. (순서가 중요)
         collectAllViewInfosRecursively(view: rootView, rootView: rootView, viewInfos: &allViewInfos)
 
-        // 2. 가려진 뷰를 필터링합니다.
-        // enumerated()를 사용해 각 ViewInfo의 인덱스를 가져옵니다.
-        let visibleViewInfos = allViewInfos.enumerated().compactMap { (index, viewInfo) -> ViewInfo? in
-            // 자식뷰중에 하나라도 그대로 덮고 있는 뷰가 있으면 빼지 않는다.
-            for subView in viewInfo.view.subviews {
-                if sameFrame(viewInfo.view.bounds, subView.frame) {
-                    return viewInfo
-                }
-            }
-            // 현재 뷰가 다른 뷰들에 의해 완전히 가려졌는지 확인합니다.
-            let isObscured = isViewCompletelyObscured(viewInfoToTest: viewInfo, in: allViewInfos, at: index)
-            // 가려지지 않았을 때만 최종 리스트에 포함시킵니다.
-            return isObscured ? nil : viewInfo
-        }
-        return visibleViewInfos
-//        return allViewInfos
+        // 2. 가려진 뷰를 필터링합니다. (좀 더 보완해서 추가 할지 결정하자...)
+//        let visibleViewInfos = allViewInfos.enumerated().compactMap { (index, viewInfo) -> ViewInfo? in
+//            // 자식뷰중에 하나라도 그대로 덮고 있는 뷰가 있으면 빼지 않는다.
+//            for subView in viewInfo.view.subviews {
+//                if sameFrame(viewInfo.view.bounds, subView.frame) {
+//                    return viewInfo
+//                }
+//            }
+//            // 현재 뷰가 다른 뷰들에 의해 완전히 가려졌는지 확인합니다.
+//            let isObscured = isViewCompletelyObscured(viewInfoToTest: viewInfo, in: allViewInfos, at: index)
+//            // 가려지지 않았을 때만 최종 리스트에 포함시킵니다.
+//            return isObscured ? nil : viewInfo
+//        }
+//        return visibleViewInfos
+        return allViewInfos
     }
 
     private func collectAllViewInfosRecursively(view: UIView, rootView: UIView, viewInfos: inout [ViewInfo]) {
