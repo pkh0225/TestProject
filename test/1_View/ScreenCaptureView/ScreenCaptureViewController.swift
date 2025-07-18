@@ -7,27 +7,20 @@
 
 import UIKit
 import SwiftHelper
+import ViewSpacingCapture
 
 class ScreenCaptureViewController: UIViewController, RouterProtocol {
     static var storyboardName: String = "ScreenCaptureView"
 
-    private let screenCaptureManager = ViewSpacingCaptureManager()
-    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
+        collectionView.reloadData()
+
         // 플로팅 버튼 표시
         FloatingCaptureButton.shared.showFloatingButton()
-        collectionView.reloadData()
-    }
-    
-    @IBAction func captureButtonTapped(_ sender: Any) {
-        screenCaptureManager.captureViewControllerWithBounds(self) { success in
-            print("Screen capture completed: \(success)")
-        }
     }
 }
 

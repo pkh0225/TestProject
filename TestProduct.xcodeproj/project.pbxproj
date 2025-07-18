@@ -12,6 +12,7 @@
 		207DA9A72CD8AECF0001BFF5 /* TableViewAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 207DA9A62CD8AECF0001BFF5 /* TableViewAdapter */; };
 		209BBFBD2CEEC94C00100285 /* PushAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = 209BBFBC2CEEC94C00100285 /* PushAnimation */; };
 		20C29C7C2CD4B9CB00F23EFD /* CollectionViewAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 20C29C7B2CD4B9CB00F23EFD /* CollectionViewAdapter */; };
+		20C3AB372E29F6A000A71164 /* ViewSpacingCapture in Frameworks */ = {isa = PBXBuildFile; productRef = 20C3AB362E29F6A000A71164 /* ViewSpacingCapture */; };
 		20C7AA902CC738A0007D01D4 /* PkhGridView in Frameworks */ = {isa = PBXBuildFile; productRef = 20C7AA8F2CC738A0007D01D4 /* PkhGridView */; };
 		20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C642C6C605D00837939 /* EasyConstraints */; };
 		20FA8C742C6C7A8C00837939 /* SwiftHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 20FA8C732C6C7A8C00837939 /* SwiftHelper */; };
@@ -60,6 +61,7 @@
 				203AF9672A2966B60018EE87 /* SDWebImageWebPCoder in Frameworks */,
 				20C29C7C2CD4B9CB00F23EFD /* CollectionViewAdapter in Frameworks */,
 				209BBFBD2CEEC94C00100285 /* PushAnimation in Frameworks */,
+				20C3AB372E29F6A000A71164 /* ViewSpacingCapture in Frameworks */,
 				20687C2C2D53395300CE0EC0 /* SSGMacro in Frameworks */,
 				20FA8C652C6C605D00837939 /* EasyConstraints in Frameworks */,
 				20FF90D92D226C5F00872ED6 /* DeinitChecker in Frameworks */,
@@ -123,6 +125,7 @@
 				209BBFBC2CEEC94C00100285 /* PushAnimation */,
 				20FF90D82D226C5F00872ED6 /* DeinitChecker */,
 				20687C2B2D53395300CE0EC0 /* SSGMacro */,
+				20C3AB362E29F6A000A71164 /* ViewSpacingCapture */,
 			);
 			productName = test;
 			productReference = 205CAE8528AB1EDF002999A8 /* TestProduct.app */;
@@ -163,6 +166,7 @@
 				20E3492C2CEEBDF3001FD516 /* XCRemoteSwiftPackageReference "PushAnimation" */,
 				2058367B2D226BAD0069323D /* XCRemoteSwiftPackageReference "DeinitChecker" */,
 				20687C2A2D53395300CE0EC0 /* XCRemoteSwiftPackageReference "SSGMacro" */,
+				20C3AB352E29F6A000A71164 /* XCRemoteSwiftPackageReference "ViewSpacingCapture" */,
 			);
 			productRefGroup = 205CAE8628AB1EDF002999A8 /* Products */;
 			projectDirPath = "";
@@ -442,6 +446,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		20C3AB352E29F6A000A71164 /* XCRemoteSwiftPackageReference "ViewSpacingCapture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkh0225/ViewSpacingCapture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 		20C7AA8E2CC738A0007D01D4 /* XCRemoteSwiftPackageReference "PkhGridView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pkh0225/PkhGridView.git";
@@ -509,6 +521,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20FB6EFA2CD4B2030004F7AE /* XCRemoteSwiftPackageReference "CollectionViewAdapter" */;
 			productName = CollectionViewAdapter;
+		};
+		20C3AB362E29F6A000A71164 /* ViewSpacingCapture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20C3AB352E29F6A000A71164 /* XCRemoteSwiftPackageReference "ViewSpacingCapture" */;
+			productName = ViewSpacingCapture;
 		};
 		20C7AA8F2CC738A0007D01D4 /* PkhGridView */ = {
 			isa = XCSwiftPackageProductDependency;

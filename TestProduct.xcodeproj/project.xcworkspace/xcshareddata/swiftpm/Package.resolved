@@ -1,5 +1,5 @@
 {
-  "originHash" : "3b5730acc0fe35878bc9e9116c616e4775299af85d212b31132bf874948fd17d",
+  "originHash" : "e9a1a3e23aa662c7345173452816bd29c68008199527afd34247a814da298518",
   "pins" : [
     {
       "identity" : "collectionviewadapter",
@@ -116,6 +116,15 @@
       "state" : {
         "revision" : "25391f2e21b4c6c795abd37cca4255f319b167ed",
         "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "viewspacingcapture",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pkh0225/ViewSpacingCapture.git",
+      "state" : {
+        "revision" : "a979495a861bc9fe4f8a622a9d46ca8a80e44837",
+        "version" : "0.1.0"
       }
     }
   ],
